@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "451813290111",
+    "firebase_url": "https://bandnamesurvey-17d0a.firebaseio.com",
+    "project_id": "bandnamesurvey-17d0a",
+    "storage_bucket": "bandnamesurvey-17d0a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:451813290111:android:0a4d964e83f3b88105cf4a",
+        "android_client_info": {
+          "package_name": "com.test.firebase_ex"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "451813290111-rgjripihqfiht504d6n747lh5qjhjeh9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.test.firebase_ex",
+            "certificate_hash": "cc9b300440af86d806f7cbd88d1349ed197f9743"
+          }
+        },
+        {
+          "client_id": "451813290111-5490koe93v4bmq0sgeh0hkgb3scaqei9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqrU2_IyP4bNQT_wMvAi805nAV6mUYJPQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "451813290111-5490koe93v4bmq0sgeh0hkgb3scaqei9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
