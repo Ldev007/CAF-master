@@ -16,19 +16,36 @@ class exercise extends StatefulWidget {
 }
 
 class _exerciseState extends State<exercise> {
-
   //_excerciseState()
 
   static final GlobalKey<ScaffoldState> _scaffoldKey =
-      GlobalKey<ScaffoldState>();
+  GlobalKey<ScaffoldState>();
   UnityWidgetController _unityWidgetController;
+  String curr_excercise = "Start";
+  List<String> hiit = [
+    "jumping_high_knees",
+    "SQUADS",
+    "pushups",
+    "Jumpting_Squats",
+    "legRaise",
+    "plankrock"
+  ];
+  List<String> pilates = [
+    "theonehundred",
+    "crossCrunches",
+    "doublelegstrech",
+    "teasser",
+    "pendulum",
+    "plankleglift",
+    "plankrock",
+    "hipdip"
+  ];
 
-  List<String> hiit = ["jumping_high_knees","SQUADS", "pushups","Jumpting_Squats","legRaise","plankrock"];
-  List<String> pilates = ["theonehundred","crossCrunches", "doublelegstrech","teasser","pendulum","plankleglift","plankrock","hipdip"];
-
-  int _i=1;
+  int _i = 1;
   double _progress = 0.0;
   bool _pause = false;
+  bool _unitypause = false;
+
   @override
   void initState() {
     super.initState();
@@ -44,48 +61,84 @@ class _exerciseState extends State<exercise> {
           backgroundColor: Color(0xffb4691f9),
         ),
         body: Column(children: <Widget>[
-          Column(
-            children: <Widget>[
-              LinearProgressIndicator(value: _progress),
-              Container(
-                height: 300,
-                child: Card(
-                  margin: const EdgeInsets.all(8),
-                  clipBehavior: Clip.antiAlias,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0),
-                  ),
-                  child: UnityWidget(
-                    onUnityViewCreated: onUnityCreated,
-                    isARScene: false,
-                    onUnityMessage: onUnityMessage,
-                  ),
+          Card(
+            elevation: 8.0,
+            child: Column(
+              children: <Widget>[
+                LinearProgressIndicator(value: _progress),
+                Column(
+                  children: <Widget>[
+                    Container(
+                      height: 300,
+                      child: Card(
+                        margin: const EdgeInsets.all(8),
+                        clipBehavior: Clip.antiAlias,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                        child: UnityWidget(
+                          onUnityViewCreated: onUnityCreated,
+                          isARScene: false,
+                          onUnityMessage: onUnityMessage,
+                        ),
+                      ),
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Text(curr_excercise),
+                        IconButton(
+                          iconSize: 40.0,
+                          icon: Icon(
+                            (_unitypause) ? Icons.play_arrow : Icons.pause,
+                            color: Colors.blue,
+                          ),
+                          onPressed: () {
+                            print("play");
+                            setState(() {
+                              if(_unitypause){
+                                _unityWidgetController.resume();
+                              }
+                              else{
+                                _unityWidgetController.pause();
+                              }
+                              _unitypause = !_unitypause;
+                              _pause=true;
+                            });
+                          },
+                        ),],
+                    ),
+                  ],
                 ),
-              ),
-            ],
-          ),
-      Padding(
-        padding: EdgeInsets.only(left: 0.0,top: 10,right: 0.0,bottom: 0.0),
-          child: IconButton(
-            iconSize: 80.0,
-            icon: Icon(
-              (_pause)?Icons.play_arrow:Icons.pause,
-              color: Colors.blue,
+              ],
             ),
-            onPressed: () {
-              print("play");
-              setState(() {
-                _pause = !_pause;
-              });
-            },
           ),
-      ),
-      FlatButton(
-                    onPressed: () {
-                      playexercise(hiit);
-                    },
-                    child: Text('hiit'),
-                  ),
+          Padding(
+            padding:
+            EdgeInsets.only(left: 0.0, top: 10, right: 0.0, bottom: 0.0),
+            child: IconButton(
+              iconSize: 80.0,
+              icon: Icon(
+                (_pause) ? Icons.play_arrow : Icons.pause,
+                color: Colors.blue,
+              ),
+              onPressed: () {
+                print("play");
+                setState(() {
+                  if(_pause){
+                    _unitypause=false;
+                    _unityWidgetController.resume();
+                  }
+                  _pause = !_pause;
+                });
+              },
+            ),
+          ),
+          FlatButton(
+            onPressed: () {
+              playexercise(hiit);
+            },
+            child: Text('hiit'),
+          ),
 //          Expanded(
 //            child: Card(
 //              color: Color(0xffb1c5cac),
@@ -131,23 +184,26 @@ class _exerciseState extends State<exercise> {
       ),
     );
   }
-  startTimer(Timer timer , List<String> pack){
+
+  startTimer(Timer timer, List<String> pack) {
     timer = Timer.periodic(const Duration(seconds: 5), (timer) {
-      if(!_pause){
-        if(_i<pack.length){
+      if (!_pause) {
+        if (_i < pack.length) {
           _unityWidgetController.postMessage(
             "rp_nathan_animated_003_walking",
             'flu',
             pack[_i],
           );
           print(pack[_i]);
+          setState(() {
+            curr_excercise = pack[_i];
+          });
           _i++;
+        } else {
+          cancelTimer(timer);
         }
-        else{
-          timer.cancel();
-        }
-        setState((){
-          _progress = (_i-1)/pack.length;
+        setState(() {
+          _progress = (_i - 1) / pack.length;
         });
       }
     });
@@ -155,21 +211,32 @@ class _exerciseState extends State<exercise> {
 
   cancelTimer(Timer timer) {
     timer.cancel();
+    _unityWidgetController.postMessage(
+      "rp_nathan_animated_003_walking",
+      'flu',
+      'Abs',
+    );
+    print("completed");
   }
+
   void playexercise(List<String> pack) {
     _i = 1;
     Timer timer;
     print("first played");
     print(widget.program_name);
-    setState((){
+    setState(() {
       _progress = 0.0;
     });
     _unityWidgetController.postMessage(
       "rp_nathan_animated_003_walking",
       'flu',
-      pack[0],);
+      pack[0],
+    );
+    setState(() {
+      curr_excercise = pack[0];
+    });
     print(pack[0]);
-    startTimer(timer,pack);
+    startTimer(timer, pack);
 //    const oneSec = const Duration(seconds:2);
 //    new Timer.periodic(oneSec, (Timer t) => pla(i));
   }
