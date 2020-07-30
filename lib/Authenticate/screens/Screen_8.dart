@@ -1,10 +1,20 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_ex/Database/database.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ScreenEight extends StatefulWidget {
-  ScreenEight({Key key, this.title}) : super(key: key);
-
+  final String userid;
+  final String goal;
+  final String gender;
+  final String age;
+  final String height;
+  final String weight;
+  final String currentfat;
+  final String targetfat;
   final String title;
+  ScreenEight({Key key,this.age,this.goal,this.userid,this.gender,this.height,this.weight,this.currentfat,this.targetfat,this.title}) : super(key: key);
+
 
   @override
   _ScreenEightState createState() => _ScreenEightState();
@@ -14,12 +24,29 @@ class _ScreenEightState extends State<ScreenEight>
     with SingleTickerProviderStateMixin {
   static String _choice = 'I rarely/never exercise';
   static double _dig = 0;
-  Future checkFirstSeen() async {
+  Future upadteuser(String uid,String goal,String gender,String age,String height,String weight,String currentfat,String targetfat) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool("seen",true);
+    Map<String,dynamic> demodata = {"uid": uid,
+    "Goal": goal,
+      "Gender":gender,
+      "Age":age,
+      "Height":height,
+      "Weight":weight,
+      "CurrentFat":currentfat,
+      "TargetFat": targetfat,
+    };
+    CollectionReference collectionReference = Firestore.instance.collection('UserData');
+    collectionReference.document(uid).setData(demodata);
+    print("data added");
+//    DatabaseService d;
+//    d.updateUserData(uid,goal,gender,age,height,weight,currentfat,targetfat);
   }
+  String oftenex;
   @override
   Widget build(BuildContext context) {
+    print("screen 8");
+    print(widget.userid+" "+widget.goal+" "+widget.gender+" "+widget.age+" "+widget.height+" "+widget.weight+" "+widget.currentfat+" "+widget.targetfat);
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         splashColor: Colors.transparent,
@@ -29,7 +56,7 @@ class _ScreenEightState extends State<ScreenEight>
           ),
         onPressed: () => {
           Navigator.pushNamed(context, '/home_page'),
-          checkFirstSeen(),
+          upadteuser(widget.userid,widget.goal,widget.gender,widget.age,widget.height,widget.weight,widget.currentfat,widget.targetfat),
           },
         ),
         appBar: AppBar(

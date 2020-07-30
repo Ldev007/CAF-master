@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_ex/pages/Validate.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import '../User/user.dart';
 import 'screens/Screen_1.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -65,13 +65,13 @@ class _LoginScreenState extends State<LoginScreen>
         accessToken: googleSignInAuthentication.accessToken);
 
     AuthResult result = (await _auth.signInWithCredential(credential));
-
     _user = result.user;
+    final String uid = _user.uid.toString();
     print("user");
-    print(_user.toString());
+    print(_user.uid.toString());
     print("result");
     print(result.toString());
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => ScreenOne()));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => ScreenOne(userid: uid)));
   }
 
   //Method definition used for kick starting the validation process..

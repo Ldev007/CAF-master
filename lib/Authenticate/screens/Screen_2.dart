@@ -2,7 +2,9 @@ import 'package:firebase_ex/Authenticate/screens/Screen_3.dart';
 import 'package:flutter/material.dart';
 
 class ScreenTwo extends StatefulWidget {
-  ScreenTwo({Key key, String title}) : super(key: key);
+  final String userid;
+  final String goal;
+  ScreenTwo({Key key, String title,this.userid,this.goal}) : super(key: key);
 
   _ScreenTwoState createState() => _ScreenTwoState();
 }
@@ -10,6 +12,8 @@ class ScreenTwo extends StatefulWidget {
 class _ScreenTwoState extends State<ScreenTwo> {
   @override
   Widget build(BuildContext context) {
+    print("screen 2");
+    print(widget.userid+widget.goal);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -41,7 +45,7 @@ class _ScreenTwoState extends State<ScreenTwo> {
                     borderRadius: BorderRadius.circular(10)),
                 color: Colors.grey[100],
                 padding: EdgeInsets.all(31),
-                onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => ScreenThree())),
+                onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => ScreenThree(userid:widget.userid,goal:widget.goal,gender:"Female"))),
                 child: Column(
                   children: <Widget>[
                     Icon(
@@ -67,7 +71,7 @@ class _ScreenTwoState extends State<ScreenTwo> {
                 ),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10)),
-                onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => ScreenThree())),
+                onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => ScreenThree(userid:widget.userid,goal:widget.goal,gender:"Male"))),
                 child: Column(
                   children: <Widget>[
                     Icon(

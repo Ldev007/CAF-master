@@ -2,7 +2,11 @@ import 'package:firebase_ex/Authenticate/screens/Screen_5.dart';
 import 'package:flutter/material.dart';
 
 class ScreenFour extends StatefulWidget {
-  ScreenFour({Key key, String title}) : super(key: key);
+  final String userid;
+  final String goal;
+  final String gender;
+  final String age;
+  ScreenFour({Key key, String title,this.gender,this.userid,this.goal,this.age}) : super(key: key);
 
   _ScreenFourState createState() => _ScreenFourState();
 }
@@ -12,8 +16,11 @@ class _ScreenFourState extends State<ScreenFour> {
   static Color buttn_color = Colors.grey;
   final List<bool> forToggleButton = [false, false];
   static String suff = '';
+  String height;
   @override
   Widget build(BuildContext context) {
+    print("screen 4");
+    print(widget.userid+widget.goal+widget.gender+widget.age);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black54,
@@ -23,7 +30,7 @@ class _ScreenFourState extends State<ScreenFour> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           if(buttn_state == true){
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => ScreenFive()));
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => ScreenFive(userid:widget.userid,goal:widget.goal,gender:widget.gender,age:widget.age,height:height)));
           }
           else{
             return  null;
@@ -58,6 +65,7 @@ class _ScreenFourState extends State<ScreenFour> {
                 height: 70,
                 child: TextField(
                   onChanged: (value) {
+                    height= value;
                     setState(() {
                       if(value.length == 3){
                         buttn_state = true;

@@ -4,7 +4,14 @@ import 'package:carousel_slider/carousel_slider.dart';
 
 
 class ScreenSeven extends StatefulWidget {
-  ScreenSeven({Key key, String title}) : super(key: key);
+  final String userid;
+  final String goal;
+  final String gender;
+  final String age;
+  final String height;
+  final String weight;
+  final String currentfat;
+  ScreenSeven({Key key, String title,this.age,this.goal,this.userid,this.gender,this.height,this.weight,this.currentfat}) : super(key: key);
 
   _ScreenSevenState createState() => _ScreenSevenState();
 }
@@ -69,10 +76,11 @@ class _ScreenSevenState extends State<ScreenSeven> {
   void initState() {
     super.initState();
   }
-
+  String targetfat;
   @override
   Widget build(BuildContext context) {
-
+    print("screen 7");
+    print(widget.userid+" "+widget.goal+" "+widget.gender+" "+widget.age+" "+widget.height+" "+widget.weight+" "+widget.currentfat);
     //Main Widget
     return Scaffold(
       floatingActionButton: FloatingActionButton(
@@ -81,7 +89,10 @@ class _ScreenSevenState extends State<ScreenSeven> {
           Icons.arrow_forward_ios,
           color: Colors.white,
         ),
-        onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => ScreenEight())),
+        onPressed: () => {
+          targetfat = choices[i],
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => ScreenEight(userid:widget.userid,goal:widget.goal,gender:widget.gender,age:widget.age,height:widget.height,weight:widget.weight,currentfat:widget.currentfat,targetfat:targetfat))),
+        }
       ),
       appBar: AppBar(title: Text('Step 7 of 8')),
       body: SingleChildScrollView(

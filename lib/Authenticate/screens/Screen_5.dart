@@ -2,7 +2,12 @@ import 'package:firebase_ex/Authenticate/screens/Screen_6.dart';
 import 'package:flutter/material.dart';
 
 class ScreenFive extends StatefulWidget {
-  ScreenFive({Key key, String title}) : super(key: key);
+  final String userid;
+  final String goal;
+  final String gender;
+  final String age;
+  final String height;
+  ScreenFive({Key key, String title,this.age,this.goal,this.userid,this.gender,this.height}) : super(key: key);
 
   _ScreenFiveState createState() => _ScreenFiveState();
 }
@@ -12,9 +17,11 @@ class _ScreenFiveState extends State<ScreenFive> {
   static String suff = '';
   static Color buttn_color = Colors.grey;
   static bool buttn_state = false;
-
+  String weight;
   @override
   Widget build(BuildContext context) {
+    print("screen 5");
+    print(widget.userid+" "+widget.goal+" "+widget.gender+" "+widget.age+" "+widget.height);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black54,
@@ -24,7 +31,7 @@ class _ScreenFiveState extends State<ScreenFive> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           if(buttn_state == true){
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => ScreenSix()));
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => ScreenSix(userid:widget.userid,goal:widget.goal,gender:widget.gender,age:widget.age,height:widget.height,weight:weight)));
           }
           else{
             return null;
@@ -59,6 +66,7 @@ class _ScreenFiveState extends State<ScreenFive> {
                 height: 70,
                 child: TextField(
                   onChanged: (value){
+                    weight= value;
                     setState(() {
                       if(value.length == 3){
                         buttn_state = true;

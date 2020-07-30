@@ -2,17 +2,23 @@ import 'package:firebase_ex/Authenticate/screens/Screen_4.dart';
 import 'package:flutter/material.dart';
 
 class ScreenThree extends StatefulWidget {
-  ScreenThree({Key key, String title}) : super(key: key);
+  final String userid;
+  final String goal;
+  final String gender;
+  ScreenThree({Key key, String title,this.goal,this.userid,this.gender}) : super(key: key);
 
   _ScreenThreeState createState() => _ScreenThreeState();
 }
 
 class _ScreenThreeState extends State<ScreenThree> {
+  String age;
   @override
   Widget build(BuildContext context) {
+    print("screen 3");
+    print(widget.userid+widget.goal+widget.gender);
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => ScreenFour())),
+        onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => ScreenFour(userid:widget.userid,goal:widget.goal,gender:widget.gender,age:age))),
         child: Icon(
           Icons.arrow_forward_ios,
           color: Colors.black54,
@@ -48,6 +54,9 @@ class _ScreenThreeState extends State<ScreenThree> {
                 disabledBorder: InputBorder.none,
                 border: InputBorder.none,
               ),
+              onChanged: (context){
+                age = context;
+              },
               keyboardType: TextInputType.number,
               cursorColor: Colors.white,
               textAlign: TextAlign.center,

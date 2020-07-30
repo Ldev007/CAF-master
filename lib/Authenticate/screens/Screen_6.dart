@@ -15,7 +15,13 @@ final List<String> imgList = [
 
 
 class ScreenSix extends StatefulWidget {
-  ScreenSix({Key key, String title}) : super(key: key);
+  final String userid;
+  final String goal;
+  final String gender;
+  final String age;
+  final String height;
+  final String weight;
+  ScreenSix({Key key, String title,this.age,this.goal,this.userid,this.gender,this.height,this.weight}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -74,10 +80,11 @@ class _ScreenSixState extends State<ScreenSix> {
         ),
         )
     .toList();
-  
+  String currentfat;
   @override
   Widget build(BuildContext context) {
-
+    print("screen 6");
+    print(widget.userid+" "+widget.goal+" "+widget.gender+" "+widget.age+" "+widget.height+" "+widget.weight);
     //Main Widget
     return Scaffold(
       floatingActionButton: FloatingActionButton(
@@ -85,7 +92,10 @@ class _ScreenSixState extends State<ScreenSix> {
           Icons.arrow_forward_ios,
           color: Colors.white,
           ),
-        onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => ScreenSeven())),
+        onPressed: () => {
+          currentfat=choices[i],
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => ScreenSeven(userid:widget.userid,goal:widget.goal,gender:widget.gender,age:widget.age,height:widget.height,weight:widget.weight,currentfat:currentfat))),
+        }
       ),
       appBar: AppBar(title: Text('Step 6 of 8')),
       body: SingleChildScrollView(

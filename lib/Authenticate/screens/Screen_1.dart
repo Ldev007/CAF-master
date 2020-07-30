@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'Screen_2.dart';
 
 
 class ScreenOne extends StatefulWidget {
-  ScreenOne({Key key, String title}) : super(key: key);
+  final String userid;
+  ScreenOne({Key key, String title,this.userid}) : super(key: key);
 
   _ScreenOneState createState() => _ScreenOneState();
 }
 
 class _ScreenOneState extends State<ScreenOne> {
-  
+
   @override
   Widget build(BuildContext context) {
+    print(widget.userid);
     return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -45,7 +46,7 @@ class _ScreenOneState extends State<ScreenOne> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),
                   onPressed: () => {
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => ScreenTwo())),
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => ScreenTwo(userid:widget.userid,goal:"Get Fitter"))),
                   },
                   color: Colors.grey[100],
                   padding: EdgeInsets.only(
@@ -92,7 +93,7 @@ class _ScreenOneState extends State<ScreenOne> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),
                   color: Colors.grey[100],
-                  onPressed: () =>  Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => ScreenTwo())),
+                  onPressed: () =>  Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => ScreenTwo(userid:widget.userid,goal:"Gain Muscle"))),
                   padding: EdgeInsets.only(
                     top: 25,
                     left: 32,
@@ -137,7 +138,7 @@ class _ScreenOneState extends State<ScreenOne> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),
                   color: Colors.grey[100],
-                  onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => ScreenTwo())),
+                  onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => ScreenTwo(userid:widget.userid,goal:"Lose Weight"))),
                   padding: EdgeInsets.only(
                     top: 25,
                     left: 28,

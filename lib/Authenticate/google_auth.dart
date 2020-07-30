@@ -1,10 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_ex/User/user.dart';
 import 'file:///C:/Users/Home/AndroidStudioProjects/final_ap/lib/Authenticate/AuthScreen.dart';
 import 'package:firebase_ex/pages/HomePage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
 
 import '../logout.dart';
 class google_auth extends StatefulWidget {
@@ -79,31 +81,31 @@ class _google_authState extends State<google_auth> {
 
   bool isSignIn = false;
 
-  Future<void> handleSignIn() async {
-    GoogleSignInAccount googleSignInAccount = await _googleSignIn.signIn();
-    GoogleSignInAuthentication googleSignInAuthentication =
-    await googleSignInAccount.authentication;
-
-    AuthCredential credential = GoogleAuthProvider.getCredential(
-        idToken: googleSignInAuthentication.idToken,
-        accessToken: googleSignInAuthentication.accessToken);
-
-    AuthResult result = (await _auth.signInWithCredential(credential));
-
-    _user = result.user;
-
-    setState(() {
-      isSignIn = true;
-    });
-    changenewuser();
-  }
-
-  Future<void> gooleSignout() async {
-    await _auth.signOut().then((onValue) {
-      _googleSignIn.signOut();
-      setState(() {
-        isSignIn = false;
-      });
-    });
-  }
+//  Future<void> handleSignIn() async {
+//    GoogleSignInAccount googleSignInAccount = await _googleSignIn.signIn();
+//    GoogleSignInAuthentication googleSignInAuthentication =
+//    await googleSignInAccount.authentication;
+//
+//    AuthCredential credential = GoogleAuthProvider.getCredential(
+//        idToken: googleSignInAuthentication.idToken,
+//        accessToken: googleSignInAuthentication.accessToken);
+//
+//    AuthResult result = (await _auth.signInWithCredential(credential));
+//
+//    _user = result.user;
+//
+//    setState(() {
+//      isSignIn = true;
+//    });
+//    changenewuser();
+//  }
+//
+//  Future<void> gooleSignout() async {
+//    await _auth.signOut().then((onValue) {
+//      _googleSignIn.signOut();
+//      setState(() {
+//        isSignIn = false;
+//      });
+//    });
+//  }
 }
