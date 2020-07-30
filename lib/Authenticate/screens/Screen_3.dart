@@ -1,3 +1,4 @@
+import 'package:firebase_ex/Authenticate/screens/Screen_4.dart';
 import 'package:flutter/material.dart';
 
 class ScreenThree extends StatefulWidget {
@@ -11,7 +12,7 @@ class _ScreenThreeState extends State<ScreenThree> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.pushNamed(context, '/fourth_screen'),
+        onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => ScreenFour())),
         child: Icon(
           Icons.arrow_forward_ios,
           color: Colors.black54,

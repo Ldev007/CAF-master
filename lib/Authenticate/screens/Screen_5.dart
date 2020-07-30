@@ -1,34 +1,36 @@
+import 'package:firebase_ex/Authenticate/screens/Screen_6.dart';
 import 'package:flutter/material.dart';
 
-class ScreenFour extends StatefulWidget {
-  ScreenFour({Key key, String title}) : super(key: key);
+class ScreenFive extends StatefulWidget {
+  ScreenFive({Key key, String title}) : super(key: key);
 
-  _ScreenFourState createState() => _ScreenFourState();
+  _ScreenFiveState createState() => _ScreenFiveState();
 }
 
-class _ScreenFourState extends State<ScreenFour> {
-  static bool buttn_state = false;
-  static Color buttn_color = Colors.grey;
+class _ScreenFiveState extends State<ScreenFive> {
   final List<bool> forToggleButton = [false, false];
   static String suff = '';
+  static Color buttn_color = Colors.grey;
+  static bool buttn_state = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black54,
-        title: Text('Step 4 of 8'),
+        title: Text('Step 5 of 8'),
         centerTitle: true,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           if(buttn_state == true){
-            Navigator.pushNamed(context, '/fifth_screen');
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => ScreenSix()));
           }
           else{
-            return  null;
+            return null;
           }
-        },
-        backgroundColor: buttn_color,
+          },
+        backgroundColor: Colors.black54,
         child: Icon(
           Icons.arrow_forward_ios,
           color: Colors.grey[200],
@@ -42,7 +44,7 @@ class _ScreenFourState extends State<ScreenFour> {
           child: Column(
             children: <Widget>[
               Text(
-                'How tall are you ?',
+                'How much do you weigh?',
                 style: TextStyle(
                   fontSize: 35,
                   fontFamily: 'fonts/Roboto-Bold.ttf',
@@ -56,7 +58,7 @@ class _ScreenFourState extends State<ScreenFour> {
                 width: 175,
                 height: 70,
                 child: TextField(
-                  onChanged: (value) {
+                  onChanged: (value){
                     setState(() {
                       if(value.length == 3){
                         buttn_state = true;
@@ -70,11 +72,11 @@ class _ScreenFourState extends State<ScreenFour> {
                   },
                   maxLength: 3,
                   decoration: InputDecoration(
-                    suffixText: 'cm',
+                    suffixText: suff,
                     suffixStyle: TextStyle(
                       fontSize: 20,
                     ),
-                    hintText: '175',
+                    hintText: '55',
                     hintStyle: TextStyle(
                       color: Colors.grey[500],
                     ),
@@ -103,17 +105,17 @@ class _ScreenFourState extends State<ScreenFour> {
                 ),
                 borderRadius: BorderRadius.circular(30),
                 children: <Widget>[
-                  Text('FT'),
-                  Text('CM'),
+                  Text('LBS'),
+                  Text('KG'),
                 ],
                 onPressed: (int index) {
                   setState(() {
                     if (index == 0) {
-					  suff = 'FT';
+                      suff = 'LBS';
                       forToggleButton[0] = true;
                       forToggleButton[1] = false;
                     } else {
-					  suff = 'CM';
+                      suff = 'KGS';
                       forToggleButton[1] = true;
                       forToggleButton[0] = false;
                     }

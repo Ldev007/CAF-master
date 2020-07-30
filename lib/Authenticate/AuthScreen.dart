@@ -1,6 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_ex/pages/Validate.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'screens/Screen_1.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key key, String title}) : super(key: key);
@@ -41,7 +46,33 @@ class _LoginScreenState extends State<LoginScreen>
   }
 
   final _fireStore = Firestore.instance;
+  FirebaseAuth _auth = FirebaseAuth.instance;
+  FirebaseUser _user;
+  GoogleSignIn _googleSignIn = new GoogleSignIn();
 
+  Future checkFirstSeen() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool("seen",true);
+  }
+
+  Future<void> handleSignIn() async {
+    GoogleSignInAccount googleSignInAccount = await _googleSignIn.signIn();
+    GoogleSignInAuthentication googleSignInAuthentication =
+    await googleSignInAccount.authentication;
+
+    AuthCredential credential = GoogleAuthProvider.getCredential(
+        idToken: googleSignInAuthentication.idToken,
+        accessToken: googleSignInAuthentication.accessToken);
+
+    AuthResult result = (await _auth.signInWithCredential(credential));
+
+    _user = result.user;
+    print("user");
+    print(_user.toString());
+    print("result");
+    print(result.toString());
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => ScreenOne()));
+  }
 
   //Method definition used for kick starting the validation process..
   String validate() {
@@ -87,7 +118,7 @@ class _LoginScreenState extends State<LoginScreen>
                 child: OutlineButton(
                   highlightedBorderColor: Colors.black54,
                   splashColor: Colors.transparent,
-                  onPressed: () => validate(),
+                  onPressed: () => handleSignIn(),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(25)),
                   child: Padding(

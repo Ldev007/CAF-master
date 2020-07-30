@@ -1,3 +1,4 @@
+import 'package:firebase_ex/Authenticate/screens/Screen_3.dart';
 import 'package:flutter/material.dart';
 
 class ScreenTwo extends StatefulWidget {
@@ -40,7 +41,7 @@ class _ScreenTwoState extends State<ScreenTwo> {
                     borderRadius: BorderRadius.circular(10)),
                 color: Colors.grey[100],
                 padding: EdgeInsets.all(31),
-                onPressed: () => Navigator.pushNamed(context, '/third_screen'),
+                onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => ScreenThree())),
                 child: Column(
                   children: <Widget>[
                     Icon(
@@ -66,7 +67,7 @@ class _ScreenTwoState extends State<ScreenTwo> {
                 ),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10)),
-                onPressed: () => Navigator.pushNamed(context, '/third_screen'),
+                onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => ScreenThree())),
                 child: Column(
                   children: <Widget>[
                     Icon(

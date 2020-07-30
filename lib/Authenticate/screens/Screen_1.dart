@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'Screen_2.dart';
 
 
 class ScreenOne extends StatefulWidget {
@@ -41,7 +44,9 @@ class _ScreenOneState extends State<ScreenOne> {
                   elevation: 6,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),
-                  onPressed: () => Navigator.pushNamed(context, '/second_screen'),
+                  onPressed: () => {
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => ScreenTwo())),
+                  },
                   color: Colors.grey[100],
                   padding: EdgeInsets.only(
                     top: 25,
@@ -87,7 +92,7 @@ class _ScreenOneState extends State<ScreenOne> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),
                   color: Colors.grey[100],
-                  onPressed: () =>  Navigator.pushNamed(context, '/second_screen'),
+                  onPressed: () =>  Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => ScreenTwo())),
                   padding: EdgeInsets.only(
                     top: 25,
                     left: 32,
@@ -132,7 +137,7 @@ class _ScreenOneState extends State<ScreenOne> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),
                   color: Colors.grey[100],
-                  onPressed: () => Navigator.pushNamed(context, '/second_screen'),
+                  onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => ScreenTwo())),
                   padding: EdgeInsets.only(
                     top: 25,
                     left: 28,

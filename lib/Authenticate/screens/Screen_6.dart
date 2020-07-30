@@ -1,3 +1,4 @@
+import 'package:firebase_ex/Authenticate/screens/Screen_7.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -84,7 +85,7 @@ class _ScreenSixState extends State<ScreenSix> {
           Icons.arrow_forward_ios,
           color: Colors.white,
           ),
-        onPressed: () => Navigator.pushNamed(context, '/seventh_screen'),
+        onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => ScreenSeven())),
       ),
       appBar: AppBar(title: Text('Step 6 of 8')),
       body: SingleChildScrollView(

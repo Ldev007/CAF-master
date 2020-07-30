@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'bodyparts.dart';
 import 'lastused.dart';
 
-void main() => runApp(HomePage());
-
 class HomePage extends StatefulWidget {
   HomePage({Key key, String title}) : super(key: key);
 

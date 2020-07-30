@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ScreenEight extends StatefulWidget {
   ScreenEight({Key key, this.title}) : super(key: key);
@@ -13,7 +14,10 @@ class _ScreenEightState extends State<ScreenEight>
     with SingleTickerProviderStateMixin {
   static String _choice = 'I rarely/never exercise';
   static double _dig = 0;
-
+  Future checkFirstSeen() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool("seen",true);
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +27,10 @@ class _ScreenEightState extends State<ScreenEight>
           Icons.arrow_forward_ios,
           color: Colors.white,
           ),
-        onPressed: () => Navigator.pushNamed(context, '/home_page'),
+        onPressed: () => {
+          Navigator.pushNamed(context, '/home_page'),
+          checkFirstSeen(),
+          },
         ),
         appBar: AppBar(
           title: Text('Step 8 of 8'),

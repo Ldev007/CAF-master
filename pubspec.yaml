@@ -35,6 +35,9 @@ dependencies:
   bezier_chart: ^1.0.17+1
   flutter_unity_widget: 0.1.6+5
   cached_network_image: ^2.2.0+1
+  shared_preferences: ^0.4.3
+  provider: ^3.1.0
+  flutter_spinkit: ^4.0.0
 
 dev_dependencies:
   flutter_test:
