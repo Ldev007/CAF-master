@@ -27,6 +27,7 @@ class _ScreenEightState extends State<ScreenEight>
   Future upadteuser(String uid,String goal,String gender,String age,String height,String weight,String currentfat,String targetfat) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool("seen",true);
+    prefs.setString("uid",uid);
     Map<String,dynamic> demodata = {"uid": uid,
     "Goal": goal,
       "Gender":gender,
