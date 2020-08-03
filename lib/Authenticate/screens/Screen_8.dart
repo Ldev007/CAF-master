@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_ex/Database/database.dart';
+import 'package:firebase_ex/styling.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -13,8 +14,18 @@ class ScreenEight extends StatefulWidget {
   final String currentfat;
   final String targetfat;
   final String title;
-  ScreenEight({Key key,this.age,this.goal,this.userid,this.gender,this.height,this.weight,this.currentfat,this.targetfat,this.title}) : super(key: key);
-
+  ScreenEight(
+      {Key key,
+      this.age,
+      this.goal,
+      this.userid,
+      this.gender,
+      this.height,
+      this.weight,
+      this.currentfat,
+      this.targetfat,
+      this.title})
+      : super(key: key);
 
   @override
   _ScreenEightState createState() => _ScreenEightState();
@@ -24,62 +35,86 @@ class _ScreenEightState extends State<ScreenEight>
     with SingleTickerProviderStateMixin {
   static String _choice = 'I rarely/never exercise';
   static double _dig = 0;
-  Future upadteuser(String uid,String goal,String gender,String age,String height,String weight,String currentfat,String targetfat) async {
+  Future upadteuser(String uid, String goal, String gender, String age,
+      String height, String weight, String currentfat, String targetfat) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool("seen",true);
-    Map<String,dynamic> demodata = {"uid": uid,
-    "Goal": goal,
-      "Gender":gender,
-      "Age":age,
-      "Height":height,
-      "Weight":weight,
-      "CurrentFat":currentfat,
+    prefs.setBool("seen", true);
+    Map<String, dynamic> demodata = {
+      "uid": uid,
+      "Goal": goal,
+      "Gender": gender,
+      "Age": age,
+      "Height": height,
+      "Weight": weight,
+      "CurrentFat": currentfat,
       "TargetFat": targetfat,
     };
-    CollectionReference collectionReference = Firestore.instance.collection('UserData');
+    CollectionReference collectionReference =
+        Firestore.instance.collection('UserData');
     collectionReference.document(uid).setData(demodata);
     print("data added");
 //    DatabaseService d;
 //    d.updateUserData(uid,goal,gender,age,height,weight,currentfat,targetfat);
   }
+
   String oftenex;
   @override
   Widget build(BuildContext context) {
     print("screen 8");
-    print(widget.userid+" "+widget.goal+" "+widget.gender+" "+widget.age+" "+widget.height+" "+widget.weight+" "+widget.currentfat+" "+widget.targetfat);
+    print(widget.userid +
+        " " +
+        widget.goal +
+        " " +
+        widget.gender +
+        " " +
+        widget.age +
+        " " +
+        widget.height +
+        " " +
+        widget.weight +
+        " " +
+        widget.currentfat +
+        " " +
+        widget.targetfat);
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        splashColor: Colors.transparent,
-        child: Icon(
-          Icons.arrow_forward_ios,
-          color: Colors.white,
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: CustomStyle.fab_eb_color,
+          splashColor: Colors.transparent,
+          child: Icon(
+            Icons.arrow_forward_ios,
+            color: CustomStyle.fab_icon_eb_color,
           ),
-        onPressed: () => {
-          Navigator.pushNamed(context, '/home_page'),
-          upadteuser(widget.userid,widget.goal,widget.gender,widget.age,widget.height,widget.weight,widget.currentfat,widget.targetfat),
+          onPressed: () => {
+            Navigator.pushNamed(context, '/home_page'),
+            upadteuser(
+                widget.userid,
+                widget.goal,
+                widget.gender,
+                widget.age,
+                widget.height,
+                widget.weight,
+                widget.currentfat,
+                widget.targetfat),
           },
         ),
         appBar: AppBar(
-          title: Text('Step 8 of 8'),
+          backgroundColor: CustomStyle.light_bn_color,
+          centerTitle: true,
+          title: Text('Step 8 of 8', style: CustomStyle.appBar_Title),
         ),
         body: Padding(
           padding: EdgeInsets.only(
-            bottom: 470,
+            bottom: 400,
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
                 'How often do you exercise ?',
-                style: TextStyle(
-                  fontFamily: 'fonts/Roboto-Bold.ttf',
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 30,
-                ),
+                style: CustomStyle.page_header,
               ),
               SizedBox(
-                height: 22,
+                height: 40,
               ),
               Padding(
                 padding: const EdgeInsets.only(
@@ -91,17 +126,20 @@ class _ScreenEightState extends State<ScreenEight>
                     fontFamily: 'fonts/Roboto-Light.ttf',
                     fontSize: 20,
                     fontWeight: FontWeight.normal,
+                    color: CustomStyle.light_bn_color,
                   ),
                 ),
               ),
               SliderTheme(
                 data: SliderThemeData(
-                  tickMarkShape: RoundSliderTickMarkShape(),
+                  trackHeight: 4.5,
+                  tickMarkShape: RoundSliderTickMarkShape(tickMarkRadius: 3),
                   inactiveTickMarkColor: Colors.black,
-                  thumbColor: Colors.black54,
+                  thumbColor: CustomStyle.tracker_thumb_color,
                   trackShape: RoundedRectSliderTrackShape(),
-                  activeTrackColor: Colors.black,
-                  inactiveTrackColor: Colors.grey[350],
+                  activeTrackColor: CustomStyle.active_tracker_color,
+                  inactiveTrackColor: CustomStyle.inactive_tracker_color,
+                  overlayColor: CustomStyle.tracker_overlay_color,
                 ),
                 child: Padding(
                   padding: EdgeInsets.only(
@@ -138,7 +176,7 @@ class _ScreenEightState extends State<ScreenEight>
                   style: TextStyle(
                     fontFamily: 'fonts/Roboto-Light.ttf',
                     fontSize: 14,
-                    color: Colors.grey[350],
+                    color: CustomStyle.light_bn_color,
                   ),
                 ),
                 trailing: Text(
@@ -146,7 +184,7 @@ class _ScreenEightState extends State<ScreenEight>
                   style: TextStyle(
                     fontFamily: 'fonts/Roboto-Light.ttf',
                     fontSize: 14,
-                    color: Colors.grey[350],
+                    color: CustomStyle.light_bn_color,
                   ),
                 ),
               )

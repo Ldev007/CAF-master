@@ -1,10 +1,13 @@
+import 'HomeScreen.dart';
+import 'DietChart.dart';
+import 'AddButtonTemp.dart';
 import 'package:firebase_ex/pages/progress.dart';
 import 'package:firebase_ex/pages/specialprograms.dart';
 import 'package:flutter/material.dart';
-
 import 'bodyparts.dart';
 import 'lastused.dart';
-
+import 'package:firebase_ex/profile.dart';
+import 'package:firebase_ex/ProgressBar.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, String title}) : super(key: key);
@@ -14,6 +17,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<bool> selections = [true, false, false, false, false];
+  static PageController _pageController =
+      PageController(initialPage: 0, keepPage: true);
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +26,7 @@ class _HomePageState extends State<HomePage> {
       debugShowCheckedModeBanner: false,
       home: SafeArea(
         child: Scaffold(
+          backgroundColor: Color.fromRGBO(248, 239, 232, 1),
 //          appBar: AppBar(
 //            elevation: 0,
 //            backgroundColor: Colors.white24,
@@ -36,69 +42,30 @@ class _HomePageState extends State<HomePage> {
 //          ),
           body: Stack(
             children: <Widget>[
-              Padding(
-                  padding: EdgeInsets.all(20),
-                  child: new ListView(
-                    children: <Widget>[
-                      Text(
-                        'This week Progress',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 20,
-                        ),
-                      ),
-                      progress(),
-                      Padding(
-                        padding: EdgeInsets.only(
-                            left: 10, top: 20, right: 0, bottom: 5),
-                        child: Text(
-                          'Continue',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 20,
-                          ),
-                        ),
-                      ),
-                      lastused(),
-                      Padding(
-                        padding: EdgeInsets.only(
-                            left: 10, top: 20, right: 0, bottom: 5),
-                        child: Text(
-                          'Special Programs',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 20,
-                          ),
-                        ),
-                      ),
-                      specialprograms(),
-                      Padding(
-                        padding: EdgeInsets.only(
-                            left: 10, top: 20, right: 0, bottom: 0),
-                        child: Text(
-                          'Area of focus',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 20,
-                          ),
-                        ),
-                      ),
-                      parts(),
-                    ],
-                  )),
+              PageView(
+                controller: _pageController,
+                physics: BouncingScrollPhysics(),
+                scrollDirection: Axis.horizontal,
+                allowImplicitScrolling: true,
+                children: <Widget>[
+                  HomeScreen(),
+                  DietChart(),
+                  AddButtonTemp(),
+                  Profile(),
+                  CircleProgressBar(foregroundColor: Colors.black54, value: 50),
+                ],
+              ),
               Align(
                 alignment: Alignment(0, 0.92),
                 child: Container(
+                  height: MediaQuery.of(context).size.height * 0.065,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    color: Colors.black,
+                    color: Color.fromRGBO(48, 67, 120, 1),
                   ),
                   child: ToggleButtons(
-                    selectedBorderColor: Colors.transparent,
+                    splashColor: Colors.yellow,
+                    borderRadius: BorderRadius.circular(20),
                     fillColor: Colors.transparent,
                     borderColor: Colors.transparent,
                     onPressed: (int index) {
@@ -134,14 +101,18 @@ class _HomePageState extends State<HomePage> {
                     isSelected: selections,
                     children: <Widget>[
                       IconButton(
-                        onPressed: () => null,
+                        onPressed: () => _pageController.animateToPage(0,
+                            duration: Duration(milliseconds: 500),
+                            curve: Curves.fastOutSlowIn),
                         icon: Icon(
                           Icons.home,
                           color: Colors.white,
                         ),
                       ),
                       IconButton(
-                        onPressed: () => null,
+                        onPressed: () => _pageController.animateToPage(1,
+                            duration: Duration(milliseconds: 500),
+                            curve: Curves.fastOutSlowIn),
                         icon: Icon(
                           Icons.restaurant,
                           //Icons.local_dining,//Icons.free_breakfast,//Icons.fastfood,
@@ -149,15 +120,18 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       IconButton(
-                        onPressed: null,
+                        onPressed: () => _pageController.animateToPage(2,
+                            duration: Duration(milliseconds: 500),
+                            curve: Curves.fastOutSlowIn),
                         icon: Icon(
                           Icons.add,
                           color: Colors.white,
                         ),
                       ),
                       IconButton(
-                        onPressed: () =>
-                            Navigator.pushNamed(context, '/profile_page'),
+                        onPressed: () => _pageController.animateToPage(3,
+                            duration: Duration(milliseconds: 500),
+                            curve: Curves.fastOutSlowIn),
                         icon: Icon(
                           Icons.trending_up,
                           //Icons.show_chart,//Icons.score,//Icons.fitness_center,
@@ -165,8 +139,9 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       IconButton(
-                        onPressed: () =>
-                            Navigator.pushNamed(context, '/tracker'),
+                        onPressed: () => _pageController.animateToPage(4,
+                            duration: Duration(milliseconds: 500),
+                            curve: Curves.fastOutSlowIn),
                         icon: Icon(
                           Icons.equalizer, //Icons.assessment,
                           color: Colors.white,
@@ -183,7 +158,7 @@ class _HomePageState extends State<HomePage> {
                       Navigator.pushNamed(context, '/profile_page'),
                   icon: Icon(
                     Icons.account_circle,
-                    color: Colors.black,
+                    color: Color.fromRGBO(48, 67, 120, 1),
                     size: 40,
                   ),
                 ),

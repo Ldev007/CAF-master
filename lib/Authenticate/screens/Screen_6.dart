@@ -1,5 +1,6 @@
 import 'package:firebase_ex/Authenticate/screens/Screen_7.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_ex/styling.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 final List<String> imgList = [
@@ -12,8 +13,6 @@ final List<String> imgList = [
   'images/tum7.jpg',
 ];
 
-
-
 class ScreenSix extends StatefulWidget {
   final String userid;
   final String goal;
@@ -21,7 +20,16 @@ class ScreenSix extends StatefulWidget {
   final String age;
   final String height;
   final String weight;
-  ScreenSix({Key key, String title,this.age,this.goal,this.userid,this.gender,this.height,this.weight}) : super(key: key);
+  ScreenSix(
+      {Key key,
+      String title,
+      this.age,
+      this.goal,
+      this.userid,
+      this.gender,
+      this.height,
+      this.weight})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -31,6 +39,9 @@ class ScreenSix extends StatefulWidget {
 
 class _ScreenSixState extends State<ScreenSix> {
   static int i = 0;
+  Color ctrl_buttn_color = CustomStyle.light_bn_color;
+  Color ctrl_icon_color = CustomStyle.light_bn_txt_Color;
+
   final CarouselController _controller = CarouselController();
   static List<String> choices = [
     '4 - 9%',
@@ -49,70 +60,101 @@ class _ScreenSixState extends State<ScreenSix> {
   }
 
   //Carousel Design
-    final List<Widget> imageSliders = imgList
-    .map((item) => Container(
+  final List<Widget> imageSliders = imgList
+      .map(
+        (item) => Container(
           child: Container(
-            margin: EdgeInsets.all(5.0),
+            margin: EdgeInsets.all(CustomStyle.verticalFractions * 0.54),
             child: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                child: Stack(
-                  children: <Widget>[
-                    Image.asset(item, fit: BoxFit.cover, width: 1000.0),
-                    Positioned(
-                      bottom: 0.0,
-                      left: 0.0,
-                      right: 0.0,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.black,
-                            width: 2.5,
-                          ),
+              borderRadius: BorderRadius.all(
+                  Radius.circular(CustomStyle.verticalFractions * 0.54)),
+              child: Stack(
+                children: <Widget>[
+                  Image.asset(item,
+                      fit: BoxFit.cover,
+                      width: CustomStyle.verticalFractions * 107.87),
+                  Positioned(
+                    bottom: 0.0,
+                    left: 0.0,
+                    right: 0.0,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: CustomStyle.light_bn_color,
+                          width: CustomStyle.verticalFractions * 0.26,
                         ),
-                        padding: EdgeInsets.symmetric(
-                            vertical: 92, horizontal: 20.0),
+                      ),
+                      padding: EdgeInsets.symmetric(
+                        vertical: CustomStyle.verticalFractions * 9.924,
+                        horizontal: CustomStyle.verticalFractions * 2.157,
                       ),
                     ),
-                  ],
-                ),
-                ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
-        )
-    .toList();
+      )
+      .toList();
   String currentfat;
   @override
   Widget build(BuildContext context) {
     print("screen 6");
-    print(widget.userid+" "+widget.goal+" "+widget.gender+" "+widget.age+" "+widget.height+" "+widget.weight);
+    print(widget.userid +
+        " " +
+        widget.goal +
+        " " +
+        widget.gender +
+        " " +
+        widget.age +
+        " " +
+        widget.height +
+        " " +
+        widget.weight);
     //Main Widget
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        child: Icon(
-          Icons.arrow_forward_ios,
-          color: Colors.white,
+          backgroundColor: CustomStyle.fab_eb_color,
+          child: Icon(
+            Icons.arrow_forward_ios,
+            color: CustomStyle.fab_icon_eb_color,
           ),
-        onPressed: () => {
-          currentfat=choices[i],
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => ScreenSeven(userid:widget.userid,goal:widget.goal,gender:widget.gender,age:widget.age,height:widget.height,weight:widget.weight,currentfat:currentfat))),
-        }
+          onPressed: () => {
+                currentfat = choices[i],
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => ScreenSeven(
+                            userid: widget.userid,
+                            goal: widget.goal,
+                            gender: widget.gender,
+                            age: widget.age,
+                            height: widget.height,
+                            weight: widget.weight,
+                            currentfat: currentfat))),
+              }),
+      appBar: AppBar(
+        title: Text('Step 6 of 8', style: CustomStyle.appBar_Title),
+        backgroundColor: CustomStyle.appBar_color,
+        centerTitle: true,
       ),
-      appBar: AppBar(title: Text('Step 6 of 8')),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.only(top: 50),
+          padding:
+              EdgeInsets.only(top: CustomStyle.verticalFractions * 10), //92.7
           child: Column(
             children: <Widget>[
               Text(
                 'Estimate your current body fat',
                 style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'fonts/Roboto-Bold.ttf',
+                  color: CustomStyle.page_header.color,
+                  fontSize: CustomStyle.page_header.fontSize - 6,
+                  fontWeight: CustomStyle.page_header.fontWeight,
                 ),
               ),
               SizedBox(
-                height: 25,
+                height: 45,
               ),
               Stack(
                 children: <Widget>[
@@ -126,56 +168,72 @@ class _ScreenSixState extends State<ScreenSix> {
                     carouselController: _controller,
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: 70),
+                    padding: EdgeInsets.only(top: 200),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Flexible(
-                          child: Opacity(
-                            opacity: 0.7,
-                            child: RaisedButton(
-                              padding: EdgeInsets.all(22),
-                              shape: CircleBorder(),
-                              color: Colors.black87,
-                              onPressed: () {
-                                if (i == 0) {
-                                  return null;
-                                } else {
-                                  _controller.previousPage();
-                                  setState(() {
-                                    i--;
-                                  });
-                                }
-                              },
-                              child: Icon(
-                                Icons.arrow_back_ios,
-                                color: Colors.white60,
-                              ),
-                            ),
+                        RaisedButton(
+                          padding: EdgeInsets.all(
+                              CustomStyle.verticalFractions * 2.373), //27
+                          shape: CircleBorder(),
+                          color: ctrl_buttn_color,
+                          onPressed: () {
+                            if (i == 0) {
+                              return null;
+                            } else {
+                              _controller.previousPage();
+                              setState(() {
+                                i--;
+                              });
+                            }
+                          },
+                          child: Icon(
+                            Icons.arrow_back_ios,
+                            color: ctrl_icon_color,
                           ),
                         ),
-                        Flexible(
-                          child: Opacity(
-                            opacity: 0.7,
-                            child: RaisedButton(
-                              padding: EdgeInsets.all(22),
-                              color: Colors.black87,
-                              shape: CircleBorder(),
-                              onPressed: () {
-                                if (i == imgList.length - 1) {
-                                  return null;
-                                } else {
-                                  _controller.nextPage();
-                                  setState(() {
-                                    i++;
-                                  });
-                                }
-                              },
-                              child: Icon(
-                                Icons.arrow_forward_ios,
-                                color: Colors.white70,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text(
+                              'BODY FAT: ',
+                              style: TextStyle(
+                                color: CustomStyle.light_bn_color,
+                                letterSpacing: 1,
+                                fontWeight: FontWeight.w300,
+                                fontSize: 15,
+                                fontFamily: 'Roboto-Light.ttf',
                               ),
                             ),
+                            Text(
+                              choices[i],
+                              style: TextStyle(
+                                color: CustomStyle.light_bn_color,
+                                letterSpacing: 1,
+                                fontFamily: 'Roboto-Bold.ttf',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ],
+                        ),
+                        RaisedButton(
+                          padding: EdgeInsets.all(22),
+                          color: ctrl_buttn_color,
+                          shape: CircleBorder(),
+                          onPressed: () {
+                            if (i == imgList.length - 1) {
+                              return null;
+                            } else {
+                              _controller.nextPage();
+                              setState(() {
+                                i++;
+                              });
+                            }
+                          },
+                          child: Icon(
+                            Icons.arrow_forward_ios,
+                            color: ctrl_icon_color,
                           ),
                         ),
                       ],
@@ -186,29 +244,6 @@ class _ScreenSixState extends State<ScreenSix> {
               SizedBox(
                 height: 12,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    'BODY FAT: ',
-                    style: TextStyle(
-                      letterSpacing: 1,
-                      fontWeight: FontWeight.w300,
-                      fontSize: 15,
-                      fontFamily: 'Roboto-Light.ttf',
-                    ),
-                  ),
-                  Text(
-                    choices[i],
-                    style: TextStyle(
-                      letterSpacing: 1,
-                      fontFamily: 'Roboto-Bold.ttf',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                    ),
-                  ),
-                ],
-              )
             ],
           ),
         ),
