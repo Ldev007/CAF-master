@@ -284,26 +284,30 @@ class _GymDetailState extends State<GymDetail> {
 //                )
 //            ),
 
-            Align(
-                alignment: Alignment.topLeft,
-                child: Padding(
-                    padding: EdgeInsets.only(left: 15.0, top: 30.0),
-                    child: Container(
-                        height: 50.0,
-                        width: 50.0,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Color(0xFFA4B2AE)
-                        ),
-                        child: Center(
-                            child: Icon(Icons.arrow_back, size: 30.0, color: Colors.white)
-                        )
-                    )
-                )
-            ),
-            Container(
-              child: Text(x),
-            ),
+
+
+//            Align(
+//                alignment: Alignment.topLeft,
+//                child: Padding(
+//                    padding: EdgeInsets.only(left: 15.0, top: 30.0),
+//                    child: Container(
+//                        height: 50.0,
+//                        width: 50.0,
+//                        decoration: BoxDecoration(
+//                            shape: BoxShape.circle,
+//                            color: Color(0xFFA4B2AE)
+//                        ),
+//                        child: Center(
+//                            child: Icon(Icons.arrow_back, size: 30.0, color: Colors.white)
+//                        )
+//                    )
+//                )
+//            ),
+
+
+//            Container(
+//              child: Text(x),
+//            ),
 //            Positioned(
 //                top: (screenHeight - screenHeight / 3) / 2,
 //                left: (screenWidth /2) - 75.0,

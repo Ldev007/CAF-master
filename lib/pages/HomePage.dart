@@ -1,3 +1,5 @@
+import 'package:firebase_ex/pages/Gym.dart';
+
 import 'HomeScreen.dart';
 import 'DietChart.dart';
 import 'AddButtonTemp.dart';
@@ -51,7 +53,7 @@ class _HomePageState extends State<HomePage> {
                   HomeScreen(),
                   DietChart(),
                   AddButtonTemp(),
-                  Profile(),
+                  GymDetail(),
                   CircleProgressBar(foregroundColor: Colors.black54, value: 50),
                 ],
               ),
@@ -129,7 +131,9 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       IconButton(
-                        onPressed: () => Navigator.pushNamed(context, '/gym'),
+                        onPressed: () => _pageController.animateToPage(3,
+                            duration: Duration(milliseconds: 500),
+                            curve: Curves.fastOutSlowIn),
                         icon: Icon(
                           Icons.trending_up,
                           //Icons.show_chart,//Icons.score,//Icons.fitness_center,
