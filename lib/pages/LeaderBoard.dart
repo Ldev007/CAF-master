@@ -1,22 +1,29 @@
+import 'package:firebase_ex/styling.dart';
 import 'package:flutter/material.dart';
 import 'package:bezier_chart/bezier_chart.dart';
 
 class Leaderboard extends StatelessWidget {
+  final Color bg_color;
+  final int steps;
+  final double width;
+
+  Leaderboard({Key key, this.bg_color, this.steps, this.width})
+      : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Container(
         height: MediaQuery.of(context).size.height / 5,
         width: MediaQuery.of(context).size.width * 0.9,
-        color: Colors.blue,
         child: BezierChart(
           bezierChartScale: BezierChartScale.CUSTOM,
           xAxisCustomValues: const [0, 4, 5, 8, 9, 10],
           series: [
             BezierLine(
               lineColor: Colors.white,
-              dataPointFillColor: Colors.red,
-              dataPointStrokeColor: Colors.red,
+              dataPointFillColor: CustomStyle.light_bn_color,
+              dataPointStrokeColor: CustomStyle.light_bn_txt_Color,
               data: const [
                 DataPoint<double>(value: 10, xAxis: 0),
                 DataPoint<double>(value: 110, xAxis: 4),
@@ -28,14 +35,17 @@ class Leaderboard extends StatelessWidget {
             ),
           ],
           config: BezierChartConfig(
-            pinchZoom: true,
-            contentWidth: 100,
+            snap: false,
+            backgroundColor: bg_color,
+            contentWidth: width,
             verticalIndicatorStrokeWidth: 2.0,
-            verticalIndicatorColor: Colors.black26,
+            verticalIndicatorColor: CustomStyle.light_bn_txt_Color,
             showVerticalIndicator: true,
-            stepsYAxis: 45,
+            stepsYAxis: steps,
+            startYAxisFromNonZeroValue: false,
             displayYAxis: true,
-            footerHeight: 12,
+            xAxisTextStyle: TextStyle(color: Colors.transparent),
+            yAxisTextStyle: TextStyle(color: CustomStyle.light_bn_txt_Color),
 //            backgroundColor: Colors.blue,
 //            bubbleIndicatorColor: Colors.blue,
 //            xLinesColor: Colors.white,

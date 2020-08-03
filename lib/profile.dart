@@ -48,22 +48,27 @@ class _ProfileState extends State<Profile> {
                               onPressed: () => Navigator.pop(context),
                               icon: Icon(
                                 Icons.arrow_back_ios,
-                                color: Colors.black,
+                                color: CustomStyle.light_bn_color,
                               )),
                           SizedBox(width: 100),
-                          Text('LOMASH DUBEY',
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold)),
+                          Text(
+                            'LOMASH DUBEY',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: CustomStyle.light_bn_color,
+                            ),
+                          ),
                           SizedBox(width: 80),
                           Icon(
                             Icons.notifications,
-                            color: Colors.black,
+                            color: CustomStyle.light_bn_color,
                             size: 25,
                           ),
                           SizedBox(width: 35),
                           Icon(
                             Icons.more_horiz,
-                            color: Colors.black,
+                            color: CustomStyle.light_bn_color,
                             size: 25,
                           )
                         ],
@@ -77,7 +82,7 @@ class _ProfileState extends State<Profile> {
                       children: <Widget>[
                         Icon(
                           Icons.account_circle,
-                          color: Theme.of(context).buttonColor,
+                          color: CustomStyle.light_bn_color,
                           size: 95,
                         ),
                         Column(
@@ -86,13 +91,13 @@ class _ProfileState extends State<Profile> {
                                 style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.black45)),
+                                    color: CustomStyle.txt_color)),
                             SizedBox(height: 8),
                             Text('75 Kgs',
                                 style: TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.black45)),
+                                    color: CustomStyle.txt_color)),
                           ],
                         ),
                         Column(
@@ -101,33 +106,31 @@ class _ProfileState extends State<Profile> {
                                 style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.black45)),
+                                    color: CustomStyle.txt_color)),
                             SizedBox(height: 8),
                             Text('50 Kgs',
                                 style: TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.black45)),
+                                    color: CustomStyle.txt_color)),
                           ],
                         ),
                       ],
                     ),
                   ),
-                  
                   SizedBox(
-                    height: 50,
+                    height: CustomStyle.verticalFractions * 5.393,
                   ),
-
                   Container(
                     decoration: BoxDecoration(
                       border: BorderDirectional(
                         bottom: BorderSide(
                           width: 1,
-                          color: Theme.of(context).buttonColor,
+                          color: CustomStyle.toggle_Border_Color,
                         ),
                       ),
                     ),
-                  child: Row(
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Container(
@@ -140,15 +143,14 @@ class _ProfileState extends State<Profile> {
                                     duration: Duration(milliseconds: 900),
                                     curve: Curves.easeInSine);
                                 setState(() {
-                                  anim_box1_color =
-                                      Theme.of(context).buttonColor;
+                                  anim_box1_color = CustomStyle.light_bn_color;
                                   anim_box2_color = Colors.transparent;
                                   anim_box3_color = Colors.transparent;
                                 });
                               },
                               icon: Icon(
                                 Icons.trending_up,
-                                color: Theme.of(context).buttonColor,
+                                color: CustomStyle.light_bn_color,
                               ),
                             ),
                             AnimatedContainer(
@@ -163,17 +165,20 @@ class _ProfileState extends State<Profile> {
                           width: MediaQuery.of(context).size.width * 0.33,
                           decoration: BoxDecoration(
                             border: BorderDirectional(
-                              start:
-                                  BorderSide(width: 1, color: Colors.blue[900]),
-                              end:
-                                  BorderSide(width: 1, color: Colors.blue[900]),
+                              start: BorderSide(
+                                  width: 1, color: CustomStyle.light_bn_color),
+                              end: BorderSide(
+                                  width: 1, color: CustomStyle.light_bn_color),
                             ),
                           ),
                           child: Column(
                             children: <Widget>[
                               IconButton(
                                   splashColor: Colors.white60,
-                                  padding: EdgeInsets.symmetric(horizontal: 60),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal:
+                                          CustomStyle.verticalFractions *
+                                              6.472), //60
                                   onPressed: () {
                                     _pageViewController.animateToPage(1,
                                         duration: Duration(milliseconds: 900),
@@ -192,7 +197,7 @@ class _ProfileState extends State<Profile> {
                                 duration: Duration(milliseconds: 600),
                                 color: anim_box2_color,
                                 width: MediaQuery.of(context).size.width * 0.33,
-                                height: 10,
+                                height: CustomStyle.verticalFractions * 1.078,
                               ),
                             ],
                           ),
@@ -202,26 +207,29 @@ class _ProfileState extends State<Profile> {
                           child: Column(
                             children: <Widget>[
                               IconButton(
-                                padding: EdgeInsets.symmetric(horizontal: 60),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal:
+                                        CustomStyle.verticalFractions * 6.472),
                                 onPressed: () {
                                   _pageViewController.animateToPage(2,
                                       duration: Duration(milliseconds: 900),
                                       curve: Curves.easeIn);
                                   setState(() {
                                     anim_box3_color =
-                                        Theme.of(context).buttonColor;
+                                        CustomStyle.light_bn_color;
                                     anim_box1_color = Colors.transparent;
                                     anim_box2_color = Colors.transparent;
                                   });
                                 },
                                 icon: Icon(Icons.assignment_turned_in,
-                                    color: Theme.of(context).buttonColor),
+                                    color: CustomStyle.light_bn_color),
                               ),
                               AnimatedContainer(
                                 duration: Duration(milliseconds: 600),
                                 color: anim_box3_color,
                                 width: MediaQuery.of(context).size.width / 3,
-                                height: 10,
+                                height:
+                                    CustomStyle.verticalFractions * 1.078, //10
                               ),
                             ],
                           ),
@@ -239,15 +247,15 @@ class _ProfileState extends State<Profile> {
                 onPageChanged: (pageIndex) {
                   setState(() {
                     if (pageIndex == 0) {
-                      anim_box1_color = Theme.of(context).buttonColor;
+                      anim_box1_color = CustomStyle.light_bn_color;
                       anim_box2_color = Colors.transparent;
                       anim_box3_color = Colors.transparent;
                     } else if (pageIndex == 1) {
-                      anim_box2_color = Theme.of(context).buttonColor;
+                      anim_box2_color = CustomStyle.light_bn_color;
                       anim_box1_color = Colors.transparent;
                       anim_box3_color = Colors.transparent;
                     } else if (pageIndex == 2) {
-                      anim_box3_color = Theme.of(context).buttonColor;
+                      anim_box3_color = CustomStyle.light_bn_color;
                       anim_box1_color = Colors.transparent;
                       anim_box2_color = Colors.transparent;
                     }
@@ -257,56 +265,67 @@ class _ProfileState extends State<Profile> {
                 scrollDirection: Axis.horizontal,
                 children: <Widget>[
                   ListView(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
                     scrollDirection: Axis.vertical,
                     children: <Widget>[
-                      Container(
-                        padding: EdgeInsets.only(
-                          top: 45,
-                          bottom: 45,
-                        ),
-                        color: Colors.blue,
-                        child: Column(
-                          children: <Widget>[
-                            Text(
-                              'OVERALL',
-                              style: TextStyle(
-                                fontSize: 40,
-                                letterSpacing: 2,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey[100],
+                      FittedBox(
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: CustomStyle.light_bn_color),
+                          padding: EdgeInsets.only(
+                            top: CustomStyle.verticalFractions * 3.5, //32.445
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal:
+                                        CustomStyle.verticalFractions * 2.696),
+                                child: Text('OVERALL :',
+                                    style: CustomStyle.button_header),
                               ),
-                            ),
-                            SizedBox(
-                              height: 15,
-                            ),
-                            Leaderboard(),
-                          ],
+                              SizedBox(
+                                height: 15,
+                              ),
+                              Leaderboard(
+                                bg_color: Colors.transparent,
+                                steps: 20,
+                                width: 300,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                       SizedBox(
                         height: 10,
                       ),
                       Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: CustomStyle.light_bn_color),
                         padding: EdgeInsets.only(
-                          bottom: 45,
-                          top: 45,
+                          top: CustomStyle.verticalFractions * 3.5, //32.454
                         ),
-                        color: Colors.blue,
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text(
-                              'CURRENT',
-                              style: TextStyle(
-                                fontSize: 40,
-                                letterSpacing: 2,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey[100],
-                              ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: CustomStyle.verticalFractions *
+                                      2.696), //25
+                              child: Text('CURRENT :',
+                                  style: CustomStyle.button_header),
                             ),
                             SizedBox(
                               height: 15,
                             ),
-                            Leaderboard(),
+                            Leaderboard(
+                              bg_color: Colors.transparent,
+                              steps: 20,
+                              width: 300,
+                            ),
                           ],
                         ),
                       ),

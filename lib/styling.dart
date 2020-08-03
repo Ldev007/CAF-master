@@ -26,6 +26,9 @@ class CustomStyle {
   static final Color fab_icon_eb_color = Color.fromRGBO(192, 196, 228, 1);
   static final Color fab_icon_db_color = Color.fromRGBO(48, 67, 120, 1);
 
+  //TEXT THEME IN OVERALL APP
+  static final Color txt_color = Color.fromRGBO(48, 67, 120, 1);
+
   /****************************************
   * APP BAR'S THEME DECLARATION
   ****************************************/
