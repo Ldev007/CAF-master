@@ -135,7 +135,8 @@ class _HomePageState extends State<HomePage> {
                             duration: Duration(milliseconds: 500),
                             curve: Curves.fastOutSlowIn),
                         icon: Icon(
-                          Icons.trending_up,
+                          Icons.store,
+//                          Icons.trending_up,
                           //Icons.show_chart,//Icons.score,//Icons.fitness_center,
                           color: Colors.white,
                         ),
