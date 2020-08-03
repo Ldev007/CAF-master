@@ -440,12 +440,29 @@ class _GymDetailState extends State<GymDetail> {
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
-          title: new Text(title),
-          content: new Text(msg),
+          shape: RoundedRectangleBorder(
+              borderRadius:
+              BorderRadius.circular(20.0)),
+//          backgroundColor: ,
+          elevation: 8.0,
+          title: new Text(title,style: GoogleFonts.sourceSansPro(
+            fontSize: 25.0,
+            fontWeight: FontWeight.w400,
+            color: Color.fromRGBO(48, 67, 120, 1),
+          ),),
+          content: new Text(msg,style: GoogleFonts.sourceSansPro(
+            fontSize: 18.0,
+            fontWeight: FontWeight.w400,
+            color: Color.fromRGBO(48, 67, 120, 1),
+          ),),
           actions: <Widget>[
             // usually buttons at the bottom of the dialog
             new FlatButton(
-              child: new Text("Close"),
+              child: new Text("CLOSE",style: GoogleFonts.sourceSansPro(
+                fontSize: 15.0,
+                fontWeight: FontWeight.w400,
+                color: Color.fromRGBO(48, 67, 120, 1),
+              ),),
               onPressed: () {
                 Navigator.of(context).pop();
               },
