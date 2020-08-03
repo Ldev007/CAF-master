@@ -48,7 +48,7 @@ class _ScreenEightState extends State<ScreenEight>
       "Weight": weight,
       "CurrentFat": currentfat,
       "TargetFat": targetfat,
-      "gym":"noentry"
+      "gym":"noentry",
     };
     CollectionReference collectionReference =
         Firestore.instance.collection('UserData');
