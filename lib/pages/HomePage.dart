@@ -129,9 +129,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       IconButton(
-                        onPressed: () => _pageController.animateToPage(3,
-                            duration: Duration(milliseconds: 500),
-                            curve: Curves.fastOutSlowIn),
+                        onPressed: () => Navigator.pushNamed(context, '/gym'),
                         icon: Icon(
                           Icons.trending_up,
                           //Icons.show_chart,//Icons.score,//Icons.fitness_center,

@@ -53,6 +53,9 @@ class _ScreenEightState extends State<ScreenEight>
         Firestore.instance.collection('UserData');
     collectionReference.document(uid).setData(demodata);
     print("data added");
+    prefs.setString("uid","1ydRuGXxonhiKVnk1N9NNKytxvs2");  //set on screen 8
+    prefs.setBool("inside",false); //set on screen 8
+
 //    DatabaseService d;
 //    d.updateUserData(uid,goal,gender,age,height,weight,currentfat,targetfat);
   }

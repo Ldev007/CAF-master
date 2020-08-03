@@ -458,6 +458,8 @@ class _GymDetailState extends State<GymDetail> {
 //    prefs.setBool("inside",false); //set on screen 8
     String uid = prefs.getString("uid");
     inside = prefs.getBool("inside");
+    print( prefs.getString("uid"));
+    print(inside);
     DocumentSnapshot ds = await Firestore.instance.collection('UserData').document(uid).get();
     if(ds.data['gym']=='noentry'){
       Gym="No Data";
