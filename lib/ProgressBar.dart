@@ -35,7 +35,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
     super.initState();
 
     animeCont =
-        AnimationController(duration: Duration(seconds: 20), vsync: this);
+        AnimationController(duration: Duration(seconds: 2), vsync: this);
     anime = Tween<double>(begin: 0, end: 0.5).animate(animeCont)
       ..addListener(() {
         setState(() {
@@ -52,6 +52,8 @@ class _CircleProgressBarState extends State<CircleProgressBar>
     @required this.value,
   }) : super();
 
+  String title = "RUNNING";
+
   @override
   Widget build(BuildContext context) {
     final backgroundColor = this.backgroundColor;
@@ -62,29 +64,30 @@ class _CircleProgressBarState extends State<CircleProgressBar>
           padding: EdgeInsets.symmetric(vertical: 30),
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: <Color>[
-                Colors.blue[100],
-                Colors.blue[600],
-                Colors.blue[800],
-              ],
-            ),
-          ),
+//          decoration: BoxDecoration(
+//            gradient: LinearGradient(
+//              begin: Alignment.topLeft,
+//              end: Alignment.bottomRight,
+//              colors: <Color>[
+//                Colors.blue[100],
+//                Colors.blue[600],
+//                Colors.blue[800],
+//              ],
+//            ),
+//          ),
+        color: Colors.white,
           child: Column(
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
                   children: <Widget>[
-                    Icon(Icons.menu, color: Colors.white),
+//                    Icon(Icons.menu, color: Colors.blue),
                     SizedBox(width: 125),
-                    Text('RUNNING',
+                    Text(title,
                         style: TextStyle(
                           fontSize: 25,
-                          color: Colors.grey[300],
+                          color: Colors.blue,
                           letterSpacing: 3.0,
                         ))
                   ],
@@ -104,7 +107,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                         shape: CircleBorder(side: BorderSide()),
                         padding:
                             EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                        child: Icon(Icons.calendar_today, color: Colors.white),
+                        child: Icon(Icons.calendar_today, color: Colors.blue),
                         onPressed: () {
                           print('Calendar Button pressed');
                         },
@@ -133,7 +136,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                           print('Location Button Pressed');
                         },
                         shape: CircleBorder(side: BorderSide()),
-                        child: Icon(Icons.location_on, color: Colors.white),
+                        child: Icon(Icons.location_on, color: Colors.blue),
                         color: Color.fromRGBO(0, 0, 0, 0.1),
                       ),
                     ),
@@ -154,14 +157,14 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                               SizedBox(width: 10),
                               Icon(
                                 Icons.timer,
-                                color: Colors.grey[200],
+                                color: Colors.blue,
                                 size: 20,
                               ),
                               SizedBox(width: 20),
                               Text(
                                 'DURATION',
                                 style: TextStyle(
-                                  color: Colors.grey[100],
+                                  color: Colors.blue,
                                   fontSize: 26,
                                 ),
                               ),
@@ -174,7 +177,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                               '$dur_min:$dur_sec min',
                               style: TextStyle(
                                 fontSize: 30,
-                                color: Colors.white,
+                                color: Colors.blue,
                               ),
                             ),
                           ),
@@ -190,14 +193,14 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                             children: <Widget>[
                               Icon(
                                 Icons.fiber_manual_record,
-                                color: Colors.grey[200],
+                                color: Colors.blue,
                                 size: 20,
                               ),
                               SizedBox(width: 10),
                               Text(
                                 'CALORIES',
                                 style: TextStyle(
-                                  color: Colors.grey[200],
+                                  color: Colors.blue,
                                   fontSize: 26,
                                 ),
                               )
@@ -210,7 +213,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                               '$calories kcal',
                               style: TextStyle(
                                 fontSize: 30,
-                                color: Colors.white,
+                                color: Colors.blue,
                               ),
                             ),
                           ),
@@ -258,34 +261,34 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                   height: MediaQuery.of(context).size.height * 0.15,
                   child: Row(
                     children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.only(left: 10),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            OutlineButton(
-                              color: Colors.transparent,
-                              onPressed: () {
-                                print('EDIT button clicked');
-                              },
-                              child: Text(
-                                'EDIT',
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.white60,
-                                    letterSpacing: 1.5),
-                              ),
-                            ),
-                            OutlineButton(
-                              color: Colors.grey[500],
-                              onPressed: () {
-                                print('Plus button clicked');
-                              },
-                              child: Icon(Icons.add, color: Colors.white60),
-                            )
-                          ],
-                        ),
-                      ),
+//                      Padding(
+//                        padding: EdgeInsets.only(left: 10),
+//                        child: Column(
+//                          mainAxisAlignment: MainAxisAlignment.center,
+//                          children: <Widget>[
+//                            OutlineButton(
+//                              color: Colors.transparent,
+//                              onPressed: () {
+//                                print('EDIT button clicked');
+//                              },
+//                              child: Text(
+//                                'EDIT',
+//                                style: TextStyle(
+//                                    fontSize: 15,
+//                                    color: Colors.blue60,
+//                                    letterSpacing: 1.5),
+//                              ),
+//                            ),
+//                            OutlineButton(
+//                              color: Colors.grey[500],
+//                              onPressed: () {
+//                                print('Plus button clicked');
+//                              },
+//                              child: Icon(Icons.add, color: Colors.blue60),
+//                            )
+//                          ],
+//                        ),
+//                      ),
                       Expanded(
                         flex: 1,
                         child: ListView(
@@ -304,6 +307,9 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                                 padding: EdgeInsets.only(top: 10),
                                 onPressed: () {
                                   print('LV Button Pressed');
+                                  setState(() {
+                                    title = "RUNNING";
+                                  });
                                 },
                                 child: Column(
                                   mainAxisAlignment:
@@ -338,6 +344,9 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                                 padding: EdgeInsets.only(top: 10),
                                 onPressed: () {
                                   print('LV Button Pressed');
+                                  setState(() {
+                                    title = "CHEST";
+                                  });
                                 },
                                 child: Column(
                                   mainAxisAlignment:
@@ -371,6 +380,9 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                                 padding: EdgeInsets.only(top: 10),
                                 onPressed: () {
                                   print('LV Button Pressed');
+                                  setState(() {
+                                    title = "BACK";
+                                  });
                                 },
                                 child: Column(
                                   mainAxisAlignment:
@@ -402,10 +414,83 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                                 padding: EdgeInsets.only(top: 10),
                                 onPressed: () {
                                   print('LV Button Pressed');
+                                  setState(() {
+                                    title = "ARMS";
+                                  });
                                 },
                                 child: Column(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Icon(Icons.crop_free),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.blue[300],
+                                        borderRadius: BorderRadius.only(
+                                          bottomLeft: Radius.circular(300),
+                                          bottomRight: Radius.circular(300),
+                                        ),
+                                      ),
+                                      width: 85,
+                                      height: 5,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: Color.fromRGBO(0, 0, 0, 0.1),
+                                  borderRadius: BorderRadius.circular(10)),
+                              margin: EdgeInsets.symmetric(horizontal: 10),
+                              child: OutlineButton(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                                padding: EdgeInsets.only(top: 10),
+                                onPressed: () {
+                                  print('LV Button Pressed');
+                                  setState(() {
+                                    title = "LEGS";
+                                  });
+                                },
+                                child: Column(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Icon(Icons.crop_free),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.blue[300],
+                                        borderRadius: BorderRadius.only(
+                                          bottomLeft: Radius.circular(300),
+                                          bottomRight: Radius.circular(300),
+                                        ),
+                                      ),
+                                      width: 85,
+                                      height: 5,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: Color.fromRGBO(0, 0, 0, 0.1),
+                                  borderRadius: BorderRadius.circular(10)),
+                              margin: EdgeInsets.symmetric(horizontal: 10),
+                              child: OutlineButton(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                                padding: EdgeInsets.only(top: 10),
+                                onPressed: () {
+                                  print('LV Button Pressed');
+                                  setState(() {
+                                    title = "ABS";
+                                  });
+                                },
+                                child: Column(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Icon(Icons.crop_free),
                                     Container(
@@ -435,6 +520,9 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                                 padding: EdgeInsets.only(top: 10),
                                 onPressed: () {
                                   print('LV Button Pressed');
+                                  setState(() {
+                                    title = "YOGA";
+                                  });
                                 },
                                 child: Column(
                                   mainAxisAlignment:

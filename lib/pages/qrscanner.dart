@@ -24,18 +24,6 @@ class _qrscannerState extends State<qrscanner> {
             height: 500,
             child: Column(
               children: <Widget>[
-                Center(
-                  child: RaisedButton(
-                    onPressed: () {
-                      if(back) {
-                        Navigator.pop(context, qrcode);
-                      }
-                    },
-                    child: Text('Go back!',
-                      style: TextStyle(color: Colors.red),
-                    ),
-                  ),
-                ),
                 Container(
                   height: 300,
                   width: 280,
@@ -53,6 +41,18 @@ class _qrscannerState extends State<qrscanner> {
                 Text(
                   qrcode,
                   style: TextStyle(color: Colors.black26),
+                ),
+                Center(
+                  child: RaisedButton(
+                    onPressed: () {
+                      if(back) {
+                        Navigator.pop(context, qrcode);
+                      }
+                    },
+                    child: Text('SCAN',
+                      style: TextStyle(color: Colors.red),
+                    ),
+                  ),
                 ),
               ],
             ),

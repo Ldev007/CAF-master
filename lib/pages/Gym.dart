@@ -21,8 +21,10 @@ class _GymDetailState extends State<GymDetail> {
   bool inside;
   Map data;
   String attend='0';
-  String x="test";
+  String x="noentry";
   bool got=false;
+  String Gym="";
+  String total='0';
   @override
   Widget build(BuildContext context) {
     var screenHeight = MediaQuery.of(context).size.height;
@@ -62,7 +64,7 @@ class _GymDetailState extends State<GymDetail> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(height: 25.0),
-                        Text("rebound",
+                        Text(Gym,
                             style: GoogleFonts.tinos(
                                 fontSize: 35.0,
                                 fontWeight: FontWeight.w500
@@ -151,7 +153,7 @@ class _GymDetailState extends State<GymDetail> {
                                         width:50,
                                         child: Padding(
                                           padding: const EdgeInsets.only(top:15.0),
-                                          child: Text('/20',
+                                          child: Text('/'+total,
                                               style: GoogleFonts.sourceSansPro(
                                                   fontSize: 30.0,
                                                   fontWeight: FontWeight.w400,
@@ -398,6 +400,8 @@ class _GymDetailState extends State<GymDetail> {
       got = true;
       qr = result;
     });
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    inside = prefs.getBool("inside");
     if(qr==x) {
       if(!inside){
         p = int.parse(attend);
@@ -405,6 +409,7 @@ class _GymDetailState extends State<GymDetail> {
         collectionReference.document('populationdoc').updateData({'crowd': (p + 1).toString()});
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setBool("inside",true);
+        _showDialog("Enjoy your excercise","Attendance Complete");
       }
       else{
         p = int.parse(attend);
@@ -412,32 +417,63 @@ class _GymDetailState extends State<GymDetail> {
         collectionReference.document('populationdoc').updateData({'crowd': (p - 1).toString()});
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setBool("inside",false);
+        _showDialog("Please Visit Again","Goal Achieved");
       }
     }
     else{
       print("wrong gym go to "+x);
+      _showDialog("Either you are not registered to this or by your gym owner","Something Went Wrong");
     }
 //    Scaffold.of(context)
 //      ..removeCurrentSnackBar()
 //      ..showSnackBar(SnackBar(content: Text("$result")));
   }
 
+  void _showDialog(String msg,String title) {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text(title),
+          content: new Text(msg),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Close"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   fetch() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString("uid","1ydRuGXxonhiKVnk1N9NNKytxvs2");
-    prefs.setBool("inside",false);
+//    prefs.setString("uid","1ydRuGXxonhiKVnk1N9NNKytxvs2");  //set on screen 8
+//    prefs.setBool("inside",false); //set on screen 8
     String uid = prefs.getString("uid");
     inside = prefs.getBool("inside");
     DocumentSnapshot ds = await Firestore.instance.collection('UserData').document(uid).get();
-    x=ds.data['gym'];
+    if(ds.data['gym']=='noentry'){
+      Gym="No Data";
+    }
+    else {
+      x = ds.data['gym'];
+    }
 //    CollectionReference collectionReference = Firestore.instance.collection('UserData');
 //    collectionReference.snapshots().forEach((element) {print(element);});
 //    x=collectionReference.document(uid)[0];
-    if(x!="test") {
+    if(x!="noentry") {
       CollectionReference collectionReference = Firestore.instance.collection('gym').document(x).collection('population');
       collectionReference.snapshots().listen((snapshot) {
         //List data;
         setState(() {
+          Gym = x;
           data = snapshot.documents[0].data;
           if (data['crowd'] != null) {
             attend = data['crowd'];

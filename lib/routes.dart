@@ -1,3 +1,5 @@
+import 'package:firebase_ex/pages/Gym.dart';
+
 import 'ProgressBar.dart';
 import 'package:firebase_ex/profile.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +17,7 @@ class Routes {
   static final Map<String, Widget Function(BuildContext)> routes = {
     '/home_page': (context) => HomePage(),
     '/profile_page': (context) => Profile(),
+    '/gym': (context)=> GymDetail(),
     '/tracker': (context) => CircleProgressBar(
           value: _getValueForTracker(),
           foregroundColor: _getColorForTracker(),

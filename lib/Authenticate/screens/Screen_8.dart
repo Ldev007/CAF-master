@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_ex/Database/database.dart';
+//import 'package:firebase_ex/Database/database.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -27,6 +27,8 @@ class _ScreenEightState extends State<ScreenEight>
   Future upadteuser(String uid,String goal,String gender,String age,String height,String weight,String currentfat,String targetfat) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool("seen",true);
+   // prefs.setString("uid","1ydRuGXxonhiKVnk1N9NNKytxvs2");  //set on screen 8
+    prefs.setBool("inside",false); //set on screen 8
     prefs.setString("uid",uid);
     Map<String,dynamic> demodata = {"uid": uid,
     "Goal": goal,
@@ -36,6 +38,7 @@ class _ScreenEightState extends State<ScreenEight>
       "Weight":weight,
       "CurrentFat":currentfat,
       "TargetFat": targetfat,
+      "gym": "noentry",
     };
     CollectionReference collectionReference = Firestore.instance.collection('UserData');
     collectionReference.document(uid).setData(demodata);

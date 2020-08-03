@@ -59,4 +59,6 @@ dependencies {
     implementation project(':UnityExport')
     //Remember to add unity jar from unity export as a module dependency and add the module below
     implementation project(':unity-classes')
+    implementation 'com.google.android.gms:play-services-fitness:18.0.0'
+    implementation 'com.google.android.gms:play-services-auth:18.1.0'
 }
