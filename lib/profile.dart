@@ -1,3 +1,4 @@
+import 'package:firebase_ex/styling.dart';
 import 'package:flutter/material.dart';
 import 'pages/LeaderBoard.dart';
 import 'pages/OverallStats.dart';
@@ -24,7 +25,7 @@ class _ProfileState extends State<Profile> {
     initialPage: 0,
     keepPage: true,
   );
-  static Color anim_box1_color = Colors.transparent,
+  static Color anim_box1_color = CustomStyle.light_bn_color,
       anim_box2_color = Colors.transparent,
       anim_box3_color = Colors.transparent;
 
@@ -76,7 +77,7 @@ class _ProfileState extends State<Profile> {
                       children: <Widget>[
                         Icon(
                           Icons.account_circle,
-                          color: Colors.black,
+                          color: Theme.of(context).buttonColor,
                           size: 95,
                         ),
                         Column(
@@ -112,16 +113,21 @@ class _ProfileState extends State<Profile> {
                       ],
                     ),
                   ),
+                  
+                  SizedBox(
+                    height: 50,
+                  ),
+
                   Container(
                     decoration: BoxDecoration(
                       border: BorderDirectional(
                         bottom: BorderSide(
                           width: 1,
-                          color: Colors.blue[800],
+                          color: Theme.of(context).buttonColor,
                         ),
                       ),
                     ),
-                    child: Row(
+                  child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Container(
@@ -134,13 +140,16 @@ class _ProfileState extends State<Profile> {
                                     duration: Duration(milliseconds: 900),
                                     curve: Curves.easeInSine);
                                 setState(() {
-                                  anim_box1_color = Colors.blue[800];
+                                  anim_box1_color =
+                                      Theme.of(context).buttonColor;
                                   anim_box2_color = Colors.transparent;
                                   anim_box3_color = Colors.transparent;
                                 });
                               },
-                              icon: Icon(Icons.graphic_eq,
-                                  color: Colors.blue[800]),
+                              icon: Icon(
+                                Icons.trending_up,
+                                color: Theme.of(context).buttonColor,
+                              ),
                             ),
                             AnimatedContainer(
                               duration: Duration(milliseconds: 600),
@@ -163,21 +172,22 @@ class _ProfileState extends State<Profile> {
                           child: Column(
                             children: <Widget>[
                               IconButton(
-                                splashColor: Colors.white60,
-                                padding: EdgeInsets.symmetric(horizontal: 60),
-                                onPressed: () {
-                                  _pageViewController.animateToPage(1,
-                                      duration: Duration(milliseconds: 900),
-                                      curve: Curves.easeIn);
-                                  setState(() {
-                                    anim_box2_color = Colors.blue[800];
-                                    anim_box1_color = Colors.transparent;
-                                    anim_box3_color = Colors.transparent;
-                                  });
-                                },
-                                icon: Icon(Icons.fastfood,
-                                    color: Colors.blue[800]),
-                              ),
+                                  splashColor: Colors.white60,
+                                  padding: EdgeInsets.symmetric(horizontal: 60),
+                                  onPressed: () {
+                                    _pageViewController.animateToPage(1,
+                                        duration: Duration(milliseconds: 900),
+                                        curve: Curves.easeIn);
+                                    setState(() {
+                                      anim_box2_color =
+                                          CustomStyle.light_bn_color;
+                                      anim_box1_color = Colors.transparent;
+                                      anim_box3_color = Colors.transparent;
+                                    });
+                                  },
+                                  icon: ImageIcon(
+                                      AssetImage("images/sub_plans.png"),
+                                      color: CustomStyle.light_bn_color)),
                               AnimatedContainer(
                                 duration: Duration(milliseconds: 600),
                                 color: anim_box2_color,
@@ -198,13 +208,14 @@ class _ProfileState extends State<Profile> {
                                       duration: Duration(milliseconds: 900),
                                       curve: Curves.easeIn);
                                   setState(() {
-                                    anim_box3_color = Colors.blue[800];
+                                    anim_box3_color =
+                                        Theme.of(context).buttonColor;
                                     anim_box1_color = Colors.transparent;
                                     anim_box2_color = Colors.transparent;
                                   });
                                 },
-                                icon: Icon(Icons.accessibility_new,
-                                    color: Colors.blue[800]),
+                                icon: Icon(Icons.assignment_turned_in,
+                                    color: Theme.of(context).buttonColor),
                               ),
                               AnimatedContainer(
                                 duration: Duration(milliseconds: 600),
@@ -228,15 +239,15 @@ class _ProfileState extends State<Profile> {
                 onPageChanged: (pageIndex) {
                   setState(() {
                     if (pageIndex == 0) {
-                      anim_box1_color = Colors.blue[800];
+                      anim_box1_color = Theme.of(context).buttonColor;
                       anim_box2_color = Colors.transparent;
                       anim_box3_color = Colors.transparent;
                     } else if (pageIndex == 1) {
-                      anim_box2_color = Colors.blue[800];
+                      anim_box2_color = Theme.of(context).buttonColor;
                       anim_box1_color = Colors.transparent;
                       anim_box3_color = Colors.transparent;
                     } else if (pageIndex == 2) {
-                      anim_box3_color = Colors.blue[800];
+                      anim_box3_color = Theme.of(context).buttonColor;
                       anim_box1_color = Colors.transparent;
                       anim_box2_color = Colors.transparent;
                     }

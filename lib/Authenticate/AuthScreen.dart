@@ -75,7 +75,7 @@ class _LoginScreenState extends State<LoginScreen>
   }
 
   //Method definition used for kick starting the validation process..
-  String validate() {
+  void validate() {
     googleSignIn().then((onValue) {
       _fireStore.collection('users').document('auth').collection('gusers').add({
         'email': email,

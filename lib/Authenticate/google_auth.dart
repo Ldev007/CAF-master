@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_ex/User/user.dart';
-import 'file:///C:/Users/Home/AndroidStudioProjects/final_ap/lib/Authenticate/AuthScreen.dart';
+import 'package:firebase_ex/styling.dart';
+import 'AuthScreen.dart';
 import 'package:firebase_ex/pages/HomePage.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
