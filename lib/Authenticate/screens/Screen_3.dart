@@ -72,10 +72,7 @@ class _ScreenThreeState extends State<ScreenThree> {
               onChanged: (val) {
                 age = val;
                 setState(() {
-                  if (age.length <= 2 &&
-                      age.length > 0 &&
-                      int.parse(age) < 90 &&
-                      int.parse(age) > 10) {
+                  if (int.parse(age) < 90 && int.parse(age) > 10) {
                     fab_color = CustomStyle.fab_eb_color;
                     icon_color = CustomStyle.fab_icon_eb_color;
                     buttn_state = true;
