@@ -132,9 +132,9 @@ class _GymDetailState extends State<GymDetail> {
                                         width:65,
                                         decoration: BoxDecoration(
                                             border: Border.all(
-                                              color: Colors.deepOrangeAccent,
+                                              color: Color.fromRGBO(48, 67, 120, 1),
                                             ),
-                                            color: Colors.deepOrangeAccent,
+                                            color: Color.fromRGBO(48, 67, 120, 1),
                                             borderRadius: BorderRadius.all(Radius.circular(20))
                                         ),
 
@@ -143,7 +143,7 @@ class _GymDetailState extends State<GymDetail> {
                                               style: GoogleFonts.sourceSansPro(
                                                   fontSize: 50.0,
                                                   fontWeight: FontWeight.w400,
-                                                  color: Color(0xFF201F1C)
+                                                  color: Colors.white,
                                               )
                                           ),
                                         ),
@@ -157,7 +157,7 @@ class _GymDetailState extends State<GymDetail> {
                                               style: GoogleFonts.sourceSansPro(
                                                   fontSize: 30.0,
                                                   fontWeight: FontWeight.w400,
-                                                  color: Color(0xFF201F1C)
+                                                  color: Color.fromRGBO(48, 67, 120, 1),
                                               )
                                           ),
                                         ),

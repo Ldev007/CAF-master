@@ -39,18 +39,30 @@ class _qrscannerState extends State<qrscanner> {
                   ),
                 ),
                 Text(
-                  qrcode,
-                  style: TextStyle(color: Colors.black26),
+                  "Scan a QR Code",
+                  style: TextStyle(color: Color.fromRGBO(48, 67, 120, 1),fontSize: 25,),
                 ),
                 Center(
                   child: RaisedButton(
+                    color: Color.fromRGBO(48, 67, 120, 1),
                     onPressed: () {
                       if(back) {
                         Navigator.pop(context, qrcode);
                       }
                     },
                     child: Text('SCAN',
-                      style: TextStyle(color: Colors.red),
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
+                Center(
+                  child: RaisedButton(
+                    color: Color.fromRGBO(48, 67, 120, 1),
+                    onPressed: () {
+                        Navigator.pop(context, "");
+                    },
+                    child: Text('Back',
+                      style: TextStyle(color: Colors.white),
                     ),
                   ),
                 ),
