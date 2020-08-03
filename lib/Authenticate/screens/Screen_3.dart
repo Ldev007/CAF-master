@@ -60,7 +60,7 @@ class _ScreenThreeState extends State<ScreenThree> {
               height: CustomStyle.verticalFractions * 2.7, //25
             ),
             TextField(
-              maxLength: (CustomStyle.verticalFractions / 4).toInt(),
+              maxLength: 2,
               decoration: InputDecoration(
                 hintStyle: TextStyle(color: CustomStyle.light_bn_txt_Color),
                 hintText: '0',
