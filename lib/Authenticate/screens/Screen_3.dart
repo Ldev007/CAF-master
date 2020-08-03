@@ -59,10 +59,7 @@ class _ScreenThreeState extends State<ScreenThree> {
             SizedBox(
               height: CustomStyle.verticalFractions * 2.7, //25
             ),
-            SizedBox(
-              width: CustomStyle.verticalFractions * 22, //175
-              height: CustomStyle.verticalFractions * 7.6,
-              child: TextField(
+            TextField(
                 maxLength: 2,
                 decoration: InputDecoration(
                   hintStyle: TextStyle(color: CustomStyle.light_bn_txt_Color),
@@ -94,7 +91,6 @@ class _ScreenThreeState extends State<ScreenThree> {
                   color: CustomStyle.light_bn_color,
                 ),
               ),
-            ),
           ],
         ),
       ),
