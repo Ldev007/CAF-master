@@ -299,7 +299,7 @@ class _ProfileState extends State<Profile> {
                         ),
                       ),
                       SizedBox(
-                        height: 10,
+                        height: 30,
                       ),
                       Container(
                         decoration: BoxDecoration(
