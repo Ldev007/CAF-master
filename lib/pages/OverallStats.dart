@@ -21,22 +21,31 @@ class _OverallstatsState extends State<Overallstats> {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      padding: EdgeInsets.symmetric(vertical: 30, horizontal: 25),
+      padding: EdgeInsets.symmetric(
+          vertical: CustomStyle.verticalFractions * 3.236, //30
+          horizontal: CustomStyle.verticalFractions * 2.696), //25
       children: <Widget>[
         //STATISTICS
         Expanded(
           flex: 2,
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 17),
+            padding: EdgeInsets.symmetric(
+              horizontal: CustomStyle.verticalFractions * 1.618, //15
+              vertical: CustomStyle.verticalFractions * 1.833, //17
+            ),
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
               color: CustomStyle.light_bn_color,
-              borderRadius: BorderRadius.circular(18),
+              borderRadius: BorderRadius.circular(
+                  CustomStyle.verticalFractions * 1.941), //18
               boxShadow: <BoxShadow>[
                 BoxShadow(
-                  blurRadius: 8,
-                  color: Colors.grey[400],
-                  offset: Offset.fromDirection(10, -3),
+                  blurRadius: CustomStyle.verticalFractions * 0.862, //8
+                  color: CustomStyle.light_bn_txt_Color,
+                  offset: Offset.fromDirection(
+                    CustomStyle.verticalFractions * 1.078, //10
+                    -(CustomStyle.verticalFractions * 0.323), //3
+                  ),
                 )
               ],
             ),
@@ -49,7 +58,7 @@ class _OverallstatsState extends State<Overallstats> {
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: CustomStyle.light_bn_txt_Color,
-                        fontSize: 30),
+                        fontSize: CustomStyle.verticalFractions * 3.236), //30
                   ),
                 ),
                 Divider(
@@ -60,29 +69,38 @@ class _OverallstatsState extends State<Overallstats> {
                 ListTile(
                   leading: Icon(Icons.fastfood,
                       color: CustomStyle.light_bn_txt_Color),
-                  title: Text('Dishes Cooked',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: CustomStyle.light_bn_txt_Color,
-                          fontSize: 22)),
+                  title: Text(
+                    'Dishes Cooked',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: CustomStyle.light_bn_txt_Color,
+                      fontSize: CustomStyle.verticalFractions * 2.373, //22
+                    ),
+                  ),
                 ),
                 ListTile(
                   leading: Icon(Icons.copyright,
                       color: CustomStyle.light_bn_txt_Color),
-                  title: Text('Calories burnt',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: CustomStyle.light_bn_txt_Color,
-                          fontSize: 22)),
+                  title: Text(
+                    'Calories burnt',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: CustomStyle.light_bn_txt_Color,
+                      fontSize: CustomStyle.verticalFractions * 2.373, //22
+                    ),
+                  ),
                 ),
                 ListTile(
                   leading: Icon(Icons.line_weight,
                       color: CustomStyle.light_bn_txt_Color),
-                  title: Text('Weight Loss',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: CustomStyle.light_bn_txt_Color,
-                          fontSize: 22)),
+                  title: Text(
+                    'Weight Loss',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: CustomStyle.light_bn_txt_Color,
+                      fontSize: CustomStyle.verticalFractions * 2.373, //22
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -93,18 +111,29 @@ class _OverallstatsState extends State<Overallstats> {
         Expanded(
           flex: 1,
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-            margin: EdgeInsets.symmetric(vertical: 25),
+            padding: EdgeInsets.symmetric(
+              horizontal: CustomStyle.verticalFractions * 1.618, //15
+              vertical: CustomStyle.verticalFractions * 2.157, //20
+            ),
+            margin: EdgeInsets.symmetric(
+              vertical: CustomStyle.verticalFractions * 2.696, //25
+            ),
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
-                color: CustomStyle.light_bn_color,
-                boxShadow: <BoxShadow>[
-                  BoxShadow(
-                      blurRadius: 15,
-                      color: CustomStyle.light_bn_txt_Color,
-                      offset: Offset.fromDirection(10, -2))
-                ],
-                borderRadius: BorderRadius.circular(15)),
+              color: CustomStyle.light_bn_color,
+              boxShadow: <BoxShadow>[
+                BoxShadow(
+                    blurRadius: CustomStyle.verticalFractions * 1.618, //15
+                    color: CustomStyle.light_bn_txt_Color,
+                    offset: Offset.fromDirection(
+                      CustomStyle.verticalFractions * 1.078, //10
+                      -CustomStyle.verticalFractions * 0.323, //3
+                    ))
+              ],
+              borderRadius: BorderRadius.circular(
+                CustomStyle.verticalFractions * 1.618, //15
+              ),
+            ),
             child: Column(
               children: <Widget>[
                 Row(
@@ -121,12 +150,12 @@ class _OverallstatsState extends State<Overallstats> {
                   children: <Widget>[
                     Icon(
                       Icons.account_circle,
-                      size: 100,
+                      size: CustomStyle.verticalFractions * 10.787, //100
                       color: CustomStyle.light_bn_txt_Color,
                     ),
                     SizedBox(
-                      width: 35,
-                      height: 20,
+                      width: CustomStyle.verticalFractions * 3.775, //35
+                      height: CustomStyle.verticalFractions * 2.157, //20
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -141,8 +170,10 @@ class _OverallstatsState extends State<Overallstats> {
                                 TextSpan(text: 'Degrees: $trainers_degrees')
                               ],
                               style: TextStyle(
-                                height: 2.2,
-                                fontSize: 18,
+                                height:
+                                    CustomStyle.verticalFractions * 0.237, //2.2
+                                fontSize:
+                                    CustomStyle.verticalFractions * 1.941, //18
                                 color: CustomStyle.light_bn_txt_Color,
                                 fontFamily: 'fonts/Roboto-Bold.ttf',
                                 fontWeight: FontWeight.bold,
@@ -161,17 +192,25 @@ class _OverallstatsState extends State<Overallstats> {
         Expanded(
           flex: 1,
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+            padding: EdgeInsets.symmetric(
+              horizontal: CustomStyle.verticalFractions * 1.618, //15
+              vertical: CustomStyle.verticalFractions * 1.078, //10
+            ),
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
                 color: CustomStyle.light_bn_color,
                 boxShadow: <BoxShadow>[
                   BoxShadow(
-                      blurRadius: 15,
+                      blurRadius: CustomStyle.verticalFractions * 1.618, //15
                       color: CustomStyle.light_bn_txt_Color,
-                      offset: Offset.fromDirection(10, -2))
+                      offset: Offset.fromDirection(
+                        CustomStyle.verticalFractions * 1.078, //10
+                        -CustomStyle.verticalFractions * 0.323, //3
+                      ))
                 ],
-                borderRadius: BorderRadius.circular(15)),
+                borderRadius: BorderRadius.circular(
+                  CustomStyle.verticalFractions * 1.618, //15
+                )),
             child: Column(
               children: <Widget>[
                 Row(
@@ -188,12 +227,12 @@ class _OverallstatsState extends State<Overallstats> {
                   children: <Widget>[
                     Icon(
                       Icons.account_circle,
-                      size: 100,
+                      size: CustomStyle.verticalFractions * 10.787, //100
                       color: CustomStyle.light_bn_txt_Color,
                     ),
                     SizedBox(
-                      width: 35,
-                      height: 20,
+                      width: CustomStyle.verticalFractions * 3.775, //35
+                      height: CustomStyle.verticalFractions * 2.157, //20
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -208,8 +247,10 @@ class _OverallstatsState extends State<Overallstats> {
                                 TextSpan(text: 'Degrees: $dieticians_degrees')
                               ],
                               style: TextStyle(
-                                height: 2.2,
-                                fontSize: 18,
+                                height:
+                                    CustomStyle.verticalFractions * 0.237, //2.2
+                                fontSize:
+                                    CustomStyle.verticalFractions * 1.941, //18
                                 color: CustomStyle.light_bn_txt_Color,
                                 fontFamily: 'fonts/Roboto-Bold.ttf',
                                 fontWeight: FontWeight.bold,
