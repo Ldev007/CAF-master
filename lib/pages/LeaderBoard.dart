@@ -45,7 +45,8 @@ class Leaderboard extends StatelessWidget {
             startYAxisFromNonZeroValue: false,
             displayYAxis: true,
             xAxisTextStyle: TextStyle(color: Colors.transparent),
-            yAxisTextStyle: TextStyle(color: CustomStyle.light_bn_txt_Color),
+            yAxisTextStyle:
+                TextStyle(color: Color.fromRGBO(192, 196, 228, 0.5)),
 //            backgroundColor: Colors.blue,
 //            bubbleIndicatorColor: Colors.blue,
 //            xLinesColor: Colors.white,

@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'pages/LeaderBoard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'styling.dart';
 
 class CircleProgressBar extends StatefulWidget {
   final Color backgroundColor;
@@ -61,35 +62,41 @@ class _CircleProgressBarState extends State<CircleProgressBar>
     return Scaffold(
       body: SafeArea(
         child: Container(
-          padding: EdgeInsets.symmetric(vertical: 30),
+          padding: EdgeInsets.symmetric(
+              vertical: CustomStyle.verticalFractions * 3.236), //30
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
-//          decoration: BoxDecoration(
-//            gradient: LinearGradient(
-//              begin: Alignment.topLeft,
-//              end: Alignment.bottomRight,
-//              colors: <Color>[
-//                Colors.blue[100],
-//                Colors.blue[600],
-//                Colors.blue[800],
-//              ],
-//            ),
-//          ),
-        color: Colors.white,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: <Color>[
+                Color.fromRGBO(192, 196, 228, 1),
+                Color.fromRGBO(141, 148, 206, 1),
+                Color.fromRGBO(38, 53, 95, 1),
+                Color.fromRGBO(28, 39, 69, 1),
+              ],
+            ),
+          ),
+          // color: Color.fromRGBO(48, 67, 120, 0.0),
           child: Column(
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
+                padding: EdgeInsets.symmetric(
+                    horizontal: CustomStyle.verticalFractions * 2.157), //20
                 child: Row(
                   children: <Widget>[
 //                    Icon(Icons.menu, color: Colors.blue),
-                    SizedBox(width: 125),
-                    Text(title,
-                        style: TextStyle(
-                          fontSize: 25,
-                          color: Colors.blue,
-                          letterSpacing: 3.0,
-                        ))
+                    SizedBox(width: CustomStyle.verticalFractions * 17.2), //125
+                    Text(
+                      title,
+                      style: TextStyle(
+                        fontSize: CustomStyle.verticalFractions * 2.696, //25
+                        color: CustomStyle.light_bn_color,
+                        letterSpacing:
+                            CustomStyle.verticalFractions * 0.323, //3.0
+                      ),
+                    )
                   ],
                 ),
               ),
@@ -101,13 +108,17 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                     Container(
                       decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Color.fromRGBO(0, 0, 0, 0.1)),
+                          color: Color.fromRGBO(48, 67, 120, 0.4)),
                       child: OutlineButton(
-                        color: Colors.black87,
+                        color: Colors.white70,
                         shape: CircleBorder(side: BorderSide()),
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                        child: Icon(Icons.calendar_today, color: Colors.blue),
+                        padding: EdgeInsets.symmetric(
+                          horizontal:
+                              CustomStyle.verticalFractions * 2.157, //20
+                          vertical: CustomStyle.verticalFractions * 2.157, //20
+                        ),
+                        child: Icon(Icons.calendar_today,
+                            color: Color.fromRGBO(192, 196, 228, 1)),
                         onPressed: () {
                           print('Calendar Button pressed');
                         },
@@ -128,16 +139,20 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                     Container(
                       decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Color.fromRGBO(0, 0, 0, 0.1)),
+                          color: Color.fromRGBO(48, 67, 120, 0.4)),
                       child: OutlineButton(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                        padding: EdgeInsets.symmetric(
+                          horizontal:
+                              CustomStyle.verticalFractions * 2.157, //20
+                          vertical: CustomStyle.verticalFractions * 2.157, //20
+                        ),
                         onPressed: () {
                           print('Location Button Pressed');
                         },
                         shape: CircleBorder(side: BorderSide()),
-                        child: Icon(Icons.location_on, color: Colors.blue),
-                        color: Color.fromRGBO(0, 0, 0, 0.1),
+                        child: Icon(Icons.location_on,
+                            color: Color.fromRGBO(192, 196, 228, 1)),
+                        color: Color.fromRGBO(48, 67, 120, 0.2),
                       ),
                     ),
                   ],
@@ -145,82 +160,109 @@ class _CircleProgressBarState extends State<CircleProgressBar>
               ),
               Expanded(
                 flex: 1,
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      flex: 1,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Row(
-                            children: <Widget>[
-                              SizedBox(width: 10),
-                              Icon(
-                                Icons.timer,
-                                color: Colors.blue,
-                                size: 20,
-                              ),
-                              SizedBox(width: 20),
-                              Text(
-                                'DURATION',
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Color.fromRGBO(48, 67, 120, 0.0),
+                  ),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        flex: 1,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                SizedBox(
+                                    width: CustomStyle.verticalFractions *
+                                        1.078), //10
+                                Icon(
+                                  Icons.timer,
+                                  color: Color.fromRGBO(192, 196, 228, 0.5),
+                                  size: CustomStyle.verticalFractions *
+                                      2.157, //20
+                                ),
+                                SizedBox(
+                                    width: CustomStyle.verticalFractions *
+                                        2.157), //20
+                                Text(
+                                  'DURATION',
+                                  style: TextStyle(
+                                    color: Color.fromRGBO(192, 196, 228, 0.5),
+                                    fontSize: CustomStyle.verticalFractions *
+                                        2.804, //26
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                                height:
+                                    CustomStyle.verticalFractions * 2.157), //20
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  right: CustomStyle.verticalFractions *
+                                      2.157), //20
+                              child: Text(
+                                '$dur_min:$dur_sec min',
                                 style: TextStyle(
-                                  color: Colors.blue,
-                                  fontSize: 26,
+                                  fontSize: CustomStyle.verticalFractions *
+                                      3.236, //30
+                                  color: Colors.white,
                                 ),
                               ),
-                            ],
-                          ),
-                          SizedBox(height: 20),
-                          Padding(
-                            padding: EdgeInsets.only(right: 20),
-                            child: Text(
-                              '$dur_min:$dur_sec min',
-                              style: TextStyle(
-                                fontSize: 30,
-                                color: Colors.blue,
-                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Row(
-                            children: <Widget>[
-                              Icon(
-                                Icons.fiber_manual_record,
-                                color: Colors.blue,
-                                size: 20,
-                              ),
-                              SizedBox(width: 10),
-                              Text(
-                                'CALORIES',
-                                style: TextStyle(
-                                  color: Colors.blue,
-                                  fontSize: 26,
+                      Expanded(
+                        flex: 1,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                Icon(
+                                  Icons.fiber_manual_record,
+                                  color: Color.fromRGBO(192, 196, 228, 0.5),
+                                  size: CustomStyle.verticalFractions *
+                                      2.157, //20
                                 ),
-                              )
-                            ],
-                          ),
-                          SizedBox(height: 20),
-                          Padding(
-                            padding: EdgeInsets.only(right: 65),
-                            child: Text(
-                              '$calories kcal',
-                              style: TextStyle(
-                                fontSize: 30,
-                                color: Colors.blue,
+                                SizedBox(
+                                    width: CustomStyle.verticalFractions *
+                                        1.078), //10
+                                Text(
+                                  'CALORIES',
+                                  style: TextStyle(
+                                    color: Color.fromRGBO(192, 196, 228, 0.5),
+                                    fontSize: CustomStyle.verticalFractions *
+                                        2.804, //26
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                )
+                              ],
+                            ),
+                            SizedBox(
+                                height:
+                                    CustomStyle.verticalFractions * 2.157), //20
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  right: CustomStyle.verticalFractions *
+                                      7.011), //65
+                              child: Text(
+                                '$calories kcal',
+                                style: TextStyle(
+                                  fontSize: CustomStyle.verticalFractions *
+                                      3.236, //30
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
               Expanded(
@@ -231,27 +273,38 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                       flex: 1,
                       child: Container(
                         color: Color.fromRGBO(0, 0, 0, 0.0),
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                        height: 150,
-                        width: 200,
-                        child: Leaderboard(),
+                        padding: EdgeInsets.symmetric(
+                          vertical: CustomStyle.verticalFractions * 1.078, //10
+                        ),
+                        height: CustomStyle.verticalFractions * 16.181, //150
+                        width: CustomStyle.verticalFractions * 21.574, //200
+                        child: Leaderboard(
+                          steps: 55,
+                          width: 150,
+                        ),
                       ),
                     ),
+                    SizedBox(width: CustomStyle.verticalFractions * 1.078), //10
                     Expanded(
                       flex: 1,
                       child: Container(
                         color: Color.fromRGBO(0, 0, 0, 0.0),
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                        height: 150,
-                        width: 200,
-                        child: Leaderboard(),
+                        padding: EdgeInsets.symmetric(
+                          vertical: CustomStyle.verticalFractions * 1.078, //10
+                        ),
+                        height: CustomStyle.verticalFractions * 16.181, //150
+                        width: CustomStyle.verticalFractions * 21.574, //200
+                        child: Leaderboard(
+                          steps: 55,
+                          width: 150,
+                        ),
                       ),
                     ),
                   ],
                 ),
               ),
+
+              SizedBox(height: 10),
 
               //BOTTOM WIDGET
               Align(
@@ -292,19 +345,29 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                       Expanded(
                         flex: 1,
                         child: ListView(
-                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          padding: EdgeInsets.symmetric(
+                              horizontal:
+                                  CustomStyle.verticalFractions * 2.157), //20
                           scrollDirection: Axis.horizontal,
                           children: <Widget>[
                             Container(
-                              margin: EdgeInsets.symmetric(horizontal: 10),
+                              margin: EdgeInsets.symmetric(
+                                  horizontal: CustomStyle.verticalFractions *
+                                      1.078), //10
                               decoration: BoxDecoration(
-                                color: Color.fromRGBO(0, 0, 0, 0.1),
+                                color: Color.fromRGBO(192, 196, 228, 0.35),
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: OutlineButton(
                                 shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10)),
-                                padding: EdgeInsets.only(top: 10),
+                                  borderRadius: BorderRadius.circular(
+                                      CustomStyle.verticalFractions *
+                                          1.078), //10
+                                ),
+                                padding: EdgeInsets.only(
+                                  top: CustomStyle.verticalFractions *
+                                      1.078, //10
+                                ),
                                 onPressed: () {
                                   print('LV Button Pressed');
                                   setState(() {
@@ -320,12 +383,18 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                                       decoration: BoxDecoration(
                                         color: Colors.yellow,
                                         borderRadius: BorderRadius.only(
-                                          bottomLeft: Radius.circular(300),
-                                          bottomRight: Radius.circular(300),
+                                          bottomLeft: Radius.circular(
+                                              CustomStyle.verticalFractions *
+                                                  32.362), //300
+                                          bottomRight: Radius.circular(
+                                              CustomStyle.verticalFractions *
+                                                  32.362), //300
                                         ),
                                       ),
-                                      width: 85,
-                                      height: 5,
+                                      width: CustomStyle.verticalFractions *
+                                          9.169, //85
+                                      height: CustomStyle.verticalFractions *
+                                          0.539, //5
                                     ),
                                   ],
                                 ),
@@ -333,15 +402,22 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                             ),
                             Container(
                               decoration: BoxDecoration(
-                                color: Color.fromRGBO(0, 0, 0, 0.1),
-                                borderRadius: BorderRadius.circular(10),
+                                color: Color.fromRGBO(192, 196, 228, 0.35),
+                                borderRadius: BorderRadius.circular(
+                                    CustomStyle.verticalFractions * 1.078), //10
                               ),
-                              margin: EdgeInsets.symmetric(horizontal: 10),
+                              margin: EdgeInsets.symmetric(
+                                  horizontal: CustomStyle.verticalFractions *
+                                      1.078), //10
                               child: OutlineButton(
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
+                                  borderRadius: BorderRadius.circular(
+                                      CustomStyle.verticalFractions *
+                                          1.078), //10
                                 ),
-                                padding: EdgeInsets.only(top: 10),
+                                padding: EdgeInsets.only(
+                                    top: CustomStyle.verticalFractions *
+                                        1.078), //10
                                 onPressed: () {
                                   print('LV Button Pressed');
                                   setState(() {
@@ -357,12 +433,18 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                                       decoration: BoxDecoration(
                                         color: Colors.orange[300],
                                         borderRadius: BorderRadius.only(
-                                          bottomLeft: Radius.circular(300),
-                                          bottomRight: Radius.circular(300),
+                                          bottomLeft: Radius.circular(
+                                              CustomStyle.verticalFractions *
+                                                  32.362), //300
+                                          bottomRight: Radius.circular(
+                                              CustomStyle.verticalFractions *
+                                                  32.362), //300
                                         ),
                                       ),
-                                      width: 83,
-                                      height: 5,
+                                      width: CustomStyle.verticalFractions *
+                                          9.169, //85
+                                      height: CustomStyle.verticalFractions *
+                                          0.539, //5
                                     ),
                                   ],
                                 ),
@@ -370,14 +452,23 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                             ),
                             Container(
                               decoration: BoxDecoration(
-                                color: Color.fromRGBO(0, 0, 0, 0.1),
-                                borderRadius: BorderRadius.circular(10),
+                                color: Color.fromRGBO(192, 196, 228, 0.35),
+                                borderRadius: BorderRadius.circular(
+                                    CustomStyle.verticalFractions * 1.078), //10
                               ),
-                              margin: EdgeInsets.symmetric(horizontal: 10),
+                              margin: EdgeInsets.symmetric(
+                                  horizontal: CustomStyle.verticalFractions *
+                                      1.078), //10
                               child: OutlineButton(
                                 shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10)),
-                                padding: EdgeInsets.only(top: 10),
+                                  borderRadius: BorderRadius.circular(
+                                      CustomStyle.verticalFractions *
+                                          1.078), //10
+                                ),
+                                padding: EdgeInsets.only(
+                                  top: CustomStyle.verticalFractions *
+                                      1.078, //10
+                                ),
                                 onPressed: () {
                                   print('LV Button Pressed');
                                   setState(() {
@@ -391,13 +482,22 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                                     Icon(Icons.crop_free),
                                     Container(
                                       decoration: BoxDecoration(
-                                          color: Colors.red[300],
-                                          borderRadius: BorderRadius.only(
-                                              bottomLeft: Radius.circular(300),
-                                              bottomRight:
-                                                  Radius.circular(300))),
-                                      width: 85,
-                                      height: 5,
+                                        color: Colors.red[300],
+                                        borderRadius: BorderRadius.only(
+                                          bottomLeft: Radius.circular(
+                                            CustomStyle.verticalFractions *
+                                                32.362, //300
+                                          ),
+                                          bottomRight: Radius.circular(
+                                            CustomStyle.verticalFractions *
+                                                32.362, //300
+                                          ),
+                                        ),
+                                      ),
+                                      width: CustomStyle.verticalFractions *
+                                          9.169, //85
+                                      height: CustomStyle.verticalFractions *
+                                          0.539, //5
                                     ),
                                   ],
                                 ),
@@ -405,13 +505,25 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                             ),
                             Container(
                               decoration: BoxDecoration(
-                                  color: Color.fromRGBO(0, 0, 0, 0.1),
-                                  borderRadius: BorderRadius.circular(10)),
-                              margin: EdgeInsets.symmetric(horizontal: 10),
+                                color: Color.fromRGBO(192, 196, 228, 0.35),
+                                borderRadius: BorderRadius.circular(
+                                  CustomStyle.verticalFractions * 1.078, //10
+                                ),
+                              ),
+                              margin: EdgeInsets.symmetric(
+                                horizontal:
+                                    CustomStyle.verticalFractions * 1.078, //10
+                              ),
                               child: OutlineButton(
                                 shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10)),
-                                padding: EdgeInsets.only(top: 10),
+                                  borderRadius: BorderRadius.circular(
+                                    CustomStyle.verticalFractions * 1.078, //10
+                                  ),
+                                ),
+                                padding: EdgeInsets.only(
+                                  top: CustomStyle.verticalFractions *
+                                      1.078, //10
+                                ),
                                 onPressed: () {
                                   print('LV Button Pressed');
                                   setState(() {
@@ -427,12 +539,20 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                                       decoration: BoxDecoration(
                                         color: Colors.blue[300],
                                         borderRadius: BorderRadius.only(
-                                          bottomLeft: Radius.circular(300),
-                                          bottomRight: Radius.circular(300),
+                                          bottomLeft: Radius.circular(
+                                            CustomStyle.verticalFractions *
+                                                32.362, //300
+                                          ),
+                                          bottomRight: Radius.circular(
+                                            CustomStyle.verticalFractions *
+                                                32.362, //300
+                                          ),
                                         ),
                                       ),
-                                      width: 85,
-                                      height: 5,
+                                      width: CustomStyle.verticalFractions *
+                                          9.169, //85
+                                      height: CustomStyle.verticalFractions *
+                                          0.539, //5
                                     ),
                                   ],
                                 ),
@@ -440,13 +560,23 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                             ),
                             Container(
                               decoration: BoxDecoration(
-                                  color: Color.fromRGBO(0, 0, 0, 0.1),
-                                  borderRadius: BorderRadius.circular(10)),
-                              margin: EdgeInsets.symmetric(horizontal: 10),
+                                  color: Color.fromRGBO(192, 196, 228, 0.35),
+                                  borderRadius: BorderRadius.circular(
+                                    CustomStyle.verticalFractions * 1.078, //10
+                                  )),
+                              margin: EdgeInsets.symmetric(
+                                horizontal:
+                                    CustomStyle.verticalFractions * 1.078, //10
+                              ),
                               child: OutlineButton(
                                 shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10)),
-                                padding: EdgeInsets.only(top: 10),
+                                  borderRadius: BorderRadius.circular(
+                                    CustomStyle.verticalFractions * 1.078, //10
+                                  ),
+                                ),
+                                padding: EdgeInsets.only(
+                                    top: CustomStyle.verticalFractions *
+                                        1.078), //10
                                 onPressed: () {
                                   print('LV Button Pressed');
                                   setState(() {
@@ -455,19 +585,27 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                                 },
                                 child: Column(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Icon(Icons.crop_free),
                                     Container(
                                       decoration: BoxDecoration(
                                         color: Colors.blue[300],
                                         borderRadius: BorderRadius.only(
-                                          bottomLeft: Radius.circular(300),
-                                          bottomRight: Radius.circular(300),
+                                          bottomLeft: Radius.circular(
+                                            CustomStyle.verticalFractions *
+                                                32.362, //300
+                                          ),
+                                          bottomRight: Radius.circular(
+                                            CustomStyle.verticalFractions *
+                                                32.362, //300
+                                          ),
                                         ),
                                       ),
-                                      width: 85,
-                                      height: 5,
+                                      width: CustomStyle.verticalFractions *
+                                          9.169, //85
+                                      height: CustomStyle.verticalFractions *
+                                          0.539, //5
                                     ),
                                   ],
                                 ),
@@ -475,13 +613,25 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                             ),
                             Container(
                               decoration: BoxDecoration(
-                                  color: Color.fromRGBO(0, 0, 0, 0.1),
-                                  borderRadius: BorderRadius.circular(10)),
-                              margin: EdgeInsets.symmetric(horizontal: 10),
+                                color: Color.fromRGBO(192, 196, 228, 0.35),
+                                borderRadius: BorderRadius.circular(
+                                  CustomStyle.verticalFractions * 1.078, //10
+                                ),
+                              ),
+                              margin: EdgeInsets.symmetric(
+                                horizontal:
+                                    CustomStyle.verticalFractions * 1.078, //10
+                              ),
                               child: OutlineButton(
                                 shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10)),
-                                padding: EdgeInsets.only(top: 10),
+                                  borderRadius: BorderRadius.circular(
+                                    CustomStyle.verticalFractions * 1.078, //10
+                                  ),
+                                ),
+                                padding: EdgeInsets.only(
+                                  top: CustomStyle.verticalFractions *
+                                      1.078, //10
+                                ),
                                 onPressed: () {
                                   print('LV Button Pressed');
                                   setState(() {
@@ -490,19 +640,27 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                                 },
                                 child: Column(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Icon(Icons.crop_free),
                                     Container(
                                       decoration: BoxDecoration(
                                         color: Colors.blue[300],
                                         borderRadius: BorderRadius.only(
-                                          bottomLeft: Radius.circular(300),
-                                          bottomRight: Radius.circular(300),
+                                          bottomLeft: Radius.circular(
+                                            CustomStyle.verticalFractions *
+                                                32.362, //300
+                                          ),
+                                          bottomRight: Radius.circular(
+                                            CustomStyle.verticalFractions *
+                                                32.362, //300
+                                          ),
                                         ),
                                       ),
-                                      width: 85,
-                                      height: 5,
+                                      width: CustomStyle.verticalFractions *
+                                          9.169, //85
+                                      height: CustomStyle.verticalFractions *
+                                          0.539, //5
                                     ),
                                   ],
                                 ),
@@ -510,14 +668,25 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                             ),
                             Container(
                               decoration: BoxDecoration(
-                                color: Color.fromRGBO(0, 0, 0, 0.1),
-                                borderRadius: BorderRadius.circular(10),
+                                color: Color.fromRGBO(192, 196, 228, 0.35),
+                                borderRadius: BorderRadius.circular(
+                                  CustomStyle.verticalFractions * 1.078, //10
+                                ),
                               ),
-                              margin: EdgeInsets.symmetric(horizontal: 10),
+                              margin: EdgeInsets.symmetric(
+                                horizontal:
+                                    CustomStyle.verticalFractions * 1.078, //10
+                              ),
                               child: OutlineButton(
                                 shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10)),
-                                padding: EdgeInsets.only(top: 10),
+                                  borderRadius: BorderRadius.circular(
+                                    CustomStyle.verticalFractions * 1.078, //10
+                                  ),
+                                ),
+                                padding: EdgeInsets.only(
+                                  top: CustomStyle.verticalFractions *
+                                      1.078, //10
+                                ),
                                 onPressed: () {
                                   print('LV Button Pressed');
                                   setState(() {
@@ -533,12 +702,20 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                                       decoration: BoxDecoration(
                                         color: Colors.purple[300],
                                         borderRadius: BorderRadius.only(
-                                          bottomLeft: Radius.circular(300),
-                                          bottomRight: Radius.circular(300),
+                                          bottomLeft: Radius.circular(
+                                            CustomStyle.verticalFractions *
+                                                32.362, //300
+                                          ),
+                                          bottomRight: Radius.circular(
+                                            CustomStyle.verticalFractions *
+                                                32.362, //300
+                                          ),
                                         ),
                                       ),
-                                      width: 85,
-                                      height: 5,
+                                      width: CustomStyle.verticalFractions *
+                                          9.169, //85
+                                      height: CustomStyle.verticalFractions *
+                                          0.539, //5
                                     ),
                                   ],
                                 ),
@@ -582,12 +759,12 @@ class CircleProgressBarPainter extends CustomPainter {
         Math.min(constrainedSize.width, constrainedSize.height);
     final foregroundPaint = Paint()
       ..shader = LinearGradient(colors: [
-        Colors.black,
-        Colors.blue,
-        Colors.deepPurple
+        Color.fromRGBO(192, 196, 228, 1),
+        Color.fromRGBO(38, 53, 95, 1),
+        Color.fromRGBO(28, 39, 69, 1),
       ]).createShader(Rect.fromCircle(center: center, radius: shortestSide / 2))
       ..color = this.foregroundColor
-      ..strokeWidth = 30
+      ..strokeWidth = CustomStyle.verticalFractions * 3.236 //30
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke;
     final radius = (shortestSide / 2);
@@ -600,7 +777,7 @@ class CircleProgressBarPainter extends CustomPainter {
     if (this.backgroundColor != null) {
       final backgroundPaint = Paint()
         ..color = this.backgroundColor
-        ..strokeWidth = 30
+        ..strokeWidth = CustomStyle.verticalFractions * 3.236 //30
         ..style = PaintingStyle.stroke;
       canvas.drawCircle(center, radius, backgroundPaint);
     }
