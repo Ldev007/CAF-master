@@ -1,14 +1,8 @@
 import 'package:firebase_ex/pages/Gym.dart';
-
 import 'HomeScreen.dart';
 import 'DietChart.dart';
 import 'AddButtonTemp.dart';
-import 'package:firebase_ex/pages/progress.dart';
-import 'package:firebase_ex/pages/specialprograms.dart';
 import 'package:flutter/material.dart';
-import 'bodyparts.dart';
-import 'lastused.dart';
-import 'package:firebase_ex/profile.dart';
 import 'package:firebase_ex/ProgressBar.dart';
 
 class HomePage extends StatefulWidget {

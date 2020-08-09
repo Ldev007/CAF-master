@@ -28,4 +28,18 @@ class DatabaseService{
     return await collectionReference.document('uid').setData(demodata);
   }
 
+//  List<Brew> _brewListFromSnapshot(QuerySnapshot snapshot){
+//    return snapshot.documents.map((doc){
+//      return Brew(
+//          name:doc.data['name'] ?? '',
+//          score: doc.data['score'] ?? 0,
+//          sugars: doc.data['sugars']?? '0'
+//      );
+//    }).toList();
+//  }
+//  //get brew stream
+//  Stream<List<Brew>> get brews{
+//    return brewcollection.snapshots().map(_brewListFromSnapshot);
+//  }
+
 }
