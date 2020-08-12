@@ -40,24 +40,6 @@ class _DietChartState extends State<DietChart> {
     }
   }
   fetch() async{
-//    SharedPreferences prefs = await SharedPreferences.getInstance();
-////    prefs.setString("uid","1ydRuGXxonhiKVnk1N9NNKytxvs2");  //set on screen 8
-////    prefs.setBool("inside",false); //set on screen 8
-//    String uid = prefs.getString("uid");
-//    inside = prefs.getBool("inside");
-//    print( prefs.getString("uid"));
-//    print(inside);
-//    DocumentSnapshot ds = await Firestore.instance.collection('UserData').document(uid).get();
-//    if(ds.data['gym']=='noentry'){
-//      Gym="No Data";
-//    }
-//    else {
-//      x = ds.data['gym'];
-//    }
-//    CollectionReference collectionReference = Firestore.instance.collection('UserData');
-//    collectionReference.snapshots().forEach((element) {print(element);});
-//    x=collectionReference.document(uid)[0];
-//    if(x!="noentry") {
       CollectionReference collectionReference = Firestore.instance.collection('food');
       var x = collectionReference.document();
       print("===================="+x.toString());
@@ -72,16 +54,6 @@ class _DietChartState extends State<DietChart> {
         setState(() {
           product_list=data;
         });
-//        setState(() {
-//          Gym = x;
-//          data = snapshot.documents[0].data;
-//          if (data['crowd'] != null) {
-//            attend = data['crowd'];
-//          }
-//          else {
-//            attend = "_";
-//          }
-//        });
       });
     }
 }
@@ -142,31 +114,3 @@ class Single_prod extends StatelessWidget {
     }
   }
 }
-//class DietChart extends StatefulWidget {
-//  DietChart({Key key, String title}) : super(key: key);
-//
-//  _DietChartState createState() => _DietChartState();
-//}
-//
-//class _DietChartState extends State<DietChart> {
-//  @override
-//  Widget build(BuildContext context) {
-//    return MaterialApp(
-//      debugShowCheckedModeBanner: false,
-//      home: Scaffold(
-//        body: Center(
-//          child: Container(
-//            width: MediaQuery.of(context).size.width * 0.5,
-//            height: MediaQuery.of(context).size.height * 0.5,
-//            child: ImageIcon(
-//              AssetImage(
-//                "images/sub_plans.png",
-//              ),
-//              color: CustomStyle.light_bn_color,
-//            ),
-//          ),
-//        ),
-//      ),
-//    );
-//  }
-//}
