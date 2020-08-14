@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_ex/styling.dart';
 import 'package:flutter/material.dart';
 import 'pages/LeaderBoard.dart';
 import 'pages/OverallStats.dart';
 import 'pages/PlanDetails.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(
@@ -25,6 +27,30 @@ class _ProfileState extends State<Profile> {
     initialPage: 0,
     keepPage: true,
   );
+  @override
+  void initState() {
+    super.initState();
+    print("init");
+    getinfo();
+  }
+  String photourl="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
+  String name = "";
+  String currentweight = "";
+  getinfo() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String url = prefs.getString("photourl");
+    String nameid = prefs.getString("username");
+    String uid = prefs.getString("uid");
+    DocumentSnapshot ds = await Firestore.instance.collection('UserData').document(uid).get();
+    String wei = ds.data['Weight'];
+    setState(() {
+      photourl = url;
+      name = nameid;
+      currentweight = wei;
+      print(url);
+      print(nameid);
+    });
+  }
   static Color anim_box1_color = CustomStyle.light_bn_color,
       anim_box2_color = Colors.transparent,
       anim_box3_color = Colors.transparent;
@@ -54,7 +80,7 @@ class _ProfileState extends State<Profile> {
                               width:
                                   CustomStyle.verticalFractions * 10.787), //100
                           Text(
-                            'LOMASH DUBEY',
+                            name,
                             style: TextStyle(
                               fontSize:
                                   CustomStyle.verticalFractions * 1.941, //18
@@ -87,11 +113,22 @@ class _ProfileState extends State<Profile> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Icon(
-                          Icons.account_circle,
-                          color: CustomStyle.light_bn_color,
-                          size: CustomStyle.verticalFractions * 10.248, //95
+                        CircleAvatar(
+                          radius: 50,//CustomStyle.verticalFractions * 10.248
+                          backgroundImage: NetworkImage(photourl),
+//                          child: Image(image: NetworkImage(photourl),),
                         ),
+//                        Image.network(
+//                          photourl,
+//                        ),
+//                        Image(
+//                          image: AssetImage('images/tum4.jpg'),
+//                        ),
+//                        Icon(
+//                          Icons.account_circle,
+//                          color: CustomStyle.light_bn_color,
+//                          size: CustomStyle.verticalFractions * 10.248, //95
+//                        ),
                         Column(
                           children: <Widget>[
                             Text('Current Weight :',
@@ -102,7 +139,7 @@ class _ProfileState extends State<Profile> {
                                     color: CustomStyle.txt_color)),
                             SizedBox(
                                 height: CustomStyle.verticalFractions * 0.862),//8
-                            Text('75 Kgs',
+                            Text(currentweight+'Kgs',
                                 style: TextStyle(
                                     fontSize: CustomStyle.verticalFractions *
                                         1.618, //15

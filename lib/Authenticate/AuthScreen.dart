@@ -65,6 +65,14 @@ class _LoginScreenState extends State<LoginScreen>
         accessToken: googleSignInAuthentication.accessToken);
 
     AuthResult result = (await _auth.signInWithCredential(credential));
+    final FirebaseUser user = result.user;
+    String photourl = user.photoUrl;
+    String username = user.displayName;
+    String useremail = user.email;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString("photourl", user.photoUrl);
+    prefs.setString("username", user.displayName);
+    prefs.setString("useremail", user.email);
     _user = result.user;
     final String uid = _user.uid.toString();
     print("user");

@@ -39,6 +39,7 @@ class _ScreenEightState extends State<ScreenEight>
       String height, String weight, String currentfat, String targetfat) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool("seen", true);
+    String email = prefs.getString("useremail");
     Map<String, dynamic> demodata = {
       "uid": uid,
       "Goal": goal,
@@ -49,6 +50,7 @@ class _ScreenEightState extends State<ScreenEight>
       "CurrentFat": currentfat,
       "TargetFat": targetfat,
       "gym":"noentry",
+      "email":email,
     };
     CollectionReference collectionReference =
         Firestore.instance.collection('UserData');

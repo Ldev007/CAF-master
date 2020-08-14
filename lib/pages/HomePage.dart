@@ -1,4 +1,5 @@
 import 'package:firebase_ex/pages/Gym.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'HomeScreen.dart';
 import 'DietChart.dart';
 import 'AddButtonTemp.dart';
@@ -13,9 +14,22 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<bool> selections = [true, false, false, false, false];
+  String photourl="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
   static PageController _pageController =
       PageController(initialPage: 0, keepPage: true);
-
+  @override
+  void initState() {
+    super.initState();
+    print("init");
+    getinfo();
+  }
+  getinfo() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String url = prefs.getString("photourl");
+    setState(() {
+      photourl = url;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -150,15 +164,28 @@ class _HomePageState extends State<HomePage> {
               ),
               Align(
                 alignment: Alignment.topRight,
-                child: IconButton(
-                  onPressed: () =>
+                child: InkWell(
+                  onTap: () =>
                       Navigator.pushNamed(context, '/profile_page'),
-                  icon: Icon(
-                    Icons.account_circle,
-                    color: Color.fromRGBO(48, 67, 120, 1),
-                    size: 40,
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: CircleAvatar(
+                      radius: 22,//CustomStyle.verticalFractions * 10.248
+                      backgroundImage: NetworkImage(photourl),
+//                          child: Image(image: NetworkImage(photourl),),
+                    ),
                   ),
-                ),
+
+                )
+//                IconButton(
+//                  onPressed: () =>
+//                      Navigator.pushNamed(context, '/profile_page'),
+//                  icon: Icon(
+//                    Icons.account_circle,
+//                    color: Color.fromRGBO(48, 67, 120, 1),
+//                    size: 40,
+//                  ),
+//                ),
               ),
             ],
           ),
