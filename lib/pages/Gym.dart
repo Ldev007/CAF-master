@@ -16,7 +16,7 @@ class _GymDetailState extends State<GymDetail> {
   _GymDetailState(){
     super.initState();
     fetch();
-    print("init");
+    print("gym");
   }
   bool inside;
   Map data;
@@ -336,7 +336,7 @@ class _GymDetailState extends State<GymDetail> {
 //                    tag: ,
                     child: InkWell(
                       onTap: (){
-                        print("hi");
+//                        print("hi");
                         _navigateAndDisplaySelection(context);
                         //Navigator.push(context,MaterialPageRoute(builder: (BuildContext context) => qrscanner()));
                         //Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => qrscanner()));
@@ -425,7 +425,7 @@ class _GymDetailState extends State<GymDetail> {
       }
     }
     else{
-      print("wrong gym go to "+x);
+//      print("wrong gym go to "+x);
       _showDialog("Either you are not registered to this or by your gym owner","Something Went Wrong");
     }
 //    Scaffold.of(context)
@@ -479,8 +479,8 @@ class _GymDetailState extends State<GymDetail> {
 //    prefs.setBool("inside",false); //set on screen 8
     String uid = prefs.getString("uid");
     inside = prefs.getBool("inside");
-    print( prefs.getString("uid"));
-    print(inside);
+//    print( prefs.getString("uid"));
+//    print(inside);
     DocumentSnapshot ds = await Firestore.instance.collection('UserData').document(uid).get();
     if(ds.data['gym']=='noentry'){
       Gym="No Data";

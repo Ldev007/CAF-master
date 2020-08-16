@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    print("init");
+    print("HomePage");
     getinfo();
   }
   getinfo() async {
@@ -61,8 +61,8 @@ class _HomePageState extends State<HomePage> {
                 children: <Widget>[
                   HomeScreen(),
                   DietChart(),
-//                  AddButtonTemp(),
-                fitkit(),
+                  AddButtonTemp(),
+//                fitkit(),
                   GymDetail(),
                   CircleProgressBar(foregroundColor: Colors.black54, value: 50),
                 ],

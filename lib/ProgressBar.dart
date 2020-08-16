@@ -44,8 +44,9 @@ class _CircleProgressBarState extends State<CircleProgressBar>
   @override
   void initState() {
     super.initState();
-    print(anistart);
-    print(aniend);
+//    print(anistart);
+//    print(aniend);
+    print("tracker");
     _animation(aniend);
     read();
 //    hasPermissions();
@@ -69,11 +70,11 @@ class _CircleProgressBarState extends State<CircleProgressBar>
 
   Future<void> read() async {
     results.clear();
-    print("read"+" "+now.toString()+now.subtract(Duration(days: 1)).toString()+"==========");
-    print("inside read");
+//    print("read"+" "+now.toString()+now.subtract(Duration(days: 1)).toString()+"==========");
+//    print("inside read");
     try {
       permissions = await FitKit.requestPermissions(DataType.values);
-      print("permissions"+permissions.toString());
+//      print("permissions"+permissions.toString());
       if (!permissions) {
         result = 'requestPermissions: failed';
 
@@ -101,7 +102,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
     results.entries.expand((entry) => [entry.key, ...entry.value]).toList();
     items.forEach((element) {
       if (element is DataType) {
-        print("=================="+element.toString()+"============================");
+//        print("=================="+element.toString()+"============================");
         if(element == DataType.STEP_COUNT){
           docount=true;
         }
@@ -110,7 +111,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
         }
       }
       else if(element is FitData){
-        print(element.value.runtimeType);
+//        print(element.value.runtimeType);
         if(docount) {
           testcount = testcount + element.value;
         }
@@ -128,13 +129,13 @@ class _CircleProgressBarState extends State<CircleProgressBar>
 
 
   _animation(end){
-    print("tracker"+steps.toString());
+//    print("tracker"+steps.toString());
     animeCont =
         AnimationController(duration: Duration(seconds: 2), vsync: this);
     anime = Tween<double>(begin: anistart, end: steps).animate(animeCont)
       ..addListener(() {
         setState(() {
-          print(2 * Math.pi * anime.value);
+//          print(2 * Math.pi * anime.value);
         });
       });
 
@@ -213,7 +214,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                         child: Icon(Icons.calendar_today,
                             color: Color.fromRGBO(192, 196, 228, 1)),
                         onPressed: () {
-                          print('Calendar Button pressed');
+//                          print('Calendar Button pressed');
                         },
                       ),
                     ),
@@ -240,7 +241,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                           vertical: CustomStyle.verticalFractions * 2.157, //20
                         ),
                         onPressed: () {
-                          print('Location Button Pressed');
+//                          print('Location Button Pressed');
                         },
                         shape: CircleBorder(side: BorderSide()),
                         child: Icon(Icons.location_on,

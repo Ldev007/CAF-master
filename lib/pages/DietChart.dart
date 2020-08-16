@@ -12,6 +12,7 @@ class _DietChartState extends State<DietChart> {
   _DietChartState(){
     super.initState();
     fetch();
+    print("diet");
 }
   List product_list;
 
@@ -42,15 +43,15 @@ class _DietChartState extends State<DietChart> {
   fetch() async{
       CollectionReference collectionReference = Firestore.instance.collection('food');
       var x = collectionReference.document();
-      print("===================="+x.toString());
+//      print("===================="+x.toString());
       collectionReference.snapshots().listen((snapshot) {
         List data;
         data = snapshot.documents;
-        print(data.runtimeType);
+//        print(data.runtimeType);
         data.forEach((element) {
-          print(element.data.toString());
+//          print(element.data.toString());
         });
-        print(data[0].data['name'].toString());
+//        print(data[0].data['name'].toString());
         setState(() {
           product_list=data;
         });
@@ -79,7 +80,7 @@ class Single_prod extends StatelessWidget {
           child: Material(
             child: InkWell(
               onTap: () {
-                print("called");
+//                print("called");
                 _launchURL(prod_link);
               },
               child: GridTile(
