@@ -1,3 +1,4 @@
+import 'package:firebase_ex/fit_plugin/fit_kit.dart';
 import 'package:firebase_ex/pages/Gym.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'HomeScreen.dart';
@@ -60,7 +61,8 @@ class _HomePageState extends State<HomePage> {
                 children: <Widget>[
                   HomeScreen(),
                   DietChart(),
-                  AddButtonTemp(),
+//                  AddButtonTemp(),
+                fitkit(),
                   GymDetail(),
                   CircleProgressBar(foregroundColor: Colors.black54, value: 50),
                 ],
