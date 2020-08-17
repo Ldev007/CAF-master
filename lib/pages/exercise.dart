@@ -186,7 +186,7 @@ class _exerciseState extends State<exercise> {
   }
 
   startTimer(Timer timer, List<String> pack) {
-    timer = Timer.periodic(const Duration(seconds: 5), (timer) {
+    timer = Timer.periodic(const Duration(seconds: 6), (timer) {
       if (!_pause) {
         if (_i < pack.length) {
           _unityWidgetController.postMessage(
