@@ -1,40 +1,39 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_ex/User/user.dart';
-import 'package:firebase_ex/styling.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'AuthScreen.dart';
 import 'package:firebase_ex/pages/HomePage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:provider/provider.dart';
 
-import '../logout.dart';
-class google_auth extends StatefulWidget {
+class Google_auth extends StatefulWidget {
   @override
-  _google_authState createState() => _google_authState();
+  _Google_authState createState() => _Google_authState();
 }
 
-class _google_authState extends State<google_auth> {
-
+class _Google_authState extends State<Google_auth> {
   FirebaseAuth _auth = FirebaseAuth.instance;
   FirebaseUser _user;
-  void init(){
+
+  @override
+  void initState() {
     super.initState();
-    print("init");
+    print("initState");
   }
+
   checknewuser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final newuser = prefs.getBool('firsttimer');
-    if(newuser == null){
-      prefs.setBool('firsttimer',true);
-    }
-    else{
+    if (newuser == null) {
+      prefs.setBool('firsttimer', true);
+    } else {
       setState(() {
         isSignIn = newuser;
       });
     }
   }
-  Future<bool> getnewuser() async{
+
+  Future<bool> getnewuser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final newuser = prefs.getBool('firsttimer');
     setState(() {
@@ -42,16 +41,18 @@ class _google_authState extends State<google_auth> {
     });
     return newuser;
   }
-  changenewuser() async{
+
+  changenewuser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool('firsttimer',false);
+    prefs.setBool('firsttimer', false);
     print("set to false");
   }
+
   GoogleSignIn _googleSignIn = new GoogleSignIn();
 
-  _google_authState(){
+  _Google_authState() {
+    print("Inside google auth state const\n");
     checkFirstSeen();
-    print("init");
   }
 
   Future checkFirstSeen() async {
@@ -74,7 +75,7 @@ class _google_authState extends State<google_auth> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-          body: Center(child: Text("Loading.....")),
+        body: Center(child: Text("Loading.....")),
       ),
     );
   }

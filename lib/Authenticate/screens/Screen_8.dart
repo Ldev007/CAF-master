@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_ex/Database/database.dart';
 import 'package:firebase_ex/styling.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ScreenEight extends StatefulWidget {
@@ -48,20 +49,69 @@ class _ScreenEightState extends State<ScreenEight>
       "Weight": weight,
       "CurrentFat": currentfat,
       "TargetFat": targetfat,
-      "gym":"noentry",
+      "gym": "noentry",
     };
     CollectionReference collectionReference =
         Firestore.instance.collection('UserData');
     collectionReference.document(uid).setData(demodata);
     print("data added");
-    prefs.setString("uid",uid);  //set on screen 8
-    prefs.setBool("inside",false); //set on screen 8
+    prefs.setString("uid", uid); //set on screen 8
+    prefs.setBool("inside", false); //set on screen 8
 
 //    DatabaseService d;
 //    d.updateUserData(uid,goal,gender,age,height,weight,currentfat,targetfat);
   }
 
   String oftenex;
+
+//Notifications related variables
+  FlutterLocalNotificationsPlugin notifPlugin;
+  var initSettingsAndroid;
+  var initSettingsIOS;
+  var initSettings;
+
+  @override
+  void initState() {
+    _showDailyAtTime();
+  }
+
+  //Notification Scheduler
+  Future<void> _showDailyAtTime() async {
+    initSettingsAndroid = new AndroidInitializationSettings('my_icon');
+    initSettingsIOS = new IOSInitializationSettings();
+    initSettings =
+        new InitializationSettings(initSettingsAndroid, initSettingsIOS);
+
+    notifPlugin = new FlutterLocalNotificationsPlugin();
+    notifPlugin.initialize(initSettings, onSelectNotification: (String tmp) {
+      showDialog(
+        context: context,
+        builder: (_) => new AlertDialog(
+          title: new Text("Notification Clicked ! Check the payload below.."),
+          content: new Text(tmp),
+        ),
+      );
+    });
+    var time = Time(16, 15, 5);
+    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
+        'repeatDailyAtTime channel id',
+        'repeatDailyAtTime channel name',
+        'repeatDailyAtTime description');
+    var iOSPlatformChannelSpecifics = IOSNotificationDetails();
+    var platformChannelSpecifics = NotificationDetails(
+        androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+    await notifPlugin.showDailyAtTime(
+        0,
+        'show daily title',
+        'Daily notification shown at approximately ${_toTwoDigitString(time.hour)}:${_toTwoDigitString(time.minute)}:${_toTwoDigitString(time.second)}',
+        time,
+        platformChannelSpecifics);
+  }
+
+  String _toTwoDigitString(int value) {
+    return value.toString().padLeft(2, '0');
+  }
+
   @override
   Widget build(BuildContext context) {
     print("screen 8");

@@ -22,7 +22,8 @@ class CircleProgressBar extends StatefulWidget {
 }
 
 class _CircleProgressBarState extends State<CircleProgressBar>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
+  double b, e;
   final Color backgroundColor;
   final Color foregroundColor;
   final double value;
@@ -37,14 +38,12 @@ class _CircleProgressBarState extends State<CircleProgressBar>
 
     animeCont =
         AnimationController(duration: Duration(seconds: 2), vsync: this);
-    anime = Tween<double>(begin: 0, end: 0.5).animate(animeCont)
+    anime = Tween<double>(begin: b, end: e).animate(animeCont)
       ..addListener(() {
         setState(() {
           print(2 * Math.pi * anime.value);
         });
       });
-
-    animeCont.forward();
   }
 
   _CircleProgressBarState({
@@ -372,6 +371,10 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                                   print('LV Button Pressed');
                                   setState(() {
                                     title = "RUNNING";
+                                    e = 0.15;
+                                    anime = Tween<double>(begin: 0.0, end: e)
+                                        .animate(animeCont);
+                                    animeCont.forward();
                                   });
                                 },
                                 child: Column(
@@ -759,12 +762,11 @@ class CircleProgressBarPainter extends CustomPainter {
         Math.min(constrainedSize.width, constrainedSize.height);
     final foregroundPaint = Paint()
       ..shader = LinearGradient(colors: [
-        Color.fromRGBO(192, 196, 228, 1),
-        Color.fromRGBO(38, 53, 95, 1),
-        Color.fromRGBO(28, 39, 69, 1),
+        Colors.yellowAccent,
+        Colors.cyanAccent[100],
       ]).createShader(Rect.fromCircle(center: center, radius: shortestSide / 2))
       ..color = this.foregroundColor
-      ..strokeWidth = CustomStyle.verticalFractions * 3.236 //30
+      ..strokeWidth = CustomStyle.verticalFractions * 1.8 //30
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke;
     final radius = (shortestSide / 2);

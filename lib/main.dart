@@ -13,14 +13,6 @@ class MyApp extends StatelessWidget {
   //This widget is the root of your application..
 
   @override
-  void initState() {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
-  }
-
-  @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       CustomStyle().init(constraints);
@@ -29,7 +21,7 @@ class MyApp extends StatelessWidget {
         routes: Routes.routes,
         title: 'Fitness',
         theme: CustomStyle.def_theme,
-        home: google_auth(),
+        home: Google_auth(),
       );
     });
   }
