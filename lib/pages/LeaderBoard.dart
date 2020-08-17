@@ -6,10 +6,16 @@ class Leaderboard extends StatelessWidget {
   final Color bg_color;
   final int steps;
   final double width;
-
   Leaderboard({Key key, this.bg_color, this.steps, this.width})
       : super(key: key);
-
+  var data = [
+    DataPoint<double>(value: 10, xAxis: 0),
+    DataPoint<double>(value: 110, xAxis: 4),
+    DataPoint<double>(value: 130, xAxis: 5),
+    DataPoint<double>(value: 125, xAxis: 8),
+    DataPoint<double>(value: 80, xAxis: 9),
+    DataPoint<double>(value: 50, xAxis: 10),
+  ];
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -24,14 +30,7 @@ class Leaderboard extends StatelessWidget {
               lineColor: Colors.white,
               dataPointFillColor: CustomStyle.light_bn_color,
               dataPointStrokeColor: CustomStyle.light_bn_txt_Color,
-              data: const [
-                DataPoint<double>(value: 10, xAxis: 0),
-                DataPoint<double>(value: 110, xAxis: 4),
-                DataPoint<double>(value: 130, xAxis: 5),
-                DataPoint<double>(value: 125, xAxis: 8),
-                DataPoint<double>(value: 80, xAxis: 9),
-                DataPoint<double>(value: 50, xAxis: 10),
-              ],
+              data: data
             ),
           ],
           config: BezierChartConfig(

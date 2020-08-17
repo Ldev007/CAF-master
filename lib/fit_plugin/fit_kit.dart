@@ -21,12 +21,12 @@ class _fitkitState extends State<fitkit> {
   DateTime get _dateFrom => _dates[_dateRange.start.round()];
   DateTime get _dateTo => _dates[_dateRange.end.round()];
   int get _limit => _limitRange == 0.0 ? null : _limitRange.round();
-
+  DateTime now;
   @override
   void initState() {
     super.initState();
 
-    final now = DateTime.now();
+    now = DateTime.now();
     _dates.add(null);
     for (int i = 7; i >= 0; i--) {
       _dates.add(DateTime(
@@ -40,9 +40,12 @@ class _fitkitState extends State<fitkit> {
     hasPermissions();
   }
 
+
+
+
   Future<void> read() async {
     results.clear();
-
+    print("read"+" "+now.toString()+"========"+_dateFrom.toString()+"==========="+_dateTo.toString()+now.subtract(Duration(days: 1)).toString()+"=========="+_limit.toString());
     try {
       permissions = await FitKit.requestPermissions(DataType.values);
       if (!permissions) {
@@ -52,9 +55,8 @@ class _fitkitState extends State<fitkit> {
           try {
             results[type] = await FitKit.read(
               type,
-              dateFrom: _dateFrom,
-              dateTo: _dateTo,
-              limit: _limit,
+              dateFrom: now.subtract(Duration(days: 1)),
+              dateTo: now,
             );
           } on UnsupportedException catch (e) {
             results[e.dataType] = [];
@@ -91,6 +93,9 @@ class _fitkitState extends State<fitkit> {
     });
     //final item = items[index];
   }
+
+
+
 
   Future<void> revokePermissions() async {
     results.clear();

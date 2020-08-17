@@ -1,4 +1,5 @@
 import 'package:firebase_ex/Authenticate/google_auth.dart';
+import 'package:firebase_ex/pages/DietChart.dart';
 import 'package:firebase_ex/pages/Gym.dart';
 import 'package:flutter/material.dart';
 import 'routes.dart';

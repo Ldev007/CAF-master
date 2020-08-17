@@ -4,6 +4,8 @@ import 'pages/LeaderBoard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'styling.dart';
+import 'package:fit_kit/fit_kit.dart';
+import 'dart:async';
 
 class CircleProgressBar extends StatefulWidget {
   final Color backgroundColor;
@@ -16,36 +18,135 @@ class CircleProgressBar extends StatefulWidget {
     @required this.foregroundColor,
     @required this.value,
   }) : super(key: key);
-
+  final double x=0.4;
   _CircleProgressBarState createState() => _CircleProgressBarState(
       foregroundColor: this.foregroundColor, value: this.value);
 }
 
 class _CircleProgressBarState extends State<CircleProgressBar>
     with TickerProviderStateMixin {
+<<<<<<< HEAD
   double b, e;
+=======
+>>>>>>> 95eaa0c8bb1e3668d1cd0daa689dc75291828cca
   final Color backgroundColor;
   final Color foregroundColor;
   final double value;
+  double anistart = 0.0;
+  double aniend = 0.0;
   static Animation<double> anime;
   static AnimationController animeCont;
   static int dur_min = 32;
   static int dur_sec = 50;
   static int calories = 320;
+  Map<DataType, List<FitData>> results = Map();
+  DateTime now=DateTime.now();
+  bool permissions=true;
+  String result = '';
+  double steps=0;
+  double total=2000;
   @override
   void initState() {
     super.initState();
+//    print(anistart);
+//    print(aniend);
+    print("tracker");
+    _animation(aniend);
+    read();
+//    hasPermissions();
+  }
 
+
+  Future<void> hasPermissions() async {
+    try {
+      permissions = await FitKit.hasPermissions(DataType.values);
+    } catch (e) {
+      result = 'hasPermissions: $e';
+    }
+
+    if (!mounted) return;
+
+    setState(() {});
+  }
+
+
+
+
+  Future<void> read() async {
+    results.clear();
+//    print("read"+" "+now.toString()+now.subtract(Duration(days: 1)).toString()+"==========");
+//    print("inside read");
+    try {
+      permissions = await FitKit.requestPermissions(DataType.values);
+//      print("permissions"+permissions.toString());
+      if (!permissions) {
+        result = 'requestPermissions: failed';
+
+      } else {
+        for (DataType type in DataType.values) {
+          try {
+            results[type] = await FitKit.read(
+              type,
+              dateFrom: now.subtract(Duration(days: 1)),
+              dateTo: now,
+            );
+          } on UnsupportedException catch (e) {
+            results[e.dataType] = [];
+          }
+        }
+
+        result = 'readAll: success';
+      }
+    } catch (e) {
+      result = 'readAll: $e';
+    }
+    bool docount=false;
+    double testcount=0;
+    final items =
+    results.entries.expand((entry) => [entry.key, ...entry.value]).toList();
+    items.forEach((element) {
+      if (element is DataType) {
+//        print("=================="+element.toString()+"============================");
+        if(element == DataType.STEP_COUNT){
+          docount=true;
+        }
+        else{
+          docount=false;
+        }
+      }
+      else if(element is FitData){
+//        print(element.value.runtimeType);
+        if(docount) {
+          testcount = testcount + element.value;
+        }
+      }
+      setState(() {
+        steps = testcount/total;
+        _animation(0.25);
+      });
+    });
+//    final item = items[index];
+  }
+//
+
+
+
+
+  _animation(end){
+//    print("tracker"+steps.toString());
     animeCont =
         AnimationController(duration: Duration(seconds: 2), vsync: this);
+<<<<<<< HEAD
     anime = Tween<double>(begin: b, end: e).animate(animeCont)
+=======
+    anime = Tween<double>(begin: anistart, end: steps).animate(animeCont)
+>>>>>>> 95eaa0c8bb1e3668d1cd0daa689dc75291828cca
       ..addListener(() {
         setState(() {
-          print(2 * Math.pi * anime.value);
+//          print(2 * Math.pi * anime.value);
         });
       });
   }
-
   _CircleProgressBarState({
     this.backgroundColor,
     @required this.foregroundColor,
@@ -119,7 +220,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                         child: Icon(Icons.calendar_today,
                             color: Color.fromRGBO(192, 196, 228, 1)),
                         onPressed: () {
-                          print('Calendar Button pressed');
+//                          print('Calendar Button pressed');
                         },
                       ),
                     ),
@@ -146,7 +247,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                           vertical: CustomStyle.verticalFractions * 2.157, //20
                         ),
                         onPressed: () {
-                          print('Location Button Pressed');
+//                          print('Location Button Pressed');
                         },
                         shape: CircleBorder(side: BorderSide()),
                         child: Icon(Icons.location_on,
@@ -341,6 +442,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
 //                          ],
 //                        ),
 //                      ),
+<<<<<<< HEAD
                       Expanded(
                         flex: 1,
                         child: ListView(
@@ -727,6 +829,393 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                           ],
                         ),
                       )
+=======
+//                      Expanded(
+//                        flex: 1,
+//                        child: ListView(
+//                          padding: EdgeInsets.symmetric(
+//                              horizontal:
+//                                  CustomStyle.verticalFractions * 2.157), //20
+//                          scrollDirection: Axis.horizontal,
+//                          children: <Widget>[
+//                            Container(
+//                              margin: EdgeInsets.symmetric(
+//                                  horizontal: CustomStyle.verticalFractions *
+//                                      1.078), //10
+//                              decoration: BoxDecoration(
+//                                color: Color.fromRGBO(192, 196, 228, 0.35),
+//                                borderRadius: BorderRadius.circular(10),
+//                              ),
+//                              child: OutlineButton(
+//                                shape: RoundedRectangleBorder(
+//                                  borderRadius: BorderRadius.circular(
+//                                      CustomStyle.verticalFractions *
+//                                          1.078), //10
+//                                ),
+//                                padding: EdgeInsets.only(
+//                                  top: CustomStyle.verticalFractions *
+//                                      1.078, //10
+//                                ),
+//                                onPressed: () {
+//                                  print('LV Button Pressed');
+//                                  setState(() {
+//                                    title = "RUNNING";
+//                                    _animation(0.2);
+//                                  });
+//                                },
+//                                child: Column(
+//                                  mainAxisAlignment:
+//                                      MainAxisAlignment.spaceBetween,
+//                                  children: <Widget>[
+//                                    Icon(Icons.crop_free),
+//                                    Container(
+//                                      decoration: BoxDecoration(
+//                                        color: Colors.yellow,
+//                                        borderRadius: BorderRadius.only(
+//                                          bottomLeft: Radius.circular(
+//                                              CustomStyle.verticalFractions *
+//                                                  32.362), //300
+//                                          bottomRight: Radius.circular(
+//                                              CustomStyle.verticalFractions *
+//                                                  32.362), //300
+//                                        ),
+//                                      ),
+//                                      width: CustomStyle.verticalFractions *
+//                                          9.169, //85
+//                                      height: CustomStyle.verticalFractions *
+//                                          0.539, //5
+//                                    ),
+//                                  ],
+//                                ),
+//                              ),
+//                            ),
+//                            Container(
+//                              decoration: BoxDecoration(
+//                                color: Color.fromRGBO(192, 196, 228, 0.35),
+//                                borderRadius: BorderRadius.circular(
+//                                    CustomStyle.verticalFractions * 1.078), //10
+//                              ),
+//                              margin: EdgeInsets.symmetric(
+//                                  horizontal: CustomStyle.verticalFractions *
+//                                      1.078), //10
+//                              child: OutlineButton(
+//                                shape: RoundedRectangleBorder(
+//                                  borderRadius: BorderRadius.circular(
+//                                      CustomStyle.verticalFractions *
+//                                          1.078), //10
+//                                ),
+//                                padding: EdgeInsets.only(
+//                                    top: CustomStyle.verticalFractions *
+//                                        1.078), //10
+//                                onPressed: () {
+//                                  print('LV Button Pressed');
+//                                  setState(() {
+//                                    title = "CHEST";
+//                                    _animation(0.4);
+//                                  });
+//                                },
+//                                child: Column(
+//                                  mainAxisAlignment:
+//                                      MainAxisAlignment.spaceBetween,
+//                                  children: <Widget>[
+//                                    Icon(Icons.crop_free),
+//                                    Container(
+//                                      decoration: BoxDecoration(
+//                                        color: Colors.orange[300],
+//                                        borderRadius: BorderRadius.only(
+//                                          bottomLeft: Radius.circular(
+//                                              CustomStyle.verticalFractions *
+//                                                  32.362), //300
+//                                          bottomRight: Radius.circular(
+//                                              CustomStyle.verticalFractions *
+//                                                  32.362), //300
+//                                        ),
+//                                      ),
+//                                      width: CustomStyle.verticalFractions *
+//                                          9.169, //85
+//                                      height: CustomStyle.verticalFractions *
+//                                          0.539, //5
+//                                    ),
+//                                  ],
+//                                ),
+//                              ),
+//                            ),
+//                            Container(
+//                              decoration: BoxDecoration(
+//                                color: Color.fromRGBO(192, 196, 228, 0.35),
+//                                borderRadius: BorderRadius.circular(
+//                                    CustomStyle.verticalFractions * 1.078), //10
+//                              ),
+//                              margin: EdgeInsets.symmetric(
+//                                  horizontal: CustomStyle.verticalFractions *
+//                                      1.078), //10
+//                              child: OutlineButton(
+//                                shape: RoundedRectangleBorder(
+//                                  borderRadius: BorderRadius.circular(
+//                                      CustomStyle.verticalFractions *
+//                                          1.078), //10
+//                                ),
+//                                padding: EdgeInsets.only(
+//                                  top: CustomStyle.verticalFractions *
+//                                      1.078, //10
+//                                ),
+//                                onPressed: () {
+//                                  print('LV Button Pressed');
+//                                  setState(() {
+//                                    title = "BACK";
+//                                    _animation(0.6);
+//                                  });
+//                                },
+//                                child: Column(
+//                                  mainAxisAlignment:
+//                                      MainAxisAlignment.spaceBetween,
+//                                  children: <Widget>[
+//                                    Icon(Icons.crop_free),
+//                                    Container(
+//                                      decoration: BoxDecoration(
+//                                        color: Colors.red[300],
+//                                        borderRadius: BorderRadius.only(
+//                                          bottomLeft: Radius.circular(
+//                                            CustomStyle.verticalFractions *
+//                                                32.362, //300
+//                                          ),
+//                                          bottomRight: Radius.circular(
+//                                            CustomStyle.verticalFractions *
+//                                                32.362, //300
+//                                          ),
+//                                        ),
+//                                      ),
+//                                      width: CustomStyle.verticalFractions *
+//                                          9.169, //85
+//                                      height: CustomStyle.verticalFractions *
+//                                          0.539, //5
+//                                    ),
+//                                  ],
+//                                ),
+//                              ),
+//                            ),
+//                            Container(
+//                              decoration: BoxDecoration(
+//                                color: Color.fromRGBO(192, 196, 228, 0.35),
+//                                borderRadius: BorderRadius.circular(
+//                                  CustomStyle.verticalFractions * 1.078, //10
+//                                ),
+//                              ),
+//                              margin: EdgeInsets.symmetric(
+//                                horizontal:
+//                                    CustomStyle.verticalFractions * 1.078, //10
+//                              ),
+//                              child: OutlineButton(
+//                                shape: RoundedRectangleBorder(
+//                                  borderRadius: BorderRadius.circular(
+//                                    CustomStyle.verticalFractions * 1.078, //10
+//                                  ),
+//                                ),
+//                                padding: EdgeInsets.only(
+//                                  top: CustomStyle.verticalFractions *
+//                                      1.078, //10
+//                                ),
+//                                onPressed: () {
+//                                  print('LV Button Pressed');
+//                                  setState(() {
+//                                    title = "ARMS";
+//                                  });
+//                                },
+//                                child: Column(
+//                                  mainAxisAlignment:
+//                                      MainAxisAlignment.spaceBetween,
+//                                  children: <Widget>[
+//                                    Icon(Icons.crop_free),
+//                                    Container(
+//                                      decoration: BoxDecoration(
+//                                        color: Colors.blue[300],
+//                                        borderRadius: BorderRadius.only(
+//                                          bottomLeft: Radius.circular(
+//                                            CustomStyle.verticalFractions *
+//                                                32.362, //300
+//                                          ),
+//                                          bottomRight: Radius.circular(
+//                                            CustomStyle.verticalFractions *
+//                                                32.362, //300
+//                                          ),
+//                                        ),
+//                                      ),
+//                                      width: CustomStyle.verticalFractions *
+//                                          9.169, //85
+//                                      height: CustomStyle.verticalFractions *
+//                                          0.539, //5
+//                                    ),
+//                                  ],
+//                                ),
+//                              ),
+//                            ),
+//                            Container(
+//                              decoration: BoxDecoration(
+//                                  color: Color.fromRGBO(192, 196, 228, 0.35),
+//                                  borderRadius: BorderRadius.circular(
+//                                    CustomStyle.verticalFractions * 1.078, //10
+//                                  )),
+//                              margin: EdgeInsets.symmetric(
+//                                horizontal:
+//                                    CustomStyle.verticalFractions * 1.078, //10
+//                              ),
+//                              child: OutlineButton(
+//                                shape: RoundedRectangleBorder(
+//                                  borderRadius: BorderRadius.circular(
+//                                    CustomStyle.verticalFractions * 1.078, //10
+//                                  ),
+//                                ),
+//                                padding: EdgeInsets.only(
+//                                    top: CustomStyle.verticalFractions *
+//                                        1.078), //10
+//                                onPressed: () {
+//                                  print('LV Button Pressed');
+//                                  setState(() {
+//                                    title = "LEGS";
+//                                  });
+//                                },
+//                                child: Column(
+//                                  mainAxisAlignment:
+//                                      MainAxisAlignment.spaceBetween,
+//                                  children: <Widget>[
+//                                    Icon(Icons.crop_free),
+//                                    Container(
+//                                      decoration: BoxDecoration(
+//                                        color: Colors.blue[300],
+//                                        borderRadius: BorderRadius.only(
+//                                          bottomLeft: Radius.circular(
+//                                            CustomStyle.verticalFractions *
+//                                                32.362, //300
+//                                          ),
+//                                          bottomRight: Radius.circular(
+//                                            CustomStyle.verticalFractions *
+//                                                32.362, //300
+//                                          ),
+//                                        ),
+//                                      ),
+//                                      width: CustomStyle.verticalFractions *
+//                                          9.169, //85
+//                                      height: CustomStyle.verticalFractions *
+//                                          0.539, //5
+//                                    ),
+//                                  ],
+//                                ),
+//                              ),
+//                            ),
+//                            Container(
+//                              decoration: BoxDecoration(
+//                                color: Color.fromRGBO(192, 196, 228, 0.35),
+//                                borderRadius: BorderRadius.circular(
+//                                  CustomStyle.verticalFractions * 1.078, //10
+//                                ),
+//                              ),
+//                              margin: EdgeInsets.symmetric(
+//                                horizontal:
+//                                    CustomStyle.verticalFractions * 1.078, //10
+//                              ),
+//                              child: OutlineButton(
+//                                shape: RoundedRectangleBorder(
+//                                  borderRadius: BorderRadius.circular(
+//                                    CustomStyle.verticalFractions * 1.078, //10
+//                                  ),
+//                                ),
+//                                padding: EdgeInsets.only(
+//                                  top: CustomStyle.verticalFractions *
+//                                      1.078, //10
+//                                ),
+//                                onPressed: () {
+//                                  print('LV Button Pressed');
+//                                  setState(() {
+//                                    title = "ABS";
+//                                  });
+//                                },
+//                                child: Column(
+//                                  mainAxisAlignment:
+//                                      MainAxisAlignment.spaceBetween,
+//                                  children: <Widget>[
+//                                    Icon(Icons.crop_free),
+//                                    Container(
+//                                      decoration: BoxDecoration(
+//                                        color: Colors.blue[300],
+//                                        borderRadius: BorderRadius.only(
+//                                          bottomLeft: Radius.circular(
+//                                            CustomStyle.verticalFractions *
+//                                                32.362, //300
+//                                          ),
+//                                          bottomRight: Radius.circular(
+//                                            CustomStyle.verticalFractions *
+//                                                32.362, //300
+//                                          ),
+//                                        ),
+//                                      ),
+//                                      width: CustomStyle.verticalFractions *
+//                                          9.169, //85
+//                                      height: CustomStyle.verticalFractions *
+//                                          0.539, //5
+//                                    ),
+//                                  ],
+//                                ),
+//                              ),
+//                            ),
+//                            Container(
+//                              decoration: BoxDecoration(
+//                                color: Color.fromRGBO(192, 196, 228, 0.35),
+//                                borderRadius: BorderRadius.circular(
+//                                  CustomStyle.verticalFractions * 1.078, //10
+//                                ),
+//                              ),
+//                              margin: EdgeInsets.symmetric(
+//                                horizontal:
+//                                    CustomStyle.verticalFractions * 1.078, //10
+//                              ),
+//                              child: OutlineButton(
+//                                shape: RoundedRectangleBorder(
+//                                  borderRadius: BorderRadius.circular(
+//                                    CustomStyle.verticalFractions * 1.078, //10
+//                                  ),
+//                                ),
+//                                padding: EdgeInsets.only(
+//                                  top: CustomStyle.verticalFractions *
+//                                      1.078, //10
+//                                ),
+//                                onPressed: () {
+//                                  print('LV Button Pressed');
+//                                  setState(() {
+//                                    title = "YOGA";
+//                                  });
+//                                },
+//                                child: Column(
+//                                  mainAxisAlignment:
+//                                      MainAxisAlignment.spaceBetween,
+//                                  children: <Widget>[
+//                                    Icon(Icons.crop_free),
+//                                    Container(
+//                                      decoration: BoxDecoration(
+//                                        color: Colors.purple[300],
+//                                        borderRadius: BorderRadius.only(
+//                                          bottomLeft: Radius.circular(
+//                                            CustomStyle.verticalFractions *
+//                                                32.362, //300
+//                                          ),
+//                                          bottomRight: Radius.circular(
+//                                            CustomStyle.verticalFractions *
+//                                                32.362, //300
+//                                          ),
+//                                        ),
+//                                      ),
+//                                      width: CustomStyle.verticalFractions *
+//                                          9.169, //85
+//                                      height: CustomStyle.verticalFractions *
+//                                          0.539, //5
+//                                    ),
+//                                  ],
+//                                ),
+//                              ),
+//                            ),
+//                          ],
+//                        ),
+//                      )
+>>>>>>> 95eaa0c8bb1e3668d1cd0daa689dc75291828cca
                     ],
                   ),
                 ),

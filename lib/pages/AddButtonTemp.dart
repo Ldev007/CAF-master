@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 
 class AddButtonTemp extends StatelessWidget {
+  void initState() {
+//    print(anistart);
+//    print(aniend);
+    print("add");
+//    hasPermissions();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
