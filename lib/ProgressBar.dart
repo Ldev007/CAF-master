@@ -41,7 +41,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
   bool permissions=true;
   String result = '';
   double steps=0;
-  double total=3000;
+  double total=4000;
   @override
   void initState() {
     super.initState();
@@ -137,12 +137,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
     x=steps;
     animeCont =
         AnimationController(duration: Duration(seconds: 2), vsync: this);
-    anime = Tween<double>(begin: 0, end: x).animate(animeCont)
-      ..addListener(() {
-        setState(() {
-//          print(2 * Math.pi * anime.value);
-        });
-      });
+    anime = Tween<double>(begin: 0, end: steps).animate(animeCont);
     animeCont.forward();
   }
   _CircleProgressBarState({
@@ -440,388 +435,388 @@ class _CircleProgressBarState extends State<CircleProgressBar>
 //                          ],
 //                        ),
 //                      ),
-                      Expanded(
-                        flex: 1,
-                        child: ListView(
-                          padding: EdgeInsets.symmetric(
-                              horizontal:
-                                  CustomStyle.verticalFractions * 2.157), //20
-                          scrollDirection: Axis.horizontal,
-                          children: <Widget>[
-                            Container(
-                              margin: EdgeInsets.symmetric(
-                                  horizontal: CustomStyle.verticalFractions *
-                                      1.078), //10
-                              decoration: BoxDecoration(
-                                color: Color.fromRGBO(192, 196, 228, 0.35),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: OutlineButton(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(
-                                      CustomStyle.verticalFractions *
-                                          1.078), //10
-                                ),
-                                padding: EdgeInsets.only(
-                                  top: CustomStyle.verticalFractions *
-                                      1.078, //10
-                                ),
-                                onPressed: () {
-                                  print('LV Button Pressed');
-                                  setState(() {
-                                    title = "RUNNING";
-                                  });
-                                },
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Icon(Icons.crop_free),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.yellow,
-                                        borderRadius: BorderRadius.only(
-                                          bottomLeft: Radius.circular(
-                                              CustomStyle.verticalFractions *
-                                                  32.362), //300
-                                          bottomRight: Radius.circular(
-                                              CustomStyle.verticalFractions *
-                                                  32.362), //300
-                                        ),
-                                      ),
-                                      width: CustomStyle.verticalFractions *
-                                          9.169, //85
-                                      height: CustomStyle.verticalFractions *
-                                          0.539, //5
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Color.fromRGBO(192, 196, 228, 0.35),
-                                borderRadius: BorderRadius.circular(
-                                    CustomStyle.verticalFractions * 1.078), //10
-                              ),
-                              margin: EdgeInsets.symmetric(
-                                  horizontal: CustomStyle.verticalFractions *
-                                      1.078), //10
-                              child: OutlineButton(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(
-                                      CustomStyle.verticalFractions *
-                                          1.078), //10
-                                ),
-                                padding: EdgeInsets.only(
-                                    top: CustomStyle.verticalFractions *
-                                        1.078), //10
-                                onPressed: () {
-                                  print('LV Button Pressed');
-                                  setState(() {
-                                    title = "CHEST";
-                                  });
-                                },
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Icon(Icons.crop_free),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.orange[300],
-                                        borderRadius: BorderRadius.only(
-                                          bottomLeft: Radius.circular(
-                                              CustomStyle.verticalFractions *
-                                                  32.362), //300
-                                          bottomRight: Radius.circular(
-                                              CustomStyle.verticalFractions *
-                                                  32.362), //300
-                                        ),
-                                      ),
-                                      width: CustomStyle.verticalFractions *
-                                          9.169, //85
-                                      height: CustomStyle.verticalFractions *
-                                          0.539, //5
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Color.fromRGBO(192, 196, 228, 0.35),
-                                borderRadius: BorderRadius.circular(
-                                    CustomStyle.verticalFractions * 1.078), //10
-                              ),
-                              margin: EdgeInsets.symmetric(
-                                  horizontal: CustomStyle.verticalFractions *
-                                      1.078), //10
-                              child: OutlineButton(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(
-                                      CustomStyle.verticalFractions *
-                                          1.078), //10
-                                ),
-                                padding: EdgeInsets.only(
-                                  top: CustomStyle.verticalFractions *
-                                      1.078, //10
-                                ),
-                                onPressed: () {
-                                  print('LV Button Pressed');
-                                  setState(() {
-                                    title = "BACK";
-                                  });
-                                },
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Icon(Icons.crop_free),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.red[300],
-                                        borderRadius: BorderRadius.only(
-                                          bottomLeft: Radius.circular(
-                                            CustomStyle.verticalFractions *
-                                                32.362, //300
-                                          ),
-                                          bottomRight: Radius.circular(
-                                            CustomStyle.verticalFractions *
-                                                32.362, //300
-                                          ),
-                                        ),
-                                      ),
-                                      width: CustomStyle.verticalFractions *
-                                          9.169, //85
-                                      height: CustomStyle.verticalFractions *
-                                          0.539, //5
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Color.fromRGBO(192, 196, 228, 0.35),
-                                borderRadius: BorderRadius.circular(
-                                  CustomStyle.verticalFractions * 1.078, //10
-                                ),
-                              ),
-                              margin: EdgeInsets.symmetric(
-                                horizontal:
-                                    CustomStyle.verticalFractions * 1.078, //10
-                              ),
-                              child: OutlineButton(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(
-                                    CustomStyle.verticalFractions * 1.078, //10
-                                  ),
-                                ),
-                                padding: EdgeInsets.only(
-                                  top: CustomStyle.verticalFractions *
-                                      1.078, //10
-                                ),
-                                onPressed: () {
-                                  print('LV Button Pressed');
-                                  setState(() {
-                                    title = "ARMS";
-                                  });
-                                },
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Icon(Icons.crop_free),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.blue[300],
-                                        borderRadius: BorderRadius.only(
-                                          bottomLeft: Radius.circular(
-                                            CustomStyle.verticalFractions *
-                                                32.362, //300
-                                          ),
-                                          bottomRight: Radius.circular(
-                                            CustomStyle.verticalFractions *
-                                                32.362, //300
-                                          ),
-                                        ),
-                                      ),
-                                      width: CustomStyle.verticalFractions *
-                                          9.169, //85
-                                      height: CustomStyle.verticalFractions *
-                                          0.539, //5
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                  color: Color.fromRGBO(192, 196, 228, 0.35),
-                                  borderRadius: BorderRadius.circular(
-                                    CustomStyle.verticalFractions * 1.078, //10
-                                  )),
-                              margin: EdgeInsets.symmetric(
-                                horizontal:
-                                    CustomStyle.verticalFractions * 1.078, //10
-                              ),
-                              child: OutlineButton(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(
-                                    CustomStyle.verticalFractions * 1.078, //10
-                                  ),
-                                ),
-                                padding: EdgeInsets.only(
-                                    top: CustomStyle.verticalFractions *
-                                        1.078), //10
-                                onPressed: () {
-                                  print('LV Button Pressed');
-                                  setState(() {
-                                    title = "LEGS";
-                                  });
-                                },
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Icon(Icons.crop_free),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.blue[300],
-                                        borderRadius: BorderRadius.only(
-                                          bottomLeft: Radius.circular(
-                                            CustomStyle.verticalFractions *
-                                                32.362, //300
-                                          ),
-                                          bottomRight: Radius.circular(
-                                            CustomStyle.verticalFractions *
-                                                32.362, //300
-                                          ),
-                                        ),
-                                      ),
-                                      width: CustomStyle.verticalFractions *
-                                          9.169, //85
-                                      height: CustomStyle.verticalFractions *
-                                          0.539, //5
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Color.fromRGBO(192, 196, 228, 0.35),
-                                borderRadius: BorderRadius.circular(
-                                  CustomStyle.verticalFractions * 1.078, //10
-                                ),
-                              ),
-                              margin: EdgeInsets.symmetric(
-                                horizontal:
-                                    CustomStyle.verticalFractions * 1.078, //10
-                              ),
-                              child: OutlineButton(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(
-                                    CustomStyle.verticalFractions * 1.078, //10
-                                  ),
-                                ),
-                                padding: EdgeInsets.only(
-                                  top: CustomStyle.verticalFractions *
-                                      1.078, //10
-                                ),
-                                onPressed: () {
-                                  print('LV Button Pressed');
-                                  setState(() {
-                                    title = "ABS";
-                                  });
-                                },
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Icon(Icons.crop_free),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.blue[300],
-                                        borderRadius: BorderRadius.only(
-                                          bottomLeft: Radius.circular(
-                                            CustomStyle.verticalFractions *
-                                                32.362, //300
-                                          ),
-                                          bottomRight: Radius.circular(
-                                            CustomStyle.verticalFractions *
-                                                32.362, //300
-                                          ),
-                                        ),
-                                      ),
-                                      width: CustomStyle.verticalFractions *
-                                          9.169, //85
-                                      height: CustomStyle.verticalFractions *
-                                          0.539, //5
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Color.fromRGBO(192, 196, 228, 0.35),
-                                borderRadius: BorderRadius.circular(
-                                  CustomStyle.verticalFractions * 1.078, //10
-                                ),
-                              ),
-                              margin: EdgeInsets.symmetric(
-                                horizontal:
-                                    CustomStyle.verticalFractions * 1.078, //10
-                              ),
-                              child: OutlineButton(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(
-                                    CustomStyle.verticalFractions * 1.078, //10
-                                  ),
-                                ),
-                                padding: EdgeInsets.only(
-                                  top: CustomStyle.verticalFractions *
-                                      1.078, //10
-                                ),
-                                onPressed: () {
-                                  print('LV Button Pressed');
-                                  setState(() {
-                                    title = "YOGA";
-                                  });
-                                },
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Icon(Icons.crop_free),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.purple[300],
-                                        borderRadius: BorderRadius.only(
-                                          bottomLeft: Radius.circular(
-                                            CustomStyle.verticalFractions *
-                                                32.362, //300
-                                          ),
-                                          bottomRight: Radius.circular(
-                                            CustomStyle.verticalFractions *
-                                                32.362, //300
-                                          ),
-                                        ),
-                                      ),
-                                      width: CustomStyle.verticalFractions *
-                                          9.169, //85
-                                      height: CustomStyle.verticalFractions *
-                                          0.539, //5
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
+//                      Expanded(
+//                        flex: 1,
+//                        child: ListView(
+//                          padding: EdgeInsets.symmetric(
+//                              horizontal:
+//                                  CustomStyle.verticalFractions * 2.157), //20
+//                          scrollDirection: Axis.horizontal,
+//                          children: <Widget>[
+//                            Container(
+//                              margin: EdgeInsets.symmetric(
+//                                  horizontal: CustomStyle.verticalFractions *
+//                                      1.078), //10
+//                              decoration: BoxDecoration(
+//                                color: Color.fromRGBO(192, 196, 228, 0.35),
+//                                borderRadius: BorderRadius.circular(10),
+//                              ),
+//                              child: OutlineButton(
+//                                shape: RoundedRectangleBorder(
+//                                  borderRadius: BorderRadius.circular(
+//                                      CustomStyle.verticalFractions *
+//                                          1.078), //10
+//                                ),
+//                                padding: EdgeInsets.only(
+//                                  top: CustomStyle.verticalFractions *
+//                                      1.078, //10
+//                                ),
+//                                onPressed: () {
+//                                  print('LV Button Pressed');
+//                                  setState(() {
+//                                    title = "RUNNING";
+//                                  });
+//                                },
+//                                child: Column(
+//                                  mainAxisAlignment:
+//                                      MainAxisAlignment.spaceBetween,
+//                                  children: <Widget>[
+//                                    Icon(Icons.crop_free),
+//                                    Container(
+//                                      decoration: BoxDecoration(
+//                                        color: Colors.yellow,
+//                                        borderRadius: BorderRadius.only(
+//                                          bottomLeft: Radius.circular(
+//                                              CustomStyle.verticalFractions *
+//                                                  32.362), //300
+//                                          bottomRight: Radius.circular(
+//                                              CustomStyle.verticalFractions *
+//                                                  32.362), //300
+//                                        ),
+//                                      ),
+//                                      width: CustomStyle.verticalFractions *
+//                                          9.169, //85
+//                                      height: CustomStyle.verticalFractions *
+//                                          0.539, //5
+//                                    ),
+//                                  ],
+//                                ),
+//                              ),
+//                            ),
+//                            Container(
+//                              decoration: BoxDecoration(
+//                                color: Color.fromRGBO(192, 196, 228, 0.35),
+//                                borderRadius: BorderRadius.circular(
+//                                    CustomStyle.verticalFractions * 1.078), //10
+//                              ),
+//                              margin: EdgeInsets.symmetric(
+//                                  horizontal: CustomStyle.verticalFractions *
+//                                      1.078), //10
+//                              child: OutlineButton(
+//                                shape: RoundedRectangleBorder(
+//                                  borderRadius: BorderRadius.circular(
+//                                      CustomStyle.verticalFractions *
+//                                          1.078), //10
+//                                ),
+//                                padding: EdgeInsets.only(
+//                                    top: CustomStyle.verticalFractions *
+//                                        1.078), //10
+//                                onPressed: () {
+//                                  print('LV Button Pressed');
+//                                  setState(() {
+//                                    title = "CHEST";
+//                                  });
+//                                },
+//                                child: Column(
+//                                  mainAxisAlignment:
+//                                      MainAxisAlignment.spaceBetween,
+//                                  children: <Widget>[
+//                                    Icon(Icons.crop_free),
+//                                    Container(
+//                                      decoration: BoxDecoration(
+//                                        color: Colors.orange[300],
+//                                        borderRadius: BorderRadius.only(
+//                                          bottomLeft: Radius.circular(
+//                                              CustomStyle.verticalFractions *
+//                                                  32.362), //300
+//                                          bottomRight: Radius.circular(
+//                                              CustomStyle.verticalFractions *
+//                                                  32.362), //300
+//                                        ),
+//                                      ),
+//                                      width: CustomStyle.verticalFractions *
+//                                          9.169, //85
+//                                      height: CustomStyle.verticalFractions *
+//                                          0.539, //5
+//                                    ),
+//                                  ],
+//                                ),
+//                              ),
+//                            ),
+//                            Container(
+//                              decoration: BoxDecoration(
+//                                color: Color.fromRGBO(192, 196, 228, 0.35),
+//                                borderRadius: BorderRadius.circular(
+//                                    CustomStyle.verticalFractions * 1.078), //10
+//                              ),
+//                              margin: EdgeInsets.symmetric(
+//                                  horizontal: CustomStyle.verticalFractions *
+//                                      1.078), //10
+//                              child: OutlineButton(
+//                                shape: RoundedRectangleBorder(
+//                                  borderRadius: BorderRadius.circular(
+//                                      CustomStyle.verticalFractions *
+//                                          1.078), //10
+//                                ),
+//                                padding: EdgeInsets.only(
+//                                  top: CustomStyle.verticalFractions *
+//                                      1.078, //10
+//                                ),
+//                                onPressed: () {
+//                                  print('LV Button Pressed');
+//                                  setState(() {
+//                                    title = "BACK";
+//                                  });
+//                                },
+//                                child: Column(
+//                                  mainAxisAlignment:
+//                                      MainAxisAlignment.spaceBetween,
+//                                  children: <Widget>[
+//                                    Icon(Icons.crop_free),
+//                                    Container(
+//                                      decoration: BoxDecoration(
+//                                        color: Colors.red[300],
+//                                        borderRadius: BorderRadius.only(
+//                                          bottomLeft: Radius.circular(
+//                                            CustomStyle.verticalFractions *
+//                                                32.362, //300
+//                                          ),
+//                                          bottomRight: Radius.circular(
+//                                            CustomStyle.verticalFractions *
+//                                                32.362, //300
+//                                          ),
+//                                        ),
+//                                      ),
+//                                      width: CustomStyle.verticalFractions *
+//                                          9.169, //85
+//                                      height: CustomStyle.verticalFractions *
+//                                          0.539, //5
+//                                    ),
+//                                  ],
+//                                ),
+//                              ),
+//                            ),
+//                            Container(
+//                              decoration: BoxDecoration(
+//                                color: Color.fromRGBO(192, 196, 228, 0.35),
+//                                borderRadius: BorderRadius.circular(
+//                                  CustomStyle.verticalFractions * 1.078, //10
+//                                ),
+//                              ),
+//                              margin: EdgeInsets.symmetric(
+//                                horizontal:
+//                                    CustomStyle.verticalFractions * 1.078, //10
+//                              ),
+//                              child: OutlineButton(
+//                                shape: RoundedRectangleBorder(
+//                                  borderRadius: BorderRadius.circular(
+//                                    CustomStyle.verticalFractions * 1.078, //10
+//                                  ),
+//                                ),
+//                                padding: EdgeInsets.only(
+//                                  top: CustomStyle.verticalFractions *
+//                                      1.078, //10
+//                                ),
+//                                onPressed: () {
+//                                  print('LV Button Pressed');
+//                                  setState(() {
+//                                    title = "ARMS";
+//                                  });
+//                                },
+//                                child: Column(
+//                                  mainAxisAlignment:
+//                                      MainAxisAlignment.spaceBetween,
+//                                  children: <Widget>[
+//                                    Icon(Icons.crop_free),
+//                                    Container(
+//                                      decoration: BoxDecoration(
+//                                        color: Colors.blue[300],
+//                                        borderRadius: BorderRadius.only(
+//                                          bottomLeft: Radius.circular(
+//                                            CustomStyle.verticalFractions *
+//                                                32.362, //300
+//                                          ),
+//                                          bottomRight: Radius.circular(
+//                                            CustomStyle.verticalFractions *
+//                                                32.362, //300
+//                                          ),
+//                                        ),
+//                                      ),
+//                                      width: CustomStyle.verticalFractions *
+//                                          9.169, //85
+//                                      height: CustomStyle.verticalFractions *
+//                                          0.539, //5
+//                                    ),
+//                                  ],
+//                                ),
+//                              ),
+//                            ),
+//                            Container(
+//                              decoration: BoxDecoration(
+//                                  color: Color.fromRGBO(192, 196, 228, 0.35),
+//                                  borderRadius: BorderRadius.circular(
+//                                    CustomStyle.verticalFractions * 1.078, //10
+//                                  )),
+//                              margin: EdgeInsets.symmetric(
+//                                horizontal:
+//                                    CustomStyle.verticalFractions * 1.078, //10
+//                              ),
+//                              child: OutlineButton(
+//                                shape: RoundedRectangleBorder(
+//                                  borderRadius: BorderRadius.circular(
+//                                    CustomStyle.verticalFractions * 1.078, //10
+//                                  ),
+//                                ),
+//                                padding: EdgeInsets.only(
+//                                    top: CustomStyle.verticalFractions *
+//                                        1.078), //10
+//                                onPressed: () {
+//                                  print('LV Button Pressed');
+//                                  setState(() {
+//                                    title = "LEGS";
+//                                  });
+//                                },
+//                                child: Column(
+//                                  mainAxisAlignment:
+//                                      MainAxisAlignment.spaceBetween,
+//                                  children: <Widget>[
+//                                    Icon(Icons.crop_free),
+//                                    Container(
+//                                      decoration: BoxDecoration(
+//                                        color: Colors.blue[300],
+//                                        borderRadius: BorderRadius.only(
+//                                          bottomLeft: Radius.circular(
+//                                            CustomStyle.verticalFractions *
+//                                                32.362, //300
+//                                          ),
+//                                          bottomRight: Radius.circular(
+//                                            CustomStyle.verticalFractions *
+//                                                32.362, //300
+//                                          ),
+//                                        ),
+//                                      ),
+//                                      width: CustomStyle.verticalFractions *
+//                                          9.169, //85
+//                                      height: CustomStyle.verticalFractions *
+//                                          0.539, //5
+//                                    ),
+//                                  ],
+//                                ),
+//                              ),
+//                            ),
+//                            Container(
+//                              decoration: BoxDecoration(
+//                                color: Color.fromRGBO(192, 196, 228, 0.35),
+//                                borderRadius: BorderRadius.circular(
+//                                  CustomStyle.verticalFractions * 1.078, //10
+//                                ),
+//                              ),
+//                              margin: EdgeInsets.symmetric(
+//                                horizontal:
+//                                    CustomStyle.verticalFractions * 1.078, //10
+//                              ),
+//                              child: OutlineButton(
+//                                shape: RoundedRectangleBorder(
+//                                  borderRadius: BorderRadius.circular(
+//                                    CustomStyle.verticalFractions * 1.078, //10
+//                                  ),
+//                                ),
+//                                padding: EdgeInsets.only(
+//                                  top: CustomStyle.verticalFractions *
+//                                      1.078, //10
+//                                ),
+//                                onPressed: () {
+//                                  print('LV Button Pressed');
+//                                  setState(() {
+//                                    title = "ABS";
+//                                  });
+//                                },
+//                                child: Column(
+//                                  mainAxisAlignment:
+//                                      MainAxisAlignment.spaceBetween,
+//                                  children: <Widget>[
+//                                    Icon(Icons.crop_free),
+//                                    Container(
+//                                      decoration: BoxDecoration(
+//                                        color: Colors.blue[300],
+//                                        borderRadius: BorderRadius.only(
+//                                          bottomLeft: Radius.circular(
+//                                            CustomStyle.verticalFractions *
+//                                                32.362, //300
+//                                          ),
+//                                          bottomRight: Radius.circular(
+//                                            CustomStyle.verticalFractions *
+//                                                32.362, //300
+//                                          ),
+//                                        ),
+//                                      ),
+//                                      width: CustomStyle.verticalFractions *
+//                                          9.169, //85
+//                                      height: CustomStyle.verticalFractions *
+//                                          0.539, //5
+//                                    ),
+//                                  ],
+//                                ),
+//                              ),
+//                            ),
+//                            Container(
+//                              decoration: BoxDecoration(
+//                                color: Color.fromRGBO(192, 196, 228, 0.35),
+//                                borderRadius: BorderRadius.circular(
+//                                  CustomStyle.verticalFractions * 1.078, //10
+//                                ),
+//                              ),
+//                              margin: EdgeInsets.symmetric(
+//                                horizontal:
+//                                    CustomStyle.verticalFractions * 1.078, //10
+//                              ),
+//                              child: OutlineButton(
+//                                shape: RoundedRectangleBorder(
+//                                  borderRadius: BorderRadius.circular(
+//                                    CustomStyle.verticalFractions * 1.078, //10
+//                                  ),
+//                                ),
+//                                padding: EdgeInsets.only(
+//                                  top: CustomStyle.verticalFractions *
+//                                      1.078, //10
+//                                ),
+//                                onPressed: () {
+//                                  print('LV Button Pressed');
+//                                  setState(() {
+//                                    title = "YOGA";
+//                                  });
+//                                },
+//                                child: Column(
+//                                  mainAxisAlignment:
+//                                      MainAxisAlignment.spaceBetween,
+//                                  children: <Widget>[
+//                                    Icon(Icons.crop_free),
+//                                    Container(
+//                                      decoration: BoxDecoration(
+//                                        color: Colors.purple[300],
+//                                        borderRadius: BorderRadius.only(
+//                                          bottomLeft: Radius.circular(
+//                                            CustomStyle.verticalFractions *
+//                                                32.362, //300
+//                                          ),
+//                                          bottomRight: Radius.circular(
+//                                            CustomStyle.verticalFractions *
+//                                                32.362, //300
+//                                          ),
+//                                        ),
+//                                      ),
+//                                      width: CustomStyle.verticalFractions *
+//                                          9.169, //85
+//                                      height: CustomStyle.verticalFractions *
+//                                          0.539, //5
+//                                    ),
+//                                  ],
+//                                ),
+//                              ),
+//                            ),
+//                          ],
+//                        ),
+//                      )
                     ],
                   ),
                 ),
