@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_ex/additional/loading.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'AuthScreen.dart';
 import 'package:firebase_ex/pages/HomePage.dart';
@@ -75,7 +76,7 @@ class _Google_authState extends State<Google_auth> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: Center(child: Text("Loading.....")),
+        body: Center(child: loading(),),
       ),
     );
   }
