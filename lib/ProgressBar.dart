@@ -137,7 +137,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
     x=steps;
     animeCont =
         AnimationController(duration: Duration(seconds: 2), vsync: this);
-    anime = Tween<double>(begin: 0, end: 0.9).animate(animeCont)
+    anime = Tween<double>(begin: 0, end: x).animate(animeCont)
       ..addListener(() {
         setState(() {
 //          print(2 * Math.pi * anime.value);
