@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_unity_widget/flutter_unity_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class exercise extends StatefulWidget {
   final program_name;
@@ -19,9 +21,10 @@ class _exerciseState extends State<exercise> {
   //_excerciseState()
 
   static final GlobalKey<ScaffoldState> _scaffoldKey =
-  GlobalKey<ScaffoldState>();
+      GlobalKey<ScaffoldState>();
   UnityWidgetController _unityWidgetController;
   String curr_excercise = "Start";
+  String next_excercise = "---";
   List<String> hiit = [
     "jumping_high_knees",
     "SQUADS",
@@ -45,6 +48,7 @@ class _exerciseState extends State<exercise> {
   double _progress = 0.0;
   bool _pause = false;
   bool _unitypause = false;
+  bool isstarted = false;
 
   @override
   void initState() {
@@ -56,65 +60,119 @@ class _exerciseState extends State<exercise> {
     return MaterialApp(
       home: Scaffold(
         key: _scaffoldKey,
-        appBar: AppBar(
-          title: const Text('Unity Demo'),
-          backgroundColor: Color(0xffb4691f9),
-        ),
         body: Column(children: <Widget>[
-          Card(
-            elevation: 8.0,
-            child: Column(
-              children: <Widget>[
-                LinearProgressIndicator(value: _progress),
-                Column(
-                  children: <Widget>[
-                    Container(
-                      height: 300,
-                      child: Card(
-                        margin: const EdgeInsets.all(8),
-                        clipBehavior: Clip.antiAlias,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0),
-                        ),
-                        child: UnityWidget(
-                          onUnityViewCreated: onUnityCreated,
-                          isARScene: false,
-                          onUnityMessage: onUnityMessage,
-                        ),
-                      ),
-                    ),
-                    Row(
-                      children: <Widget>[
-                        Text(curr_excercise),
-                        IconButton(
-                          iconSize: 40.0,
-                          icon: Icon(
-                            (_unitypause) ? Icons.play_arrow : Icons.pause,
-                            color: Colors.blue,
-                          ),
-                          onPressed: () {
-                            print("play");
-                            setState(() {
-                              if(_unitypause){
-                                _unityWidgetController.resume();
-                              }
-                              else{
-                                _unityWidgetController.pause();
-                              }
-                              _unitypause = !_unitypause;
-                              _pause=true;
-                            });
-                          },
-                        ),],
-                    ),
-                  ],
+          LinearProgressIndicator(value: _progress),
+          Stack(
+            children: <Widget>[
+              Container(
+                height: 300,
+                child: Card(
+                  margin: const EdgeInsets.all(8),
+                  clipBehavior: Clip.antiAlias,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
+                  child: UnityWidget(
+                    onUnityViewCreated: onUnityCreated,
+                    isARScene: false,
+                    onUnityMessage: onUnityMessage,
+                  ),
                 ),
-              ],
+              ),
+              new Positioned(
+                left: 10,
+                bottom: 5,
+                child: InkWell(
+                  onTap: () {
+                    print("tapped");
+                  },
+                  child:
+                      Icon(Icons.rotate_right, color: Colors.white, size: 40.0),
+                ),
+              ),
+              new Align(
+                alignment: Alignment.bottomCenter,
+                child: InkWell(
+                  child: Icon(
+                    (_unitypause) ? Icons.play_arrow : Icons.pause,
+                    color: Colors.white,
+                  ),
+                  onTap : () {
+                    print("play");
+                    setState(() {
+                      if (_unitypause) {
+                        _unityWidgetController.resume();
+                      } else {
+                        _unityWidgetController.pause();
+                      }
+                      _unitypause = !_unitypause;
+                      _pause = true;
+                    });
+                  },
+                ),
+              ),
+              new Positioned(
+                right: 10,
+                bottom: 5,
+                child: InkWell(
+                  onTap: () {
+                    print("tapped");
+                  },
+                  child:
+                      Icon(Icons.rotate_left, color: Colors.white, size: 40.0),
+                ),
+              ),
+//                  Row(
+//                    children: <Widget>[
+//                      Text(curr_excercise),
+//                      IconButton(
+//                        iconSize: 40.0,
+//                        icon: Icon(
+//                          (_unitypause) ? Icons.play_arrow : Icons.pause,
+//                          color: Colors.blue,
+//                        ),
+//                        onPressed: () {
+//                          print("play");
+//                          setState(() {
+//                            if (_unitypause) {
+//                              _unityWidgetController.resume();
+//                            } else {
+//                              _unityWidgetController.pause();
+//                            }
+//                            _unitypause = !_unitypause;
+//                            _pause = true;
+//                          });
+//                        },
+//                      ),
+//                    ],
+//                  ),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 15.0),
+            child: Text(
+              curr_excercise.toUpperCase(),
+              style: TextStyle(
+                fontSize: 25.0,
+                fontWeight: FontWeight.bold,
+                color: Colors.blue,
+              ),
             ),
           ),
           Padding(
+            padding: const EdgeInsets.only(top: 10.0),
+            child: Text(
+              'Next: '+next_excercise.toUpperCase(),
+              style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.w900,
+                color: Colors.grey[300],
+              ),
+            ),
+          ),
+          isstarted? Padding(
             padding:
-            EdgeInsets.only(left: 0.0, top: 10, right: 0.0, bottom: 0.0),
+                EdgeInsets.only(left: 0.0, top: 10, right: 0.0, bottom: 0.0),
             child: IconButton(
               iconSize: 80.0,
               icon: Icon(
@@ -124,20 +182,29 @@ class _exerciseState extends State<exercise> {
               onPressed: () {
                 print("play");
                 setState(() {
-                  if(_pause){
-                    _unitypause=false;
+                  if (_pause) {
+                    _unitypause = false;
                     _unityWidgetController.resume();
                   }
                   _pause = !_pause;
                 });
               },
             ),
-          ),
-          FlatButton(
-            onPressed: () {
-              playexercise(hiit);
-            },
-            child: Text('hiit'),
+          ):Padding(
+            padding:
+            EdgeInsets.only(left: 0.0, top: 10, right: 0.0, bottom: 0.0),
+            child: IconButton(
+              iconSize: 80.0,
+              icon: Icon(Icons.play_circle_filled,
+              color: Colors.blue,),
+              onPressed: () {
+                print("play");
+                playexercise(hiit);
+                setState(() {
+                  isstarted = true;
+                });
+              },
+            ),
           ),
 //          Expanded(
 //            child: Card(
@@ -197,6 +264,12 @@ class _exerciseState extends State<exercise> {
           print(pack[_i]);
           setState(() {
             curr_excercise = pack[_i];
+            if(_i==pack.length-1) {
+              next_excercise = "Completed";
+            }
+            else{
+              next_excercise = pack[_i + 1];
+            }
           });
           _i++;
         } else {
@@ -216,9 +289,19 @@ class _exerciseState extends State<exercise> {
       'flu',
       'Abs',
     );
+    updateexcercise();
     print("completed");
+    Navigator.pop(context);
   }
-
+  Future updateexcercise() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String uid = prefs.getString("uid");
+    CollectionReference collectionReference = Firestore.instance.collection('UserData');
+//    collectionReference.document('hiit').setData({'reps':1},merge: true);
+    var obj = ['HIIT'];
+    collectionReference.document(uid).updateData({'excercise':FieldValue.arrayUnion(obj)});
+    collectionReference.document(uid).updateData({'calories':FieldValue.increment(50)});
+  }
   void playexercise(List<String> pack) {
     _i = 1;
     Timer timer;
@@ -234,6 +317,7 @@ class _exerciseState extends State<exercise> {
     );
     setState(() {
       curr_excercise = pack[0];
+      next_excercise = pack[1];
     });
     print(pack[0]);
     startTimer(timer, pack);

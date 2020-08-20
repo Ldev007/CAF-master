@@ -1,11 +1,15 @@
 import 'dart:math' as Math;
 import 'dart:ui';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'pages/LeaderBoard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'styling.dart';
 import 'package:fit_kit/fit_kit.dart';
 import 'dart:async';
+import 'package:intl/intl.dart';
 
 class CircleProgressBar extends StatefulWidget {
   final Color backgroundColor;
@@ -42,15 +46,13 @@ class _CircleProgressBarState extends State<CircleProgressBar>
   String result = '';
   double steps=0;
   double total=4000;
+  String uid="";
+  double cal=0.0;
   @override
   void initState() {
     super.initState();
-//    print(anistart);
-//    print(aniend);
     print("tracker");
-//    _animation(aniend);
     read();
-//    hasPermissions();
   }
 
 
@@ -71,7 +73,11 @@ class _CircleProgressBarState extends State<CircleProgressBar>
 
   Future<void> read() async {
     results.clear();
-    print("read"+" "+now.toString()+"    "+now.subtract(Duration(days: 1)).toString()+"==========");
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    uid = prefs.getString("uid");
+    DocumentSnapshot ds = await Firestore.instance.collection('UserData').document(uid).get();
+    cal += ds.data['calories'];
+//    print("read"+" "+now.toString()+"    "+DateTime(now.year, now.month, now.day).toString()+"==========");
 //    print("inside read");
     try {
       permissions = await FitKit.requestPermissions(DataType.values);
@@ -84,7 +90,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
           try {
             results[type] = await FitKit.read(
               type,
-              dateFrom: now.subtract(Duration(days: 1)),
+              dateFrom:DateTime(now.year, now.month, now.day),
               dateTo: now,
             );
           } on UnsupportedException catch (e) {
@@ -120,10 +126,11 @@ class _CircleProgressBarState extends State<CircleProgressBar>
       }
     });
     setState(() {
-      print("testcount"+testcount.toString());
+//      print("testcount"+testcount.toString());
+    cal = cal+(testcount*0.04);
       steps = testcount/total;
-      print("steps"+steps.toString());
-      _animation();
+//      print("steps"+steps.toString());
+      _animation(testcount);
     });
 //    final item = items[index];
   }
@@ -131,14 +138,20 @@ class _CircleProgressBarState extends State<CircleProgressBar>
 
 
 
-  _animation(){
-    print("tracker       "+steps.toString());
+  _animation(testcount){
+//    print("tracker       "+steps.toString());
+  print("cal"+cal.toString());
     double x=0.0;
     x=steps;
     animeCont =
         AnimationController(duration: Duration(seconds: 2), vsync: this);
     anime = Tween<double>(begin: 0, end: steps).animate(animeCont);
     animeCont.forward();
+    updatesteps(testcount);
+  }
+  Future updatesteps(testcount) async {
+    CollectionReference collectionReference = Firestore.instance.collection('UserData');
+    collectionReference.document(uid).updateData({'Steps':testcount});
   }
   _CircleProgressBarState({
     this.backgroundColor,

@@ -93,7 +93,7 @@ class _ScreenEightState extends State<ScreenEight>
         ),
       );
     });
-    var time = Time(16, 15, 5);
+    var time = Time(04, 20, 0);
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
         'repeatDailyAtTime channel id',
         'repeatDailyAtTime channel name',
