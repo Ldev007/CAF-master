@@ -43,7 +43,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
   bool permissions = true;
   String result = '';
   double steps = 0;
-  double total = 4000;
+  double total = 10;
   String uid = "";
   double calories = 0.0;
   double targetcal = 2000;
@@ -119,13 +119,13 @@ class _CircleProgressBarState extends State<CircleProgressBar>
           testcount = testcount + element.value;
         }
       }
-      setState(() {
+    });
+    setState(() {
 //      print("testcount"+testcount.toString());
-        calories = calories + (testcount * 0.04);
-        steps = testcount / total;
+      calories = calories + (testcount * 0.04);
+      steps = testcount / total;
 //      print("steps"+steps.toString());
-        _animation(0.25, testcount);
-      });
+      _animation(0.25, testcount);
     });
 
 //    final item = items[index];
@@ -139,7 +139,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
 //  print("eygugcyu7wq"+anime.value.toString());
     animeCont =
         AnimationController(duration: Duration(seconds: 2), vsync: this);
-    anime = Tween<double>(begin: 0, end: tmp).animate(animeCont)
+    anime = Tween<double>(begin: 0, end: steps).animate(animeCont)
       ..addListener(() {
         setState(() {});
       });
@@ -156,6 +156,22 @@ class _CircleProgressBarState extends State<CircleProgressBar>
     CollectionReference collectionReference =
         Firestore.instance.collection('UserData');
     collectionReference.document(uid).updateData({'Steps': testcount});
+    DocumentReference ds = collectionReference
+        .document(uid)
+        .collection('excercise')
+        .document('steps');
+    DateTime dda = DateTime(now.year, now.month, now.day);
+    var fulldate = DateTime.parse(dda.toString());
+//    print(moonLanding.month);
+    var month = fulldate.month;
+    var date = fulldate.day;
+    var year = fulldate.year;
+    var obj = 300;
+    ds.updateData({
+      "2020": {
+        "jan": {"24": obj}
+      }
+    });
   }
 
   _CircleProgressBarState({
