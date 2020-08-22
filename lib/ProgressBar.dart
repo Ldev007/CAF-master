@@ -43,7 +43,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
   bool permissions = true;
   String result = '';
   double steps = 0;
-  double total = 10;
+  double total = 1000;
   String uid = "";
   double calories = 0.0;
   double targetcal = 2000;
@@ -125,13 +125,13 @@ class _CircleProgressBarState extends State<CircleProgressBar>
       calories = calories + (testcount * 0.04);
       steps = testcount / total;
 //      print("steps"+steps.toString());
-      _animation(0.25, testcount);
+      _animation(testcount);
     });
 
 //    final item = items[index];
   }
 
-  _animation(tmp, testcount) {
+  _animation(testcount) {
 //    print("tracker       "+steps.toString());
     print("calories" + calories.toString());
     double x = 0.0;
