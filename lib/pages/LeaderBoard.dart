@@ -9,7 +9,7 @@ class Leaderboard extends StatelessWidget {
   Leaderboard({Key key, this.bg_color, this.steps, this.width})
       : super(key: key);
   var data = [
-    DataPoint<double>(value: 10, xAxis: 0),
+    DataPoint<double>(value: 100, xAxis: 0),
     DataPoint<double>(value: 110, xAxis: 4),
     DataPoint<double>(value: 130, xAxis: 5),
     DataPoint<double>(value: 125, xAxis: 8),
@@ -20,8 +20,6 @@ class Leaderboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        height: MediaQuery.of(context).size.height / 5,
-        width: MediaQuery.of(context).size.width * 0.9,
         child: BezierChart(
           bezierChartScale: BezierChartScale.CUSTOM,
           xAxisCustomValues: const [0, 4, 5, 8, 9, 10],
@@ -35,14 +33,13 @@ class Leaderboard extends StatelessWidget {
           ],
           config: BezierChartConfig(
             snap: false,
-            backgroundColor: bg_color,
-            contentWidth: width,
             verticalIndicatorStrokeWidth: 2.0,
             verticalIndicatorColor: CustomStyle.light_bn_txt_Color,
             showVerticalIndicator: true,
             stepsYAxis: steps,
-            startYAxisFromNonZeroValue: false,
+            startYAxisFromNonZeroValue: true,
             displayYAxis: true,
+            updatePositionOnTap: true,
             xAxisTextStyle: TextStyle(color: Colors.transparent),
             yAxisTextStyle:
                 TextStyle(color: Color.fromRGBO(192, 196, 228, 0.5)),

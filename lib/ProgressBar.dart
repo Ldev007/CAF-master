@@ -8,8 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'styling.dart';
 import 'package:fit_kit/fit_kit.dart';
-import 'dart:async';
-import 'package:intl/intl.dart';
+//import 'dart:async';
 
 class CircleProgressBar extends StatefulWidget {
   final Color backgroundColor;
@@ -29,7 +28,6 @@ class CircleProgressBar extends StatefulWidget {
 
 class _CircleProgressBarState extends State<CircleProgressBar>
     with TickerProviderStateMixin {
-  double b, e;
   final Color backgroundColor;
   final Color foregroundColor;
   final double value;
@@ -39,7 +37,6 @@ class _CircleProgressBarState extends State<CircleProgressBar>
   static AnimationController animeCont;
   static int dur_min = 32;
   static int dur_sec = 50;
-  static int calories = 320;
   Map<DataType, List<FitData>> results = Map();
   DateTime now=DateTime.now();
   bool permissions=true;
@@ -47,7 +44,8 @@ class _CircleProgressBarState extends State<CircleProgressBar>
   double steps=0;
   double total=4000;
   String uid="";
-  double cal=0.0;
+  double calories=0.0;
+  double targetcal = 2000;
   @override
   void initState() {
     super.initState();
@@ -56,7 +54,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
   }
 
 
-  Future<void> hasPermissions() async {
+  hasPermissions() async {
     try {
       permissions = await FitKit.hasPermissions(DataType.values);
     } catch (e) {
@@ -71,12 +69,12 @@ class _CircleProgressBarState extends State<CircleProgressBar>
 
 
 
-  Future<void> read() async {
+  read() async {
     results.clear();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     uid = prefs.getString("uid");
     DocumentSnapshot ds = await Firestore.instance.collection('UserData').document(uid).get();
-    cal += ds.data['calories'];
+    calories += ds.data['calories'];
 //    print("read"+" "+now.toString()+"    "+DateTime(now.year, now.month, now.day).toString()+"==========");
 //    print("inside read");
     try {
@@ -127,7 +125,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
     });
     setState(() {
 //      print("testcount"+testcount.toString());
-    cal = cal+(testcount*0.04);
+    calories = calories+(testcount*0.04);
       steps = testcount/total;
 //      print("steps"+steps.toString());
       _animation(testcount);
@@ -140,7 +138,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
 
   _animation(testcount){
 //    print("tracker       "+steps.toString());
-  print("cal"+cal.toString());
+  print("calories"+calories.toString());
     double x=0.0;
     x=steps;
     animeCont =
@@ -149,7 +147,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
     animeCont.forward();
     updatesteps(testcount);
   }
-  Future updatesteps(testcount) async {
+  updatesteps(testcount) async {
     CollectionReference collectionReference = Firestore.instance.collection('UserData');
     collectionReference.document(uid).updateData({'Steps':testcount});
   }
@@ -159,7 +157,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
     @required this.value,
   }) : super();
 
-  String title = "RUNNING";
+  String title = "TRACK";
 
   @override
   Widget build(BuildContext context) {
@@ -283,7 +281,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                                     width: CustomStyle.verticalFractions *
                                         1.078), //10
                                 Icon(
-                                  Icons.timer,
+                                  Icons.fiber_manual_record,
                                   color: Color.fromRGBO(192, 196, 228, 0.5),
                                   size: CustomStyle.verticalFractions *
                                       2.157, //20
@@ -292,7 +290,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                                     width: CustomStyle.verticalFractions *
                                         2.157), //20
                                 Text(
-                                  'DURATION',
+                                  'Calories Burned',
                                   style: TextStyle(
                                     color: Color.fromRGBO(192, 196, 228, 0.5),
                                     fontSize: CustomStyle.verticalFractions *
@@ -310,7 +308,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                                   right: CustomStyle.verticalFractions *
                                       2.157), //20
                               child: Text(
-                                '$dur_min:$dur_sec min',
+                                '$calories cal',
                                 style: TextStyle(
                                   fontSize: CustomStyle.verticalFractions *
                                       3.236, //30
@@ -338,7 +336,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                                     width: CustomStyle.verticalFractions *
                                         1.078), //10
                                 Text(
-                                  'CALORIES',
+                                  'Target CALORIES',
                                   style: TextStyle(
                                     color: Color.fromRGBO(192, 196, 228, 0.5),
                                     fontSize: CustomStyle.verticalFractions *
@@ -356,7 +354,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                                   right: CustomStyle.verticalFractions *
                                       7.011), //65
                               child: Text(
-                                '$calories kcal',
+                                '$targetcal kcal',
                                 style: TextStyle(
                                   fontSize: CustomStyle.verticalFractions *
                                       3.236, //30
@@ -372,7 +370,6 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                 ),
               ),
               Expanded(
-                flex: 1,
                 child: Row(
                   children: <Widget>[
                     Expanded(
@@ -386,26 +383,25 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                         width: CustomStyle.verticalFractions * 21.574, //200
                         child: Leaderboard(
                           steps: 55,
-                          width: 150,
                         ),
                       ),
                     ),
-                    SizedBox(width: CustomStyle.verticalFractions * 1.078), //10
-                    Expanded(
-                      flex: 1,
-                      child: Container(
-                        color: Color.fromRGBO(0, 0, 0, 0.0),
-                        padding: EdgeInsets.symmetric(
-                          vertical: CustomStyle.verticalFractions * 1.078, //10
-                        ),
-                        height: CustomStyle.verticalFractions * 16.181, //150
-                        width: CustomStyle.verticalFractions * 21.574, //200
-                        child: Leaderboard(
-                          steps: 55,
-                          width: 150,
-                        ),
-                      ),
-                    ),
+//                    SizedBox(width: CustomStyle.verticalFractions * 1.078), //10
+//                    Expanded(
+//                      flex: 1,
+//                      child: Container(
+//                        color: Color.fromRGBO(0, 0, 0, 0.0),
+//                        padding: EdgeInsets.symmetric(
+//                          vertical: CustomStyle.verticalFractions * 1.078, //10
+//                        ),
+//                        height: CustomStyle.verticalFractions * 16.181, //150
+//                        width: CustomStyle.verticalFractions * 21.574, //200
+//                        child: Leaderboard(
+//                          steps: 55,
+//                          width: 150,
+//                        ),
+//                      ),
+//                    ),
                   ],
                 ),
               ),

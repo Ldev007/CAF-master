@@ -37,7 +37,7 @@ class _HomePageState extends State<HomePage> {
       debugShowCheckedModeBanner: false,
       home: SafeArea(
         child: Scaffold(
-          backgroundColor: Color.fromRGBO(248, 239, 232, 1),
+          backgroundColor: Colors.white,
 //          appBar: AppBar(
 //            elevation: 0,
 //            backgroundColor: Colors.white24,
