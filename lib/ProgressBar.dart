@@ -119,18 +119,19 @@ class _CircleProgressBarState extends State<CircleProgressBar>
           testcount = testcount + element.value;
         }
       }
-    });
-    setState(() {
+      setState(() {
 //      print("testcount"+testcount.toString());
-      calories = calories + (testcount * 0.04);
-      steps = testcount / total;
+        calories = calories + (testcount * 0.04);
+        steps = testcount / total;
 //      print("steps"+steps.toString());
-      _animation(testcount);
+        _animation(0.25, testcount);
+      });
     });
+
 //    final item = items[index];
   }
 
-  _animation(testcount) {
+  _animation(tmp, testcount) {
 //    print("tracker       "+steps.toString());
     print("calories" + calories.toString());
     double x = 0.0;
@@ -138,12 +139,16 @@ class _CircleProgressBarState extends State<CircleProgressBar>
 //  print("eygugcyu7wq"+anime.value.toString());
     animeCont =
         AnimationController(duration: Duration(seconds: 2), vsync: this);
-    anime = Tween<double>(begin: 0, end: steps).animate(animeCont);
+    anime = Tween<double>(begin: 0, end: tmp).animate(animeCont)
+      ..addListener(() {
+        setState(() {});
+      });
 //  print(anime.value);
-    animeCont.forward();
+
     setState(() {
       paint = true;
     });
+    animeCont.forward();
     updatesteps(testcount);
   }
 
