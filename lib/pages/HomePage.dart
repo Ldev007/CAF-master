@@ -64,7 +64,7 @@ class _HomePageState extends State<HomePage> {
                   AddButtonTemp(),
 //                fitkit(),
                   GymDetail(),
-                  CircleProgressBar(foregroundColor: Colors.black54, value: 50),
+                  CircleProgressBar(foregroundColor: Colors.black54, backgroundColor: Colors.black54, value: 50.0),
                 ],
               ),
               Align(

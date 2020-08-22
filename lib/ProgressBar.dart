@@ -21,7 +21,8 @@ class CircleProgressBar extends StatefulWidget {
     @required this.foregroundColor,
     @required this.value,
   }) : super(key: key);
-  final double x=0.4;
+  final double x = 0.4;
+
   _CircleProgressBarState createState() => _CircleProgressBarState(
       foregroundColor: this.foregroundColor, value: this.value);
 }
@@ -38,21 +39,22 @@ class _CircleProgressBarState extends State<CircleProgressBar>
   static int dur_min = 32;
   static int dur_sec = 50;
   Map<DataType, List<FitData>> results = Map();
-  DateTime now=DateTime.now();
-  bool permissions=true;
+  DateTime now = DateTime.now();
+  bool permissions = true;
   String result = '';
-  double steps=0;
-  double total=4000;
-  String uid="";
-  double calories=0.0;
+  double steps = 0;
+  double total = 4000;
+  String uid = "";
+  double calories = 0.0;
   double targetcal = 2000;
+  bool paint = false;
+
   @override
   void initState() {
     super.initState();
     print("tracker");
     read();
   }
-
 
   hasPermissions() async {
     try {
@@ -66,14 +68,12 @@ class _CircleProgressBarState extends State<CircleProgressBar>
     setState(() {});
   }
 
-
-
-
   read() async {
     results.clear();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     uid = prefs.getString("uid");
-    DocumentSnapshot ds = await Firestore.instance.collection('UserData').document(uid).get();
+    DocumentSnapshot ds =
+        await Firestore.instance.collection('UserData').document(uid).get();
     calories += ds.data['calories'];
 //    print("read"+" "+now.toString()+"    "+DateTime(now.year, now.month, now.day).toString()+"==========");
 //    print("inside read");
@@ -82,13 +82,12 @@ class _CircleProgressBarState extends State<CircleProgressBar>
 //      print("permissions"+permissions.toString());
       if (!permissions) {
         result = 'requestPermissions: failed';
-
       } else {
         for (DataType type in DataType.values) {
           try {
             results[type] = await FitKit.read(
               type,
-              dateFrom:DateTime(now.year, now.month, now.day),
+              dateFrom: DateTime(now.year, now.month, now.day),
               dateTo: now,
             );
           } on UnsupportedException catch (e) {
@@ -101,56 +100,59 @@ class _CircleProgressBarState extends State<CircleProgressBar>
     } catch (e) {
       result = 'readAll: $e';
     }
-    bool docount=false;
-    double testcount=0;
+    bool docount = false;
+    double testcount = 0;
     final items =
-    results.entries.expand((entry) => [entry.key, ...entry.value]).toList();
+        results.entries.expand((entry) => [entry.key, ...entry.value]).toList();
     items.forEach((element) {
       if (element is DataType) {
 //        print("=================="+element.toString()+"============================");
-        if(element == DataType.STEP_COUNT){
-          docount=true;
-          testcount=0;
+        if (element == DataType.STEP_COUNT) {
+          docount = true;
+          testcount = 0;
+        } else {
+          docount = false;
         }
-        else{
-          docount=false;
-        }
-      }
-      else if(element is FitData){
+      } else if (element is FitData) {
 //        print(element.value.runtimeType);
-        if(docount) {
+        if (docount) {
           testcount = testcount + element.value;
         }
       }
     });
     setState(() {
 //      print("testcount"+testcount.toString());
-    calories = calories+(testcount*0.04);
-      steps = testcount/total;
+      calories = calories + (testcount * 0.04);
+      steps = testcount / total;
 //      print("steps"+steps.toString());
       _animation(testcount);
     });
 //    final item = items[index];
   }
 
-
-
-
-  _animation(testcount){
+  _animation(testcount) {
 //    print("tracker       "+steps.toString());
-  print("calories"+calories.toString());
-    double x=0.0;
-    x=steps;
+    print("calories" + calories.toString());
+    double x = 0.0;
+    x = steps;
+//  print("eygugcyu7wq"+anime.value.toString());
     animeCont =
         AnimationController(duration: Duration(seconds: 2), vsync: this);
     anime = Tween<double>(begin: 0, end: steps).animate(animeCont);
+//  print(anime.value);
     animeCont.forward();
+    setState(() {
+      paint = true;
+    });
     updatesteps(testcount);
   }
+
   updatesteps(testcount) async {
-    CollectionReference collectionReference = Firestore.instance.collection('UserData');
-    collectionReference.document(uid).updateData({'Steps':testcount});
+    CollectionReference collectionReference =
+        Firestore.instance.collection('UserData');
+    collectionReference.document(uid).updateData({'Steps': testcount});
   }
+
   _CircleProgressBarState({
     this.backgroundColor,
     @required this.foregroundColor,
@@ -167,7 +169,8 @@ class _CircleProgressBarState extends State<CircleProgressBar>
       body: SafeArea(
         child: Container(
           padding: EdgeInsets.symmetric(
-              vertical: CustomStyle.verticalFractions * 3.236), //30
+              vertical: CustomStyle.verticalFractions * 3.236),
+          //30
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           decoration: BoxDecoration(
@@ -228,18 +231,31 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                         },
                       ),
                     ),
-                    CustomPaint(
-                      child: Container(
-                        color: Colors.transparent,
-                        width: MediaQuery.of(context).size.width * 0.40,
-                        height: MediaQuery.of(context).size.height * 0.4,
-                      ),
-                      foregroundPainter: CircleProgressBarPainter(
-                        backgroundColor: backgroundColor,
-                        foregroundColor: foregroundColor,
-                        percentage: anime.value,
-                      ),
-                    ),
+                    paint
+                        ? CustomPaint(
+                            child: Container(
+                              color: Colors.transparent,
+                              width: MediaQuery.of(context).size.width * 0.40,
+                              height: MediaQuery.of(context).size.height * 0.4,
+                            ),
+                            foregroundPainter: CircleProgressBarPainter(
+                              backgroundColor: backgroundColor,
+                              foregroundColor: foregroundColor,
+                              percentage: anime.value,
+                            ),
+                          )
+                        : CustomPaint(
+                            child: Container(
+                              color: Colors.transparent,
+                              width: MediaQuery.of(context).size.width * 0.40,
+                              height: MediaQuery.of(context).size.height * 0.4,
+                            ),
+                            foregroundPainter: CircleProgressBarPainter(
+                              backgroundColor: backgroundColor,
+                              foregroundColor: foregroundColor,
+                              percentage: 0.0,
+                            ),
+                          ),
                     Container(
                       decoration: BoxDecoration(
                           shape: BoxShape.circle,
@@ -379,8 +395,10 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                         padding: EdgeInsets.symmetric(
                           vertical: CustomStyle.verticalFractions * 1.078, //10
                         ),
-                        height: CustomStyle.verticalFractions * 16.181, //150
-                        width: CustomStyle.verticalFractions * 21.574, //200
+                        height: CustomStyle.verticalFractions * 16.181,
+                        //150
+                        width: CustomStyle.verticalFractions * 21.574,
+                        //200
                         child: Leaderboard(
                           steps: 55,
                         ),
@@ -840,7 +858,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
 
 // Draws the progress bar.
 class CircleProgressBarPainter extends CustomPainter {
-  final double percentage;
+  double percentage;
   final double strokeWidth;
   final Color backgroundColor;
   final Color foregroundColor;
