@@ -40,26 +40,25 @@ final List<String> imgList = [
 final List<Widget> imageSliders = imgList
     .map((item) => Container(
           child: Container(
-            margin: EdgeInsets.all(5.0),
+            margin: EdgeInsets.all(CustomStyle.verticalFractions * 0.54), //5.0
             child: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                borderRadius: BorderRadius.all(Radius.circular(
+                    CustomStyle.verticalFractions * 0.54)), //5.0
                 child: Stack(
                   children: <Widget>[
-                    Image.asset(item, fit: BoxFit.cover, width: 1000.0),
-                    Positioned(
-                      bottom: 0.0,
-                      left: 0.0,
-                      right: 0.0,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: CustomStyle.light_bn_color,
-                            width: 2.5,
-                          ),
+                    Image.asset(item,
+                        fit: BoxFit.fitWidth,
+                        width: CustomStyle.verticalFractions * 107.87),
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: CustomStyle.light_bn_color,
+                          width: CustomStyle.verticalFractions * 0.26,
                         ),
-                        padding: EdgeInsets.symmetric(
-                            vertical: 92, horizontal: 20.0),
                       ),
+                      padding: EdgeInsets.symmetric(
+                          vertical: CustomStyle.verticalFractions * 9.924,
+                          horizontal: CustomStyle.verticalFractions * 2.157),
                     ),
                   ],
                 )),
@@ -83,10 +82,6 @@ class _ScreenSevenState extends State<ScreenSeven> {
     '39 - 44%',
     '44 - 54%',
   ];
-  @override
-  void initState() {
-    super.initState();
-  }
 
   String targetfat;
   @override
@@ -135,7 +130,7 @@ class _ScreenSevenState extends State<ScreenSeven> {
           backgroundColor: CustomStyle.appBar_color),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.only(top: CustomStyle.verticalFractions * 10),
+          padding: EdgeInsets.only(top: CustomStyle.verticalFractions * 7),
           child: Column(
             children: <Widget>[
               Text(
@@ -148,26 +143,81 @@ class _ScreenSevenState extends State<ScreenSeven> {
                 ),
               ),
               SizedBox(
-                height: 45,
+                height: CustomStyle.verticalFractions * 4.854,
               ),
               Stack(
                 children: <Widget>[
                   CarouselSlider(
                     items: imageSliders,
                     options: CarouselOptions(
+                      //Change the subtitle on scroll action
+                      onScrolled: (index) {
+                        int ind = index.round();
+                        switch (ind) {
+                          case 0:
+                            setState(() {
+                              i = 0;
+                            });
+                            break;
+                          case 1:
+                            setState(() {
+                              i = 1;
+                            });
+                            break;
+                          case 2:
+                            setState(() {
+                              i = 2;
+                            });
+                            break;
+                          case 3:
+                            setState(() {
+                              i = 3;
+                            });
+                            break;
+                          case 4:
+                            setState(() {
+                              i = 4;
+                            });
+                            break;
+                          case 5:
+                            setState(() {
+                              i = 5;
+                            });
+                            break;
+                          case 6:
+                            setState(() {
+                              i = 6;
+                            });
+                            break;
+                          case 7:
+                            setState(() {
+                              i = 7;
+                            });
+                            break;
+                          case 8:
+                            setState(() {
+                              i = 8;
+                            });
+                            break;
+                          default:
+                            i = 0;
+                            break;
+                        }
+                      },
                       enlargeCenterPage: true,
-                      height: 200,
+                      height: CustomStyle.verticalFractions * 25,
                       enableInfiniteScroll: false,
                     ),
                     carouselController: _controller,
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: 200),
+                    padding: EdgeInsets.only(
+                        top: CustomStyle.verticalFractions * 28.5),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         RaisedButton(
-                          padding: EdgeInsets.all(22),
+                          padding: EdgeInsets.all(CustomStyle.verticalFractions * 2.2),
                           shape: CircleBorder(),
                           color: ctrl_buttn_color,
                           onPressed: () {
@@ -194,7 +244,7 @@ class _ScreenSevenState extends State<ScreenSeven> {
                                 color: CustomStyle.light_bn_color,
                                 letterSpacing: 1,
                                 fontWeight: FontWeight.w300,
-                                fontSize: 15,
+                                fontSize: CustomStyle.verticalFractions * 1.618,
                                 fontFamily: 'Roboto-Light.ttf',
                               ),
                             ),
@@ -205,13 +255,13 @@ class _ScreenSevenState extends State<ScreenSeven> {
                                 letterSpacing: 1,
                                 fontFamily: 'Roboto-Bold.ttf',
                                 fontWeight: FontWeight.bold,
-                                fontSize: 15,
+                                fontSize: CustomStyle.verticalFractions * 1.618,
                               ),
                             ),
                           ],
                         ),
                         RaisedButton(
-                          padding: EdgeInsets.all(22),
+                          padding: EdgeInsets.all(CustomStyle.verticalFractions * 2.2),
                           color: ctrl_buttn_color,
                           shape: CircleBorder(),
                           onPressed: () {
@@ -235,7 +285,7 @@ class _ScreenSevenState extends State<ScreenSeven> {
                 ],
               ),
               SizedBox(
-                height: 12,
+                height: CustomStyle.verticalFractions * 1.294,
               ),
             ],
           ),
