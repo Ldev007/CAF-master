@@ -51,7 +51,6 @@ class _ScreenEightState extends State<ScreenEight>
       "CurrentFat": currentfat,
       "TargetFat": targetfat,
       "gym": "noentry",
-      "calories":0,
     };
     CollectionReference collectionReference =
         Firestore.instance.collection('UserData');
@@ -74,11 +73,14 @@ class _ScreenEightState extends State<ScreenEight>
 
   @override
   void initState() {
-    _showDailyAtTime();
+    super.initState();
+    _bkfstNotif();
+    _lunchNotif();
+    _dinnerNotif();
   }
 
-  //Notification Scheduler
-  Future<void> _showDailyAtTime() async {
+  //BREAKFAST NOTIF SCHEDULER
+  Future<void> _bkfstNotif() async {
     initSettingsAndroid = new AndroidInitializationSettings('my_icon');
     initSettingsIOS = new IOSInitializationSettings();
     initSettings =
@@ -94,7 +96,7 @@ class _ScreenEightState extends State<ScreenEight>
         ),
       );
     });
-    var time = Time(04, 20, 0);
+    var time = Time(10, 5, 0);
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
         'repeatDailyAtTime channel id',
         'repeatDailyAtTime channel name',
@@ -102,12 +104,66 @@ class _ScreenEightState extends State<ScreenEight>
     var iOSPlatformChannelSpecifics = IOSNotificationDetails();
     var platformChannelSpecifics = NotificationDetails(
         androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
-    await notifPlugin.showDailyAtTime(
-        0,
-        'show daily title',
-        'Daily notification shown at approximately ${_toTwoDigitString(time.hour)}:${_toTwoDigitString(time.minute)}:${_toTwoDigitString(time.second)}',
-        time,
-        platformChannelSpecifics);
+    await notifPlugin.showDailyAtTime(0, 'BREAKFAST TIME !',
+        'TIME TO TAKE 1 GLASS MILK', time, platformChannelSpecifics);
+  }
+
+  //LUNCH NOTIF SCHEDULER
+  Future<void> _lunchNotif() async {
+    initSettingsAndroid = new AndroidInitializationSettings('my_icon');
+    initSettingsIOS = new IOSInitializationSettings();
+    initSettings =
+        new InitializationSettings(initSettingsAndroid, initSettingsIOS);
+
+    notifPlugin = new FlutterLocalNotificationsPlugin();
+    notifPlugin.initialize(initSettings, onSelectNotification: (String tmp) {
+      showDialog(
+        context: context,
+        builder: (_) => new AlertDialog(
+          title: new Text("Notification Clicked ! Check the payload below.."),
+          content: new Text(tmp),
+        ),
+      );
+    });
+    var time = Time(2, 5, 0);
+    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
+        'repeatDailyAtTime channel id',
+        'repeatDailyAtTime channel name',
+        'repeatDailyAtTime description');
+    var iOSPlatformChannelSpecifics = IOSNotificationDetails();
+    var platformChannelSpecifics = NotificationDetails(
+        androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+    await notifPlugin.showDailyAtTime(0, 'LUNCH TIME !',
+        'TIME TO HAVE YOUR LUNCH', time, platformChannelSpecifics);
+  }
+
+  //DINNER NOTIF SCHEDULER
+  Future<void> _dinnerNotif() async {
+    initSettingsAndroid = new AndroidInitializationSettings('my_icon');
+    initSettingsIOS = new IOSInitializationSettings();
+    initSettings =
+        new InitializationSettings(initSettingsAndroid, initSettingsIOS);
+
+    notifPlugin = new FlutterLocalNotificationsPlugin();
+    notifPlugin.initialize(initSettings, onSelectNotification: (String tmp) {
+      showDialog(
+        context: context,
+        builder: (_) => new AlertDialog(
+          title: new Text("Notification Clicked ! Check the payload below.."),
+          content: new Text(tmp),
+        ),
+      );
+    });
+    var time = Time(9, 15, 0);
+    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
+        'repeatDailyAtTime channel id',
+        'repeatDailyAtTime channel name',
+        'repeatDailyAtTime description');
+    var iOSPlatformChannelSpecifics = IOSNotificationDetails();
+    var platformChannelSpecifics = NotificationDetails(
+        androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+    await notifPlugin.showDailyAtTime(0, 'DINNER TIME !',
+        'TIME TO HAVE YOUR DINNER', time, platformChannelSpecifics);
   }
 
   String _toTwoDigitString(int value) {
