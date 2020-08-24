@@ -252,8 +252,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                         },
                       ),
                     ),
-                    paint
-                        ? CustomPaint(
+                    CustomPaint(
                             child: Container(
                               color: Colors.transparent,
                               width: MediaQuery.of(context).size.width * 0.40,
@@ -262,19 +261,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                             foregroundPainter: CircleProgressBarPainter(
                               backgroundColor: backgroundColor,
                               foregroundColor: foregroundColor,
-                              percentage: anime.value,
-                            ),
-                          )
-                        : CustomPaint(
-                            child: Container(
-                              color: Colors.transparent,
-                              width: MediaQuery.of(context).size.width * 0.40,
-                              height: MediaQuery.of(context).size.height * 0.4,
-                            ),
-                            foregroundPainter: CircleProgressBarPainter(
-                              backgroundColor: backgroundColor,
-                              foregroundColor: foregroundColor,
-                              percentage: 0.0,
+                              percentage: paint ? anime.value : 0.0,
                             ),
                           ),
                     Container(
