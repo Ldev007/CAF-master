@@ -332,72 +332,72 @@ class _ProfileState extends State<Profile> {
                       vertical: CustomStyle.verticalFractions * 3.236, //30
                     ),
                     scrollDirection: Axis.vertical,
-                    children: <Widget>[
-                      FittedBox(
-                        child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(
-                                  CustomStyle.verticalFractions * 2.157), //20
-                              color: CustomStyle.light_bn_color),
-                          padding: EdgeInsets.only(
-                            top: CustomStyle.verticalFractions * 3.5, //32.445
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: CustomStyle.verticalFractions *
-                                        2.696), //25
-                                child: Text('OVERALL :',
-                                    style: CustomStyle.button_header),
-                              ),
-                              SizedBox(
-                                height:
-                                    CustomStyle.verticalFractions * 1.618, //15
-                              ),
-                              Leaderboard(
-                                bg_color: Colors.transparent,
-                                steps: 20,
-                                width: 300,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: CustomStyle.verticalFractions * 3.236, //30
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(
-                                CustomStyle.verticalFractions * 2.157), //20
-                            color: CustomStyle.light_bn_color),
-                        padding: EdgeInsets.only(
-                          top: CustomStyle.verticalFractions * 3.5, //32.454
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: CustomStyle.verticalFractions *
-                                      2.696), //25
-                              child: Text('CURRENT :',
-                                  style: CustomStyle.button_header),
-                            ),
-                            SizedBox(
-                              height: 1.618, //15
-                            ),
-                            Leaderboard(
-                              bg_color: Colors.transparent,
-                              steps: 20,
-                              width: 300,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+//                    children: <Widget>[
+//                      FittedBox(
+//                        child: Container(
+//                          decoration: BoxDecoration(
+//                              borderRadius: BorderRadius.circular(
+//                                  CustomStyle.verticalFractions * 2.157), //20
+//                              color: CustomStyle.light_bn_color),
+//                          padding: EdgeInsets.only(
+//                            top: CustomStyle.verticalFractions * 3.5, //32.445
+//                          ),
+//                          child: Column(
+//                            crossAxisAlignment: CrossAxisAlignment.start,
+//                            children: <Widget>[
+//                              Padding(
+//                                padding: EdgeInsets.symmetric(
+//                                    horizontal: CustomStyle.verticalFractions *
+//                                        2.696), //25
+//                                child: Text('OVERALL :',
+//                                    style: CustomStyle.button_header),
+//                              ),
+//                              SizedBox(
+//                                height:
+//                                    CustomStyle.verticalFractions * 1.618, //15
+//                              ),
+//                              Leaderboard(
+//                                bg_color: Colors.transparent,
+//                                steps: 20,
+//                                width: 300,
+//                              ),
+//                            ],
+//                          ),
+//                        ),
+//                      ),
+//                      SizedBox(
+//                        height: CustomStyle.verticalFractions * 3.236, //30
+//                      ),
+//                      Container(
+//                        decoration: BoxDecoration(
+//                            borderRadius: BorderRadius.circular(
+//                                CustomStyle.verticalFractions * 2.157), //20
+//                            color: CustomStyle.light_bn_color),
+//                        padding: EdgeInsets.only(
+//                          top: CustomStyle.verticalFractions * 3.5, //32.454
+//                        ),
+//                        child: Column(
+//                          crossAxisAlignment: CrossAxisAlignment.start,
+//                          children: <Widget>[
+//                            Padding(
+//                              padding: EdgeInsets.symmetric(
+//                                  horizontal: CustomStyle.verticalFractions *
+//                                      2.696), //25
+//                              child: Text('CURRENT :',
+//                                  style: CustomStyle.button_header),
+//                            ),
+//                            SizedBox(
+//                              height: 1.618, //15
+//                            ),
+//                            Leaderboard(
+//                              bg_color: Colors.transparent,
+//                              steps: 20,
+//                              width: 300,
+//                            ),
+//                          ],
+//                        ),
+//                      ),
+//                    ],
                   ),
                   Plandetails(),
                   Overallstats(),

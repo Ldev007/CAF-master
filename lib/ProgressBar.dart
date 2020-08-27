@@ -130,6 +130,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
 
     setState(() {
 //      print("testcount"+testcount.toString());
+      targetcal=(x*0.04)+300;
       calories = calories + (testcount * 0.04);
       total=x;
       steps = testcount / x;
