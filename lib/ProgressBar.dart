@@ -1,5 +1,6 @@
 import 'dart:math' as Math;
 import 'dart:ui';
+import 'package:bezier_chart/bezier_chart.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -48,6 +49,12 @@ class _CircleProgressBarState extends State<CircleProgressBar>
   double calories = 0.0;
   double targetcal = 2000;
   bool paint = false;
+
+  //Leaderboard
+  var dat=[110,130,125,80,50];
+  var len = 0;
+  var axis =[0.0];
+  var points=[DataPoint<double>(value: 0),];
 
   @override
   void initState() {
@@ -166,11 +173,34 @@ class _CircleProgressBarState extends State<CircleProgressBar>
     var month = fulldate.month;
     var date = fulldate.day;
     var year = fulldate.year;
-    var obj = 300;
-    ds.updateData({
-      "2020": {
-        "jan": {"24": obj}
+    ds.setData({
+      year.toString(): {
+        month.toString(): {date.toString(): testcount}
       }
+    },merge:true);
+
+
+
+    var xaxis =[0.0];
+    var data=[DataPoint<double>(value: 0),];
+
+
+    DocumentSnapshot dsnap = await Firestore.instance.collection('UserData').document(uid)
+        .collection('excercise')
+        .document('steps').get();
+    var test= dsnap.data[year.toString()][month.toString()];
+    print(test);
+    test.forEach((element,value) {
+      data.add(DataPoint<double>(value: value.toDouble()));
+      len=len+2;
+      xaxis.add(len.toDouble());
+//      print(element);
+    });
+//    print(xaxis);
+//    print(data);
+    setState(() {
+      axis = xaxis;
+      points=data;
     });
   }
 
@@ -409,6 +439,8 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                         //200
                         child: Leaderboard(
                           steps: 55,
+                          dataf:points,
+                          xaxiss:axis,
                         ),
                       ),
                     ),
