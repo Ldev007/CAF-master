@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'styling.dart';
 import 'package:fit_kit/fit_kit.dart';
-//import 'dart:async';
 
 class CircleProgressBar extends StatefulWidget {
   final Color backgroundColor;
@@ -127,10 +126,13 @@ class _CircleProgressBarState extends State<CircleProgressBar>
         }
       }
     });
+    double x=(int.parse(testcount.toString()[0])+1)*1000.toDouble();
+
     setState(() {
 //      print("testcount"+testcount.toString());
       calories = calories + (testcount * 0.04);
-      steps = testcount / total;
+      total=x;
+      steps = testcount / x;
 //      print("steps"+steps.toString());
       _animation(testcount);
     });
@@ -188,9 +190,9 @@ class _CircleProgressBarState extends State<CircleProgressBar>
     DocumentSnapshot dsnap = await Firestore.instance.collection('UserData').document(uid)
         .collection('excercise')
         .document('steps').get();
-    var test= dsnap.data[year.toString()][month.toString()];
-    print(test);
-    test.forEach((element,value) {
+    var stepsdata= dsnap.data[year.toString()][month.toString()];
+//    print(test);
+    stepsdata.forEach((element,value) {
       data.add(DataPoint<double>(value: value.toDouble()));
       len=len+2;
       xaxis.add(len.toDouble());
