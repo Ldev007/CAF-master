@@ -5,21 +5,22 @@ import 'pages/LeaderBoard.dart';
 import 'pages/OverallStats.dart';
 import 'pages/PlanDetails.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-void main() {
-  runApp(
-    Profile(
-      title: 'Profile Page',
-    ),
-  );
-}
+//class Profile extends StatefulWidget {
+//  @override
+//  _ProfileState createState() => _ProfileState();
+//}
+//
+//class _ProfileState extends State<Profile> {
+//  @override
+//  Widget build(BuildContext context) {
+//    return Container();
+//  }
+//}
 
 class Profile extends StatefulWidget {
   Profile({Key key, String title}) : super(key: key);
 
-  _ProfileState createState() {
-    return _ProfileState();
-  }
+  _ProfileState createState() => _ProfileState();
 }
 
 class _ProfileState extends State<Profile> {
@@ -30,12 +31,14 @@ class _ProfileState extends State<Profile> {
   @override
   void initState() {
     super.initState();
-    print("init");
+    print("profile cons");
     getinfo();
   }
   String photourl="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
   String name = "";
   String currentweight = "";
+  Map<String,dynamic> plan;
+
   getinfo() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String url = prefs.getString("photourl");
@@ -43,12 +46,20 @@ class _ProfileState extends State<Profile> {
     String uid = prefs.getString("uid");
     DocumentSnapshot ds = await Firestore.instance.collection('UserData').document(uid).get();
     String wei = ds.data['Weight'];
+    DocumentSnapshot dsprog = await Firestore.instance.collection('UserData').document(uid).collection('excercise').document('programs').get();
+    var x=dsprog['plan'];
+    print("profile");
+    print(x);
+    if(plan==null){
+      print("empy");
+    }
     setState(() {
       photourl = url;
       name = nameid;
       currentweight = wei;
       print(url);
       print(nameid);
+      plan=x;
     });
   }
   static Color anim_box1_color = CustomStyle.light_bn_color,
@@ -399,7 +410,7 @@ class _ProfileState extends State<Profile> {
 //                      ),
 //                    ],
                   ),
-                  Plandetails(),
+                  Plandetails(plan: plan,),
                   Overallstats(),
                 ],
               ),
