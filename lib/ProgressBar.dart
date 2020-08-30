@@ -130,8 +130,9 @@ class _CircleProgressBarState extends State<CircleProgressBar>
 
     setState(() {
 //      print("testcount"+testcount.toString());
-      targetcal=(x*0.04)+300;
+      //targetcal=+300;
       calories = calories + (testcount * 0.04);
+      targetcal=(int.parse(calories.toString()[0])+2)*100.toDouble();
       total=x;
       steps = testcount / x;
 //      print("steps"+steps.toString());
@@ -365,7 +366,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                                   right: CustomStyle.verticalFractions *
                                       2.157), //20
                               child: Text(
-                                '$calories cal',
+                                calories.toStringAsPrecision(5)+' cal',
                                 style: TextStyle(
                                   fontSize: CustomStyle.verticalFractions *
                                       3.236, //30

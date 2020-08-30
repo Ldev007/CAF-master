@@ -301,6 +301,12 @@ class _exerciseState extends State<exercise> {
     var obj = ['HIIT'];
     collectionReference.document(uid).updateData({'excercise':FieldValue.arrayUnion(obj)});
     collectionReference.document(uid).updateData({'calories':FieldValue.increment(50)});
+    DocumentReference ds = collectionReference.document(uid).collection("excercise").document("programs");
+    ds.setData({
+      "plan": {
+        "hiit": FieldValue.increment(1)
+      }
+    },merge:true);
   }
   void playexercise(List<String> pack) {
     _i = 1;
