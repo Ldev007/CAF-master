@@ -5,22 +5,21 @@ import 'pages/LeaderBoard.dart';
 import 'pages/OverallStats.dart';
 import 'pages/PlanDetails.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-//class Profile extends StatefulWidget {
-//  @override
-//  _ProfileState createState() => _ProfileState();
-//}
-//
-//class _ProfileState extends State<Profile> {
-//  @override
-//  Widget build(BuildContext context) {
-//    return Container();
-//  }
-//}
+
+void main() {
+  runApp(
+    Profile(
+      title: 'Profile Page',
+    ),
+  );
+}
 
 class Profile extends StatefulWidget {
   Profile({Key key, String title}) : super(key: key);
 
-  _ProfileState createState() => _ProfileState();
+  _ProfileState createState() {
+    return _ProfileState();
+  }
 }
 
 class _ProfileState extends State<Profile> {
@@ -31,37 +30,31 @@ class _ProfileState extends State<Profile> {
   @override
   void initState() {
     super.initState();
-    print("profile cons");
+    print("init");
     getinfo();
   }
-  String photourl="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
+
+  String photourl =
+      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
   String name = "";
   String currentweight = "";
-  Map<String,dynamic> plan;
-
-  getinfo() async{
+  getinfo() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String url = prefs.getString("photourl");
     String nameid = prefs.getString("username");
     String uid = prefs.getString("uid");
-    DocumentSnapshot ds = await Firestore.instance.collection('UserData').document(uid).get();
+    DocumentSnapshot ds =
+        await Firestore.instance.collection('UserData').document(uid).get();
     String wei = ds.data['Weight'];
-    DocumentSnapshot dsprog = await Firestore.instance.collection('UserData').document(uid).collection('excercise').document('programs').get();
-    var x=dsprog['plan'];
-    print("profile");
-    print(x);
-    if(plan==null){
-      print("empy");
-    }
     setState(() {
       photourl = url;
       name = nameid;
       currentweight = wei;
       print(url);
       print(nameid);
-      plan=x;
     });
   }
+
   static Color anim_box1_color = CustomStyle.light_bn_color,
       anim_box2_color = Colors.transparent,
       anim_box3_color = Colors.transparent;
@@ -76,9 +69,11 @@ class _ProfileState extends State<Profile> {
               child: Column(
                 children: <Widget>[
                   Container(
-                    padding: EdgeInsets.only(top: CustomStyle.verticalFractions * 1.078),//10
+                    padding: EdgeInsets.only(
+                        top: CustomStyle.verticalFractions * 1.078), //10
                     child: ListTile(
-                      contentPadding: EdgeInsets.only(left: CustomStyle.verticalFractions * 1.618),//15
+                      contentPadding: EdgeInsets.only(
+                          left: CustomStyle.verticalFractions * 1.618), //15
                       title: Row(
                         children: <Widget>[
                           IconButton(
@@ -120,12 +115,13 @@ class _ProfileState extends State<Profile> {
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: CustomStyle.verticalFractions * 2.696),//25
+                    padding: EdgeInsets.symmetric(
+                        horizontal: CustomStyle.verticalFractions * 2.696), //25
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         CircleAvatar(
-                          radius: 50,//CustomStyle.verticalFractions * 10.248
+                          radius: 50, //CustomStyle.verticalFractions * 10.248
                           backgroundImage: NetworkImage(photourl),
 //                          child: Image(image: NetworkImage(photourl),),
                         ),
@@ -149,8 +145,9 @@ class _ProfileState extends State<Profile> {
                                     fontWeight: FontWeight.bold,
                                     color: CustomStyle.txt_color)),
                             SizedBox(
-                                height: CustomStyle.verticalFractions * 0.862),//8
-                            Text(currentweight+'Kgs',
+                                height:
+                                    CustomStyle.verticalFractions * 0.862), //8
+                            Text(currentweight + 'Kgs',
                                 style: TextStyle(
                                     fontSize: CustomStyle.verticalFractions *
                                         1.618, //15
@@ -171,8 +168,8 @@ class _ProfileState extends State<Profile> {
                                     CustomStyle.verticalFractions * 0.862), //8
                             Text('50 Kgs',
                                 style: TextStyle(
-                                    fontSize:
-                                        CustomStyle.verticalFractions * 1.618,//15
+                                    fontSize: CustomStyle.verticalFractions *
+                                        1.618, //15
                                     fontWeight: FontWeight.bold,
                                     color: CustomStyle.txt_color)),
                           ],
@@ -343,74 +340,72 @@ class _ProfileState extends State<Profile> {
                       vertical: CustomStyle.verticalFractions * 3.236, //30
                     ),
                     scrollDirection: Axis.vertical,
-//                    children: <Widget>[
-//                      FittedBox(
-//                        child: Container(
-//                          decoration: BoxDecoration(
-//                              borderRadius: BorderRadius.circular(
-//                                  CustomStyle.verticalFractions * 2.157), //20
-//                              color: CustomStyle.light_bn_color),
-//                          padding: EdgeInsets.only(
-//                            top: CustomStyle.verticalFractions * 3.5, //32.445
-//                          ),
-//                          child: Column(
-//                            crossAxisAlignment: CrossAxisAlignment.start,
-//                            children: <Widget>[
-//                              Padding(
-//                                padding: EdgeInsets.symmetric(
-//                                    horizontal: CustomStyle.verticalFractions *
-//                                        2.696), //25
-//                                child: Text('OVERALL :',
-//                                    style: CustomStyle.button_header),
-//                              ),
-//                              SizedBox(
-//                                height:
-//                                    CustomStyle.verticalFractions * 1.618, //15
-//                              ),
-//                              Leaderboard(
-//                                bg_color: Colors.transparent,
-//                                steps: 20,
-//                                width: 300,
-//                              ),
-//                            ],
-//                          ),
-//                        ),
-//                      ),
-//                      SizedBox(
-//                        height: CustomStyle.verticalFractions * 3.236, //30
-//                      ),
-//                      Container(
-//                        decoration: BoxDecoration(
-//                            borderRadius: BorderRadius.circular(
-//                                CustomStyle.verticalFractions * 2.157), //20
-//                            color: CustomStyle.light_bn_color),
-//                        padding: EdgeInsets.only(
-//                          top: CustomStyle.verticalFractions * 3.5, //32.454
-//                        ),
-//                        child: Column(
-//                          crossAxisAlignment: CrossAxisAlignment.start,
-//                          children: <Widget>[
-//                            Padding(
-//                              padding: EdgeInsets.symmetric(
-//                                  horizontal: CustomStyle.verticalFractions *
-//                                      2.696), //25
-//                              child: Text('CURRENT :',
-//                                  style: CustomStyle.button_header),
-//                            ),
-//                            SizedBox(
-//                              height: 1.618, //15
-//                            ),
-//                            Leaderboard(
-//                              bg_color: Colors.transparent,
-//                              steps: 20,
-//                              width: 300,
-//                            ),
-//                          ],
-//                        ),
-//                      ),
-//                    ],
+                    children: <Widget>[
+                      Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(
+                                CustomStyle.verticalFractions * 2.157), //20
+                            color: CustomStyle.light_bn_color),
+                        padding: EdgeInsets.only(
+                          top: CustomStyle.verticalFractions * 3.5, //32.445
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: CustomStyle.verticalFractions *
+                                      2.696), //25
+                              child: Text('OVERALL :',
+                                  style: CustomStyle.button_header),
+                            ),
+                            SizedBox(
+                              height:
+                                  CustomStyle.verticalFractions * 1.618, //15
+                            ),
+                            Leaderboard(
+                              bg_color: Colors.transparent,
+                              steps: 20,
+                              width: 300,
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: CustomStyle.verticalFractions * 3.236, //30
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(
+                                CustomStyle.verticalFractions * 2.157), //20
+                            color: CustomStyle.light_bn_color),
+                        padding: EdgeInsets.only(
+                          top: CustomStyle.verticalFractions * 3.5, //32.454
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: CustomStyle.verticalFractions *
+                                      2.696), //25
+                              child: Text('CURRENT :',
+                                  style: CustomStyle.button_header),
+                            ),
+                            SizedBox(
+                              height: 1.618, //15
+                            ),
+                            Leaderboard(
+                              bg_color: Colors.transparent,
+                              steps: 20,
+                              width: 300,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                  Plandetails(plan: plan,),
+                  Plandetails(),
                   Overallstats(),
                 ],
               ),
