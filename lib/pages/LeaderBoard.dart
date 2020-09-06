@@ -10,16 +10,18 @@ class Leaderboard extends StatefulWidget {
   final double width;
   final dataf;
   final List xaxiss;
-  Leaderboard({Key key, this.bg_color, this.steps, this.width,this.dataf,this.xaxiss})
+  Leaderboard(
+      {Key key, this.bg_color, this.steps, this.width, this.dataf, this.xaxiss})
       : super(key: key);
   @override
   _LeaderboardState createState() => _LeaderboardState();
 }
 
 class _LeaderboardState extends State<Leaderboard> {
-
-  var xaxis =[0.0];
-  var data=[DataPoint<double>(value: 0),];
+  var xaxis = [0.0];
+  var data = [
+    DataPoint<double>(value: 0),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +32,10 @@ class _LeaderboardState extends State<Leaderboard> {
           xAxisCustomValues: widget.xaxiss,
           series: [
             BezierLine(
-                lineColor: Colors.white,
-                dataPointFillColor: CustomStyle.light_bn_color,
-                dataPointStrokeColor: CustomStyle.light_bn_txt_Color,
-                data: widget.dataf,
+              lineColor: Colors.white,
+              dataPointFillColor: CustomStyle.light_bn_color,
+              dataPointStrokeColor: CustomStyle.light_bn_txt_Color,
+              data: widget.dataf,
             ),
           ],
           config: BezierChartConfig(
@@ -47,7 +49,7 @@ class _LeaderboardState extends State<Leaderboard> {
             updatePositionOnTap: true,
             xAxisTextStyle: TextStyle(color: Colors.transparent),
             yAxisTextStyle:
-            TextStyle(color: Color.fromRGBO(192, 196, 228, 0.5)),
+                TextStyle(color: Color.fromRGBO(192, 196, 228, 0.5)),
 //            backgroundColor: Colors.blue,
 //            bubbleIndicatorColor: Colors.blue,
 //            xLinesColor: Colors.white,
