@@ -15,7 +15,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<bool> selections = [true, false, false, false, false];
-  String photourl="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
+  String photourl =
+      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
   static PageController _pageController =
       PageController(initialPage: 0, keepPage: true);
   @override
@@ -24,6 +25,7 @@ class _HomePageState extends State<HomePage> {
     print("HomePage");
     getinfo();
   }
+
   getinfo() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String url = prefs.getString("photourl");
@@ -31,6 +33,7 @@ class _HomePageState extends State<HomePage> {
       photourl = url;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -54,9 +57,8 @@ class _HomePageState extends State<HomePage> {
           body: Stack(
             children: <Widget>[
               PageView(
+                physics: NeverScrollableScrollPhysics(),
                 controller: _pageController,
-                physics: BouncingScrollPhysics(),
-                scrollDirection: Axis.horizontal,
                 allowImplicitScrolling: true,
                 children: <Widget>[
                   HomeScreen(),
@@ -64,7 +66,10 @@ class _HomePageState extends State<HomePage> {
                   AddButtonTemp(),
 //                fitkit(),
                   GymDetail(),
-                  CircleProgressBar(foregroundColor: Colors.black54, backgroundColor: Colors.black54, value: 50.0),
+                  CircleProgressBar(
+                      foregroundColor: Colors.black54,
+                      backgroundColor: Colors.black54,
+                      value: 50.0),
                 ],
               ),
               Align(
@@ -165,20 +170,18 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               Align(
-                alignment: Alignment.topRight,
-                child: InkWell(
-                  onTap: () =>
-                      Navigator.pushNamed(context, '/profile_page'),
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: CircleAvatar(
-                      radius: 22,//CustomStyle.verticalFractions * 10.248
-                      backgroundImage: NetworkImage(photourl),
+                  alignment: Alignment.topRight,
+                  child: InkWell(
+                    onTap: () => Navigator.pushNamed(context, '/profile_page'),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: CircleAvatar(
+                        radius: 22, //CustomStyle.verticalFractions * 10.248
+                        backgroundImage: NetworkImage(photourl),
 //                          child: Image(image: NetworkImage(photourl),),
+                      ),
                     ),
-                  ),
-
-                )
+                  )
 //                IconButton(
 //                  onPressed: () =>
 //                      Navigator.pushNamed(context, '/profile_page'),
@@ -188,7 +191,7 @@ class _HomePageState extends State<HomePage> {
 //                    size: 40,
 //                  ),
 //                ),
-              ),
+                  ),
             ],
           ),
         ),

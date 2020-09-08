@@ -176,28 +176,203 @@ class _DietChartState extends State<DietChart> {
     return YoutubePlayerBuilder(
         player: YoutubePlayer(controller: _controller),
         builder: (context, player) {
-          return Column(
-            children: <Widget>[
-              player,
-              SizedBox(height: 20),
-              Container(
-                decoration: BoxDecoration(
-                  
+          return Scaffold(
+            body: SafeArea(
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Column(
+                  children: <Widget>[
+                    player,
+                    SizedBox(height: 20),
+                    Container(
+                      // padding: EdgeInsets.all(10),
+                      width: 500,
+                      height: 200,
+                      margin:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: darkPurple,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Container(
+                          width: 380,
+                          height: 170,
+                          decoration: BoxDecoration(
+                            color: Color.fromRGBO(117, 131, 194, 1),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Column(
+                            children: <Widget>[
+                              Container(
+                                width: 270,
+                                height: 40,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    color: darkPurple,
+                                    borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(10),
+                                      bottomRight: Radius.circular(10),
+                                    )),
+                                child: Text(
+                                  'NUTRITIONAL VALUES',
+                                  style: TextStyle(
+                                      wordSpacing: 5,
+                                      fontSize: 26,
+                                      color: CustomStyle.light_bn_txt_Color,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              )
+                            ],
+                          )),
+                    ),
+                    Container(
+                      // padding: EdgeInsets.all(10),
+                      width: 500,
+                      height: 400,
+                      margin:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: darkPurple,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Container(
+                          width: 380,
+                          height: 360,
+                          decoration: BoxDecoration(
+                            color: Color.fromRGBO(117, 131, 194, 1),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Column(
+                            children: <Widget>[
+                              Container(
+                                width: 290,
+                                height: 40,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    color: darkPurple,
+                                    borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(10),
+                                      bottomRight: Radius.circular(10),
+                                    )),
+                                child: Text(
+                                  'INGREDIENTS REQUIRED',
+                                  style: TextStyle(
+                                      wordSpacing: 10,
+                                      fontSize: 26,
+                                      color: CustomStyle.light_bn_txt_Color,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              )
+                            ],
+                          )),
+                    ),
+                    Container(
+                      // padding: EdgeInsets.all(10),
+                      width: 500,
+                      height: 200,
+                      margin:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: darkPurple,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Container(
+                          width: 380,
+                          height: 170,
+                          decoration: BoxDecoration(
+                            color: Color.fromRGBO(117, 131, 194, 1),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Container(
+                                width: 120,
+                                height: 35,
+                                alignment: Alignment.topLeft,
+                                decoration: BoxDecoration(
+                                    color: darkPurple,
+                                    borderRadius: BorderRadius.only(
+                                      bottomRight: Radius.circular(10),
+                                    )),
+                                child: Text(
+                                  'THE CHEF',
+                                  style: TextStyle(
+                                      wordSpacing: 5,
+                                      fontSize: 26,
+                                      color: CustomStyle.light_bn_txt_Color,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              )
+                            ],
+                          )),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        RaisedButton(
+                            splashColor: CustomStyle.light_bn_txt_Color,
+                            color: darkPurple,
+                            padding: EdgeInsets.all(22),
+                            shape: CircleBorder(),
+                            onPressed: () => null,
+                            child: Icon(
+                              Icons.file_download,
+                              color: CustomStyle.light_bn_txt_Color,
+                              size: 35,
+                            )),
+                        RaisedButton(
+                            splashColor: CustomStyle.light_bn_txt_Color,
+                            color: darkPurple,
+                            padding: EdgeInsets.all(22),
+                            shape: CircleBorder(),
+                            onPressed: () => null,
+                            child: Icon(
+                              Icons.star_border,
+                              color: CustomStyle.light_bn_txt_Color,
+                              size: 35,
+                            )),
+                        RaisedButton(
+                            splashColor: CustomStyle.light_bn_txt_Color,
+                            shape: CircleBorder(),
+                            color: darkPurple,
+                            padding: EdgeInsets.all(22),
+                            onPressed: () => null,
+                            child: Icon(
+                              Icons.thumb_up,
+                              color: CustomStyle.light_bn_txt_Color,
+                              size: 35,
+                            )),
+                        RaisedButton(
+                            shape: CircleBorder(),
+                            splashColor: CustomStyle.light_bn_txt_Color,
+                            color: darkPurple,
+                            padding: EdgeInsets.all(22),
+                            onPressed: () => null,
+                            child: Icon(Icons.thumb_down,
+                                color: CustomStyle.light_bn_txt_Color,
+                                size: 35)),
+                      ],
+                    ),
+                    FlatButton(
+                        onPressed: () {
+                          if (flag == true) {
+                            _controller.play();
+                            flag = false;
+                          } else {
+                            _controller.pause();
+                            flag = true;
+                          }
+                        },
+                        color: Colors.black54,
+                        child: Text('PLAY/PAUSE'))
+                  ],
                 ),
               ),
-              FlatButton(
-                  onPressed: () {
-                    if (flag == true) {
-                      _controller.play();
-                      flag = false;
-                    } else {
-                      _controller.pause();
-                      flag = true;
-                    }
-                  },
-                  color: Colors.black54,
-                  child: Text('PLAY/PAUSE'))
-            ],
+            ),
           );
         });
   }
