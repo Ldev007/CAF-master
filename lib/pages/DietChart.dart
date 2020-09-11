@@ -9,9 +9,46 @@ class DietChart extends StatefulWidget {
 }
 
 class _DietChartState extends State<DietChart> {
+  Map<String,dynamic> m={
+    "oats": {
+      "plain": {
+        "pic": "yhegvftruwvgecucb.com",
+        "incredients": "tomato",
+      },
+      "masala": {
+        "pic": "vsfdcjhvadcjhdszbvcjkbsdb asvnvadjsvhv.com",
+        "incredients": "onion",
+      },
+    },
+
+    "smoothies": {
+      "banana": {
+        "pic": "yhegvftruwvgecucb.com",
+        "incredients": "banana",
+      },
+      "stawberry": {
+        "pic": "vsfdcjhvadcjhdszbvcjkbsdb asvnvadjsvhv.com",
+        "incredients": "stawberry",
+      },
+    },
+  };
+
   _DietChartState(){
     super.initState();
-    fetch();
+
+
+    m.forEach((key, value) {
+      print(key);
+      Map<String,dynamic> val=value;
+      val.forEach((key, value) {
+        print(key);
+        print("pic: "+value["pic"]);
+        print("incredients: "+value["incredients"]);
+      });
+    });
+
+
+//    fetch();
     print("diet");
 }
   List product_list;
@@ -40,6 +77,32 @@ class _DietChartState extends State<DietChart> {
       );
     }
   }
+//  @override
+//  Widget build(BuildContext context) {
+//    return Scaffold(
+//      body: ListView.builder(
+//        itemCount: 7,
+//        itemBuilder: (context, index) {
+//          if (index == 3)
+//            return _horizontalListView();
+//          else
+//            return _buildBox(color: Colors.blue);
+//        },
+//      ),
+//    );
+//  }
+//
+//  Widget _horizontalListView() {
+//    return SizedBox(
+//      height: 120,
+//      child: ListView.builder(
+//        scrollDirection: Axis.horizontal,
+//        itemBuilder: (_, __) => _buildBox(color: Colors.orange),
+//      ),
+//    );
+//  }
+//
+//  Widget _buildBox({Color color}) => Container(margin: EdgeInsets.all(12), height: 100, width: 200, color: color);
   fetch() async{
       CollectionReference collectionReference = Firestore.instance.collection('food');
       var x = collectionReference.document();

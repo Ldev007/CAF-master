@@ -117,7 +117,7 @@ class _HomePageState extends State<HomePage> {
                             duration: Duration(milliseconds: 500),
                             curve: Curves.fastOutSlowIn),
                         icon: Icon(
-                          Icons.home,
+                          Icons.directions_run,//Icons.home,3
                           color: Colors.white,
                         ),
                       ),
