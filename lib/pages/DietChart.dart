@@ -19,7 +19,7 @@ class _DietChartState extends State<DietChart> {
     print("diet");
   }
 
-//COLOR PROPS
+  //COLOR PROPS
   final Color darkPurple = CustomStyle.light_bn_color;
 
   //MULTIPLIER SHORTCUTS
@@ -27,7 +27,7 @@ class _DietChartState extends State<DietChart> {
 
   //ROUTINE DIET
   List<String> taken = ["Breakfast"];
-  List<String> upcoming = ["Lunch, Dinner"];
+  List<String> upcoming = ["Lunch", "Dinner"];
 
   //INTAKE VALUES
   double calories = 0;
@@ -114,7 +114,7 @@ class _DietChartState extends State<DietChart> {
               fontSize: vf * 3.8,
               color: darkPurple,
               fontWeight: FontWeight.bold,
-              decoration: TextDecoration.overline,
+              decoration: TextDecoration.underline,
               decorationThickness: vf * 0.086,
               decorationColor: darkPurple,
             ),
@@ -149,7 +149,7 @@ class _DietChartState extends State<DietChart> {
                            width:vf * 24,
                            height: vf * 23 ,
                            placeholder: (context, url) => new CircularProgressIndicator(),
-                           errorWidget: (context, url, error) => new Icon(Icons.error),
+                           errorWidget: (context, url, error) => new Icon(Icons.error_outline),
                          ),
                       ),
                       Text(items[i],
@@ -530,7 +530,7 @@ class _DietChartState extends State<DietChart> {
                                     child: Column(
                                       children: [
                                         Text(
-                                          'H2O',
+                                          'WATER',
                                           style: TextStyle(
                                               fontSize: CustomStyle
                                                       .verticalFractions *
@@ -586,6 +586,11 @@ class _DietChartState extends State<DietChart> {
                                     ),
                                   ),
                                   //TABLET !
+                                  // ListView.builder(
+                                  //     itemCount: taken.length,
+                                  //     itemBuilder: (context,index){
+                                  //   return tablet('BREAKFAST');
+                                  // }),
                                   tablet('BREAKFAST'),
                                   tablet('LUNCH'),
                                 ],
@@ -612,7 +617,7 @@ class _DietChartState extends State<DietChart> {
                   ),
                 ],
               ),
-              now.isEmpty?null:mealGenerator("Take",now),
+              now.isEmpty?null:mealGenerator("Recommended For You",now),
               ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
