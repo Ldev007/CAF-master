@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_unity_widget/flutter_unity_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../styling.dart';
+
 class exercise extends StatefulWidget {
   final program_name;
   final program_pic;
@@ -90,12 +92,14 @@ class _exerciseState extends State<exercise> {
                       Icon(Icons.rotate_right, color: Colors.white, size: 40.0),
                 ),
               ),
-              new Align(
-                alignment: Alignment.bottomCenter,
+              new Positioned(
+                left:  CustomStyle.horizontalFractions*43,
+                bottom: 5,
                 child: InkWell(
                   child: Icon(
                     (_unitypause) ? Icons.play_arrow : Icons.pause,
                     color: Colors.white,
+                    size: 40.0,
                   ),
                   onTap : () {
                     print("play");
