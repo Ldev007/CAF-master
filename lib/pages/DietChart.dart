@@ -33,6 +33,7 @@ class _DietChartState extends State<DietChart> {
   double calories = 0;
   double protein = 0;
   double water = 0;
+  double cal = 200;
 
   String _dietsTaken(List<String> takenDishes) {
     String txt;
@@ -383,6 +384,8 @@ class _DietChartState extends State<DietChart> {
   }
 
   Map<String,dynamic> food_data={};
+  Map<String,dynamic> now={};
+
 
 
   @override
@@ -609,7 +612,7 @@ class _DietChartState extends State<DietChart> {
                   ),
                 ],
               ),
-              mealGenerator("Take",food_data[titles[1]]),
+              now.isEmpty?null:mealGenerator("Take",now),
               ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
@@ -628,13 +631,24 @@ class _DietChartState extends State<DietChart> {
   fetch() async {
     CollectionReference collectionReference = Firestore.instance.collection('food');
     Map<String,dynamic> m={};
+    double temp = cal;
     collectionReference.snapshots().listen((snapshot) {
       List data;
       data = snapshot.documents;
       data.forEach((element) {
          m[element.documentID.toString()]=element.data;
+         Map<String,dynamic> x=element.data;
+         x.forEach((key, value) {
+           // print("key"+key.toString());
+           // print("value"+value['calories'].toString());
+           if(value['calories']<cal+100 && value['calories']>cal-100){
+             print(key.toString());
+             now[key.toString()]=value;
+           }
+         });
       });
       // print(m);
+      print(now.toString());
       setState(() {
         food_data=m;
       });
