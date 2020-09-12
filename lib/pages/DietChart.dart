@@ -18,7 +18,6 @@ class _DietChartState extends State<DietChart> {
     fetch();
     print("diet");
   }
-  List product_list;
 
 //COLOR PROPS
   final Color darkPurple = CustomStyle.light_bn_color;
@@ -397,8 +396,8 @@ class _DietChartState extends State<DietChart> {
     if (food_data.isEmpty) {
       return Text("loading");
     } else {
-      print(MediaQuery.of(context).size.width * 0.94);
-      print("Vertical Fracts : ${vf}");
+      // print(MediaQuery.of(context).size.width * 0.94);
+      // print("Vertical Fracts : ${vf}");
       return MaterialApp(
         home: Scaffold(
           body: ListView(
@@ -639,7 +638,7 @@ class _DietChartState extends State<DietChart> {
       data.forEach((element) {
          m[element.documentID.toString()]=element.data;
       });
-      print(m);
+      // print(m);
       setState(() {
         food_data=m;
       });
@@ -647,61 +646,61 @@ class _DietChartState extends State<DietChart> {
 
   }
 }
-
-class Single_prod extends StatelessWidget {
-  final prod_name;
-  final prod_pricture;
-  final prod_link;
-  final prod_price;
-
-  Single_prod({
-    this.prod_name,
-    this.prod_pricture,
-    this.prod_link,
-    this.prod_price,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: Hero(
-          tag: prod_name,
-          child: Material(
-            child: InkWell(
-              onTap: () {
-//                print("called");
-                _launchURL(prod_link);
-              },
-              child: GridTile(
-                  footer: Container(
-                    color: Colors.white70,
-                    child: ListTile(
-                      leading: Text(
-                        prod_name,
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      title: Text(
-                        "\$$prod_price",
-                        style: TextStyle(
-                            color: Colors.red, fontWeight: FontWeight.w800),
-                      ),
-                    ),
-                  ),
-                  child: Image.asset(
-                    prod_pricture,
-                    fit: BoxFit.cover,
-                  )),
-            ),
-          )),
-    );
-  }
-
-  _launchURL(String url) async {
-//    const url = url;
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-}
+//
+// class Single_prod extends StatelessWidget {
+//   final prod_name;
+//   final prod_pricture;
+//   final prod_link;
+//   final prod_price;
+//
+//   Single_prod({
+//     this.prod_name,
+//     this.prod_pricture,
+//     this.prod_link,
+//     this.prod_price,
+//   });
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Card(
+//       child: Hero(
+//           tag: prod_name,
+//           child: Material(
+//             child: InkWell(
+//               onTap: () {
+// //                print("called");
+//                 _launchURL(prod_link);
+//               },
+//               child: GridTile(
+//                   footer: Container(
+//                     color: Colors.white70,
+//                     child: ListTile(
+//                       leading: Text(
+//                         prod_name,
+//                         style: TextStyle(fontWeight: FontWeight.bold),
+//                       ),
+//                       title: Text(
+//                         "\$$prod_price",
+//                         style: TextStyle(
+//                             color: Colors.red, fontWeight: FontWeight.w800),
+//                       ),
+//                     ),
+//                   ),
+//                   child: Image.asset(
+//                     prod_pricture,
+//                     fit: BoxFit.cover,
+//                   )),
+//             ),
+//           )),
+//     );
+//   }
+//
+//   _launchURL(String url) async {
+// //    const url = url;
+//     if (await canLaunch(url)) {
+//       await launch(url);
+//     } else {
+//       throw 'Could not launch $url';
+//     }
+//   }
+// }
