@@ -94,7 +94,8 @@ class _DietChartState extends State<DietChart> {
   }
 
 //FUNCTION TO GENERATE INDIVIDUAL CATEGORIES HAVING DIFFERENT DISHES
-  Widget mealGenerator(String title) {
+  Widget mealGenerator(String title,Map<String,dynamic> food,String url,String pic,String name) {
+    List<String> items=food.keys.toList();
     return Container(
       padding: EdgeInsets.only(left: vf * 1.078),
       margin: EdgeInsets.only(top: vf * 2.157),
@@ -105,8 +106,9 @@ class _DietChartState extends State<DietChart> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+//          Text(items.toString()),
           Text(
-            title,
+            title != null?title:"_",
             style: TextStyle(
               fontSize: vf * 3.8,
               color: darkPurple,
@@ -123,30 +125,35 @@ class _DietChartState extends State<DietChart> {
             child: ListView.builder(
               shrinkWrap: true,
               physics: ClampingScrollPhysics(),
-              itemCount: 5,
+              itemCount: items.length,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, i) {
-                return FlatButton(
-                  padding: EdgeInsets.only(
-                    right: vf * 2.1,
-                  ),
-                  splashColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            individualDishInterfaceGenerator(),
-                      )),
-                  // margin: EdgeInsets.only(right: 10),
+                return InkWell(
+                  onTap:() => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          individualDishInterfaceGenerator(),
+                    )),
                   child: Column(
                     children: [
-                      Image(
-                        image: AssetImage('images/dish.jpg'),
-                        width: vf * 24,
-                        height: vf * 23,
+                      Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        elevation: 2,
+                        child:Image(
+                          image: AssetImage(pic),
+                          width: vf * 24,
+                          height: vf * 23 ,
+                        ),
+//                          CachedNetworkImage(
+//                            imageUrl: 'https://lh3.googleusercontent.com/proxy/TVAClb3TAwb0VCJTYtQQlAqtmJpZ4stah8Vyu-tzxIPZvw7hkp2Fg5Jm_70V6XTU78FcunZC98k9T6OcUGGkyrM27KRL6hgZwPqP-YNhxQpptxbWwxdM',
+//                            placeholder: (context, url) => new CircularProgressIndicator(),
+//                            errorWidget: (context, url, error) => new Icon(Icons.error),
+//                          ),
                       ),
-                      Text(i == 2 ? 'EX: DUM ALOO' : 'Name of the dish',
+                      Text(items[i],
                           style: TextStyle(
                               fontSize: vf * 3.1,
                               fontWeight: FontWeight.bold,
@@ -154,6 +161,45 @@ class _DietChartState extends State<DietChart> {
                     ],
                   ),
                 );
+//                  FlatButton(
+//                  padding: EdgeInsets.only(
+//                    right: vf * 2.1,
+//                  ),
+//                  splashColor: Colors.transparent,
+//                  highlightColor: Colors.transparent,
+//                  onPressed: () => Navigator.push(
+//                      context,
+//                      MaterialPageRoute(
+//                        builder: (context) =>
+//                            individualDishInterfaceGenerator(),
+//                      )),
+//                  // margin: EdgeInsets.only(right: 10),
+//                  child: Column(
+//                    children: [
+//                      Card(
+//                          shape: RoundedRectangleBorder(
+//                            borderRadius: BorderRadius.circular(10.0),
+//                          ),
+//                          elevation: 2,
+//                          child:Image(
+//                            image: AssetImage(pic),
+//                            width: vf * 24,
+//                            height: vf * 23,
+//                          ),
+////                          CachedNetworkImage(
+////                            imageUrl: 'https://lh3.googleusercontent.com/proxy/TVAClb3TAwb0VCJTYtQQlAqtmJpZ4stah8Vyu-tzxIPZvw7hkp2Fg5Jm_70V6XTU78FcunZC98k9T6OcUGGkyrM27KRL6hgZwPqP-YNhxQpptxbWwxdM',
+////                            placeholder: (context, url) => new CircularProgressIndicator(),
+////                            errorWidget: (context, url, error) => new Icon(Icons.error),
+////                          ),
+//                      ),
+//                      Text(items[i],
+//                          style: TextStyle(
+//                              fontSize: vf * 3.1,
+//                              fontWeight: FontWeight.bold,
+//                              color: darkPurple)),
+//                    ],
+//                  ),
+//                );
               },
             ),
           ),
@@ -377,17 +423,34 @@ class _DietChartState extends State<DietChart> {
         });
   }
 
-  List<String> _categoriesOfDishes = [
-    "OATS MEAL :",
-    "SALADS :",
-    "CHINESE DISHES :",
-    "Smoothies :",
-    "Sprout meals :",
-    "Bean Love :"
-  ];
+  Map<String,dynamic> food_data={
+    "oats": {
+      "plain": {
+        "pic": "yhegvftruwvgecucb.com",
+        "incredients": "tomato",
+      },
+      "masala": {
+        "pic": "vsfdcjhvadcjhdszbvcjkbsdb asvnvadjsvhv.com",
+        "incredients": "onion",
+      },
+    },
+
+    "smoothies": {
+      "banana": {
+        "pic": "yhegvftruwvgecucb.com",
+        "incredients": "banana",
+      },
+      "stawberry": {
+        "pic": "vsfdcjhvadcjhdszbvcjkbsdb asvnvadjsvhv.com",
+        "incredients": "stawberry",
+      },
+    },
+  };
+
 
   @override
   Widget build(BuildContext context) {
+    List<String> titles=food_data.keys.toList();
     if (product_list == null) {
       return Text("loading");
     } else {
@@ -584,7 +647,7 @@ class _DietChartState extends State<DietChart> {
                                   ),
                                   //TABLET !
                                   tablet('BREAKFAST'),
-                                  tablet('LUNCH')
+                                  tablet('LUNCH'),
                                 ],
                               ),
                               SizedBox(height: 20),
@@ -612,9 +675,9 @@ class _DietChartState extends State<DietChart> {
               ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: 6,
+                itemCount: titles.length,
                 itemBuilder: (context, index) {
-                  return mealGenerator(_categoriesOfDishes[index]);
+                  return mealGenerator(titles[index],food_data[titles[index]],"google.com",'images/dish.jpg',"prince");
                 },
               ),
             ],

@@ -13,6 +13,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return LayoutBuilder(builder: (context, constraints) {
       CustomStyle().init(constraints);
       return MaterialApp(
