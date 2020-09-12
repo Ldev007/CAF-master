@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_ex/styling.dart';
 import 'package:flutter/material.dart';
@@ -94,7 +95,7 @@ class _DietChartState extends State<DietChart> {
   }
 
 //FUNCTION TO GENERATE INDIVIDUAL CATEGORIES HAVING DIFFERENT DISHES
-  Widget mealGenerator(String title,Map<String,dynamic> food,String url,String pic,String name) {
+  Widget mealGenerator(String title,Map<String,dynamic> food,String url) {
     List<String> items=food.keys.toList();
     return Container(
       padding: EdgeInsets.only(left: vf * 1.078),
@@ -142,16 +143,19 @@ class _DietChartState extends State<DietChart> {
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         elevation: 2,
-                        child:Image(
-                          image: AssetImage(pic),
-                          width: vf * 24,
-                          height: vf * 23 ,
-                        ),
-//                          CachedNetworkImage(
-//                            imageUrl: 'https://lh3.googleusercontent.com/proxy/TVAClb3TAwb0VCJTYtQQlAqtmJpZ4stah8Vyu-tzxIPZvw7hkp2Fg5Jm_70V6XTU78FcunZC98k9T6OcUGGkyrM27KRL6hgZwPqP-YNhxQpptxbWwxdM',
-//                            placeholder: (context, url) => new CircularProgressIndicator(),
-//                            errorWidget: (context, url, error) => new Icon(Icons.error),
-//                          ),
+                        child:
+                        // Image(
+                        //   image: AssetImage(pic),
+                        //   width: vf * 24,
+                        //   height: vf * 23 ,
+                        // ),
+                         CachedNetworkImage(
+                           imageUrl: food[items[i]]['pic'],
+                           width:vf * 24,
+                           height: vf * 23 ,
+                           placeholder: (context, url) => new CircularProgressIndicator(),
+                           errorWidget: (context, url, error) => new Icon(Icons.error),
+                         ),
                       ),
                       Text(items[i],
                           style: TextStyle(
@@ -616,7 +620,7 @@ class _DietChartState extends State<DietChart> {
                 shrinkWrap: true,
                 itemCount: titles.length,
                 itemBuilder: (context, index) {
-                  return mealGenerator(titles[index],food_data[titles[index]],"google.com",'images/dish.jpg',"prince");
+                  return mealGenerator(titles[index],food_data[titles[index]],"google.com");
                 },
               ),
             ],
