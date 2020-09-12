@@ -161,45 +161,6 @@ class _DietChartState extends State<DietChart> {
                     ],
                   ),
                 );
-//                  FlatButton(
-//                  padding: EdgeInsets.only(
-//                    right: vf * 2.1,
-//                  ),
-//                  splashColor: Colors.transparent,
-//                  highlightColor: Colors.transparent,
-//                  onPressed: () => Navigator.push(
-//                      context,
-//                      MaterialPageRoute(
-//                        builder: (context) =>
-//                            individualDishInterfaceGenerator(),
-//                      )),
-//                  // margin: EdgeInsets.only(right: 10),
-//                  child: Column(
-//                    children: [
-//                      Card(
-//                          shape: RoundedRectangleBorder(
-//                            borderRadius: BorderRadius.circular(10.0),
-//                          ),
-//                          elevation: 2,
-//                          child:Image(
-//                            image: AssetImage(pic),
-//                            width: vf * 24,
-//                            height: vf * 23,
-//                          ),
-////                          CachedNetworkImage(
-////                            imageUrl: 'https://lh3.googleusercontent.com/proxy/TVAClb3TAwb0VCJTYtQQlAqtmJpZ4stah8Vyu-tzxIPZvw7hkp2Fg5Jm_70V6XTU78FcunZC98k9T6OcUGGkyrM27KRL6hgZwPqP-YNhxQpptxbWwxdM',
-////                            placeholder: (context, url) => new CircularProgressIndicator(),
-////                            errorWidget: (context, url, error) => new Icon(Icons.error),
-////                          ),
-//                      ),
-//                      Text(items[i],
-//                          style: TextStyle(
-//                              fontSize: vf * 3.1,
-//                              fontWeight: FontWeight.bold,
-//                              color: darkPurple)),
-//                    ],
-//                  ),
-//                );
               },
             ),
           ),
@@ -423,35 +384,13 @@ class _DietChartState extends State<DietChart> {
         });
   }
 
-  Map<String,dynamic> food_data={
-    "oats": {
-      "plain": {
-        "pic": "yhegvftruwvgecucb.com",
-        "incredients": "tomato",
-      },
-      "masala": {
-        "pic": "vsfdcjhvadcjhdszbvcjkbsdb asvnvadjsvhv.com",
-        "incredients": "onion",
-      },
-    },
-
-    "smoothies": {
-      "banana": {
-        "pic": "yhegvftruwvgecucb.com",
-        "incredients": "banana",
-      },
-      "stawberry": {
-        "pic": "vsfdcjhvadcjhdszbvcjkbsdb asvnvadjsvhv.com",
-        "incredients": "stawberry",
-      },
-    },
-  };
+  Map<String,dynamic> food_data={};
 
 
   @override
   Widget build(BuildContext context) {
     List<String> titles=food_data.keys.toList();
-    if (product_list == null) {
+    if (food_data.isEmpty) {
       return Text("loading");
     } else {
       print(MediaQuery.of(context).size.width * 0.94);
@@ -688,22 +627,20 @@ class _DietChartState extends State<DietChart> {
   }
 
   fetch() async {
-    CollectionReference collectionReference =
-        Firestore.instance.collection('food');
-    var x = collectionReference.document();
-//      print("===================="+x.toString());
+    CollectionReference collectionReference = Firestore.instance.collection('food');
+    Map<String,dynamic> m={};
     collectionReference.snapshots().listen((snapshot) {
       List data;
       data = snapshot.documents;
-//        print(data.runtimeType);
       data.forEach((element) {
-//          print(element.data.toString());
+         m[element.documentID.toString()]=element.data;
       });
-//        print(data[0].data['name'].toString());
+      print(m);
       setState(() {
-        product_list = data;
+        food_data=m;
       });
     });
+
   }
 }
 
