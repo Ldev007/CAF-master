@@ -94,7 +94,7 @@ class _DietChartState extends State<DietChart> {
   }
 
 //FUNCTION TO GENERATE INDIVIDUAL CATEGORIES HAVING DIFFERENT DISHES
-  Widget mealGenerator(String title,Map<String,dynamic> food,String url) {
+  Widget mealGenerator(String title,Map<String,dynamic> food) {
     List<String> items=food.keys.toList();
     return Container(
       padding: EdgeInsets.only(left: vf * 1.078),
@@ -143,11 +143,6 @@ class _DietChartState extends State<DietChart> {
                         ),
                         elevation: 2,
                         child:
-                        // Image(
-                        //   image: AssetImage(pic),
-                        //   width: vf * 24,
-                        //   height: vf * 23 ,
-                        // ),
                          CachedNetworkImage(
                            imageUrl: food[items[i]]['pic'],
                            width:vf * 24,
@@ -614,12 +609,13 @@ class _DietChartState extends State<DietChart> {
                   ),
                 ],
               ),
+              mealGenerator("Take",food_data[titles[1]]),
               ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: titles.length,
                 itemBuilder: (context, index) {
-                  return mealGenerator(titles[index],food_data[titles[index]],"google.com");
+                  return mealGenerator(titles[index],food_data[titles[index]]);
                 },
               ),
             ],
