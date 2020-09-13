@@ -114,7 +114,6 @@ class _DietChartState extends State<DietChart> {
               fontSize: vf * 3.8,
               color: darkPurple,
               fontWeight: FontWeight.bold,
-              decoration: TextDecoration.underline,
               decorationThickness: vf * 0.086,
               decorationColor: darkPurple,
             ),
@@ -163,13 +162,7 @@ class _DietChartState extends State<DietChart> {
               },
             ),
           ),
-          Spacer(),
-          Divider(
-            color: darkPurple,
-            indent: vf * 5.393,
-            endIndent: vf * 5.393,
-            thickness: 0.5,
-          )
+          // Spacer(),
         ],
       ),
     );
