@@ -245,7 +245,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.symmetric(
-                    horizontal: CustomStyle.verticalFractions * 2.157), //20
+                    horizontal: CustomStyle.verticalFractions * 4.157), //20
                 child: Row(
                   children: <Widget>[
 //                    Icon(Icons.menu, color: Colors.blue),
@@ -253,10 +253,11 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                     Text(
                       title,
                       style: TextStyle(
-                        fontSize: CustomStyle.verticalFractions * 2.696, //25
-                        color: CustomStyle.light_bn_color,
+                        fontSize: CustomStyle.verticalFractions * 3.5, //25
+                        color: Colors.white,//CustomStyle.light_bn_color,
+                        fontWeight: FontWeight.bold,
                         letterSpacing:
-                            CustomStyle.verticalFractions * 0.323, //3.0
+                            CustomStyle.verticalFractions * 0.383, //3.0
                       ),
                     )
                   ],
