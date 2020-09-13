@@ -350,7 +350,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                                 Text(
                                   'Calories Burned',
                                   style: TextStyle(
-                                    color: Color.fromRGBO(192, 196, 228, 0.5),
+                                    color: Colors.white,//Color.fromRGBO(192, 196, 228, 0.5),
                                     fontSize: CustomStyle.verticalFractions *
                                         2.804, //26
                                     fontWeight: FontWeight.w600,
@@ -396,7 +396,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                                 Text(
                                   'Target CALORIES',
                                   style: TextStyle(
-                                    color: Color.fromRGBO(192, 196, 228, 0.5),
+                                    color: Colors.white,
                                     fontSize: CustomStyle.verticalFractions *
                                         2.804, //26
                                     fontWeight: FontWeight.w600,
