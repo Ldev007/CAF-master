@@ -84,9 +84,22 @@ class _exerciseState extends State<exercise> {
               new Positioned(
                 left: 10,
                 bottom: 5,
-                child: InkWell(
-                  onTap: () {
-                    print("tapped");
+                child: GestureDetector(
+                  onLongPress: () {
+                    print("left");
+                    _unityWidgetController.postMessage(
+                      "rp_nathan_animated_003_walking_root",
+                      'rotate',
+                      "left",
+                    );
+                  },
+                  onLongPressUp: (){
+                    print("stop");
+                    _unityWidgetController.postMessage(
+                      "rp_nathan_animated_003_walking_root",
+                      'rotate',
+                      "stop",
+                    );
                   },
                   child:
                       Icon(Icons.rotate_right, color: Colors.white, size: 40.0),
@@ -118,9 +131,12 @@ class _exerciseState extends State<exercise> {
               new Positioned(
                 right: 10,
                 bottom: 5,
-                child: InkWell(
-                  onTap: () {
-                    print("tapped");
+                child: GestureDetector(
+                  onLongPress: () {
+                    print("right");
+                  },
+                  onLongPressUp: (){
+                    print("stop");
                   },
                   child:
                       Icon(Icons.rotate_left, color: Colors.white, size: 40.0),

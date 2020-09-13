@@ -64,10 +64,10 @@ class Single_product extends StatelessWidget {
                 child: Card(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(70),
-                      topLeft: Radius.circular(5),
-                      bottomRight: Radius.circular(5),
-                      bottomLeft: Radius.circular(5),
+                      topRight: Radius.circular(15),
+                      topLeft: Radius.circular(15),
+                      bottomRight: Radius.circular(15),
+                      bottomLeft: Radius.circular(15),
                     ),
                   ),
                   color: Colors.black45,
