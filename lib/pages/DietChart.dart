@@ -636,7 +636,6 @@ class _DietChartState extends State<DietChart> {
   fetch() async {
     CollectionReference collectionReference = Firestore.instance.collection('food');
     Map<String,dynamic> m={};
-    double temp = cal;
     collectionReference.snapshots().listen((snapshot) {
       List data;
       data = snapshot.documents;
@@ -647,7 +646,7 @@ class _DietChartState extends State<DietChart> {
            // print("key"+key.toString());
            // print("value"+value['calories'].toString());
            if(value['calories']<cal+100 && value['calories']>cal-100){
-             print(key.toString());
+             // print(key.toString());
              now[key.toString()]=value;
            }
          });
