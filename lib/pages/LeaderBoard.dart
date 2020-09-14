@@ -46,7 +46,8 @@ class _LeaderboardState extends State<Leaderboard> {
             stepsYAxis: widget.steps,
             startYAxisFromNonZeroValue: true,
             displayYAxis: true,
-            updatePositionOnTap: true,
+//!!!!!!!!!!!!!!!!// updatePositionOnTap: true, DON'T CHANGE IT TO TRUE OR UNCOMMENT IT !
+//OR THE COOL BUBBLE POINTER ON TOUCH WON'T WORK
             xAxisTextStyle: TextStyle(color: Colors.transparent),
             yAxisTextStyle:
                 TextStyle(color: Color.fromRGBO(192, 196, 228, 0.5)),
