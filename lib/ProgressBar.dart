@@ -50,10 +50,12 @@ class _CircleProgressBarState extends State<CircleProgressBar>
   bool paint = false;
 
   //Leaderboard
-  var dat=[110,130,125,80,50];
+  var dat = [110, 130, 125, 80, 50];
   var len = 0;
-  var axis =[0.0];
-  var points=[DataPoint<double>(value: 0),];
+  var axis = [0.0];
+  var points = [
+    DataPoint<double>(value: 0),
+  ];
 
   @override
   void initState() {
@@ -126,14 +128,14 @@ class _CircleProgressBarState extends State<CircleProgressBar>
         }
       }
     });
-    double x=(int.parse(testcount.toString()[0])+1)*1000.toDouble();
+    double x = (int.parse(testcount.toString()[0]) + 1) * 1000.toDouble();
 
     setState(() {
 //      print("testcount"+testcount.toString());
       //targetcal=+300;
       calories = calories + (testcount * 0.04);
-      targetcal=(int.parse(calories.toString()[0])+2)*100.toDouble();
-      total=x;
+      targetcal = (int.parse(calories.toString()[0]) + 2) * 100.toDouble();
+      total = x;
       steps = testcount / x;
 //      print("steps"+steps.toString());
       _animation(testcount);
@@ -181,22 +183,24 @@ class _CircleProgressBarState extends State<CircleProgressBar>
       year.toString(): {
         month.toString(): {date.toString(): testcount}
       }
-    },merge:true);
+    }, merge: true);
 
+    var xaxis = [0.0];
+    var data = [
+      DataPoint<double>(value: 0),
+    ];
 
-
-    var xaxis =[0.0];
-    var data=[DataPoint<double>(value: 0),];
-
-
-    DocumentSnapshot dsnap = await Firestore.instance.collection('UserData').document(uid)
+    DocumentSnapshot dsnap = await Firestore.instance
+        .collection('UserData')
+        .document(uid)
         .collection('excercise')
-        .document('steps').get();
-    var stepsdata= dsnap.data[year.toString()][month.toString()];
+        .document('steps')
+        .get();
+    var stepsdata = dsnap.data[year.toString()][month.toString()];
 //    print(test);
-    stepsdata.forEach((element,value) {
+    stepsdata.forEach((element, value) {
       data.add(DataPoint<double>(value: value.toDouble()));
-      len=len+2;
+      len = len + 2;
       xaxis.add(len.toDouble());
 //      print(element);
     });
@@ -204,7 +208,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
 //    print(data);
     setState(() {
       axis = xaxis;
-      points=data;
+      points = data;
     });
   }
 
@@ -243,79 +247,39 @@ class _CircleProgressBarState extends State<CircleProgressBar>
           // color: Color.fromRGBO(48, 67, 120, 0.0),
           child: Column(
             children: <Widget>[
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: CustomStyle.verticalFractions * 4.157), //20
-                child: Row(
-                  children: <Widget>[
+              //CENTER TITLE MODIFICATION DONE
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
 //                    Icon(Icons.menu, color: Colors.blue),
-                    SizedBox(width: CustomStyle.verticalFractions * 17.2), //125
-                    Text(
-                      title,
-                      style: TextStyle(
-                        fontSize: CustomStyle.verticalFractions * 3.5, //25
-                        color: Colors.white,//CustomStyle.light_bn_color,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing:
-                            CustomStyle.verticalFractions * 0.383, //3.0
-                      ),
-                    )
-                  ],
-                ),
+                  SizedBox(width: CustomStyle.verticalFractions * 17.2), //125
+                  Text(
+                    title,
+                    style: TextStyle(
+                      fontSize: CustomStyle.verticalFractions * 3.5, //25
+                      color: Colors.white, //CustomStyle.light_bn_color,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing:
+                          CustomStyle.verticalFractions * 0.383, //3.0
+                    ),
+                  )
+                ],
               ),
               Expanded(
                 flex: 2,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Container(
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Color.fromRGBO(48, 67, 120, 0.4)),
-                      child: OutlineButton(
-                        color: Colors.white70,
-                        shape: CircleBorder(side: BorderSide()),
-                        padding: EdgeInsets.symmetric(
-                          horizontal:
-                              CustomStyle.verticalFractions * 2.157, //20
-                          vertical: CustomStyle.verticalFractions * 2.157, //20
-                        ),
-                        child: Icon(Icons.calendar_today,
-                            color: Color.fromRGBO(192, 196, 228, 1)),
-                        onPressed: () {
-//                          print('Calendar Button pressed');
-                        },
-                      ),
-                    ),
                     CustomPaint(
-                            child: Container(
-                              color: Colors.transparent,
-                              width: MediaQuery.of(context).size.width * 0.40,
-                              height: MediaQuery.of(context).size.height * 0.4,
-                            ),
-                            foregroundPainter: CircleProgressBarPainter(
-                              backgroundColor: backgroundColor,
-                              foregroundColor: foregroundColor,
-                              percentage: paint ? anime.value : 0.0,
-                            ),
-                          ),
-                    Container(
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Color.fromRGBO(48, 67, 120, 0.4)),
-                      child: OutlineButton(
-                        padding: EdgeInsets.symmetric(
-                          horizontal:
-                              CustomStyle.verticalFractions * 2.157, //20
-                          vertical: CustomStyle.verticalFractions * 2.157, //20
-                        ),
-                        onPressed: () {
-//                          print('Location Button Pressed');
-                        },
-                        shape: CircleBorder(side: BorderSide()),
-                        child: Icon(Icons.location_on,
-                            color: Color.fromRGBO(192, 196, 228, 1)),
-                        color: Color.fromRGBO(48, 67, 120, 0.2),
+                      child: Container(
+                        color: Colors.transparent,
+                        width: MediaQuery.of(context).size.width * 0.40,
+                        height: MediaQuery.of(context).size.height * 0.4,
+                      ),
+                      foregroundPainter: CircleProgressBarPainter(
+                        backgroundColor: backgroundColor,
+                        foregroundColor: foregroundColor,
+                        percentage: paint ? anime.value : 0.0,
                       ),
                     ),
                   ],
@@ -349,9 +313,10 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                                     width: CustomStyle.verticalFractions *
                                         2.157), //20
                                 Text(
-                                  'Calories Burned',
+                                  'Calories Burnt',
                                   style: TextStyle(
-                                    color: Colors.white,//Color.fromRGBO(192, 196, 228, 0.5),
+                                    color: Colors
+                                        .white, //Color.fromRGBO(192, 196, 228, 0.5),
                                     fontSize: CustomStyle.verticalFractions *
                                         2.804, //26
                                     fontWeight: FontWeight.w600,
@@ -367,7 +332,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                                   right: CustomStyle.verticalFractions *
                                       2.157), //20
                               child: Text(
-                                calories.toStringAsPrecision(5)+' cal',
+                                calories.toStringAsPrecision(5) + ' cal',
                                 style: TextStyle(
                                   fontSize: CustomStyle.verticalFractions *
                                       3.236, //30
@@ -395,7 +360,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                                     width: CustomStyle.verticalFractions *
                                         1.078), //10
                                 Text(
-                                  'Target CALORIES',
+                                  'Target Calories',
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: CustomStyle.verticalFractions *
@@ -429,23 +394,22 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                 ),
               ),
               Expanded(
+                flex: 2,
                 child: Row(
                   children: <Widget>[
                     Expanded(
                       flex: 1,
                       child: Container(
                         color: Color.fromRGBO(0, 0, 0, 0.0),
-                        padding: EdgeInsets.symmetric(
-                          vertical: CustomStyle.verticalFractions * 1.078, //10
+                        padding: EdgeInsets.only(
+                          bottom: CustomStyle.verticalFractions * 8.5, //10
                         ),
-                        height: CustomStyle.verticalFractions * 16.181,
-                        //150
                         width: CustomStyle.verticalFractions * 21.574,
                         //200
                         child: Leaderboard(
-                          steps: 55,
-                          dataf:points,
-                          xaxiss:axis,
+                          steps: 500,
+                          dataf: points,
+                          xaxiss: axis,
                         ),
                       ),
                     ),
@@ -469,16 +433,16 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                 ),
               ),
 
-              SizedBox(height: 10),
+              // SizedBox(height: 10),
 
               //BOTTOM WIDGET
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.15,
-                  child: Row(
-                    children: <Widget>[
+              // Align(
+              //   alignment: Alignment.bottomCenter,
+              //   child: Container(
+              //     width: MediaQuery.of(context).size.width,
+              //     height: MediaQuery.of(context).size.height * 0.15,
+              //     child: Row(
+              //       children: <Widget>[
 //                      Padding(
 //                        padding: EdgeInsets.only(left: 10),
 //                        child: Column(
@@ -889,10 +853,10 @@ class _CircleProgressBarState extends State<CircleProgressBar>
 //                          ],
 //                        ),
 //                      )
-                    ],
-                  ),
-                ),
-              )
+              //       ],
+              //     ),
+              //   ),
+              // )
             ],
           ),
         ),
