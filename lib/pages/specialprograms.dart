@@ -1,4 +1,6 @@
+import 'package:firebase_ex/additional/LeftRightAlign.dart';
 import 'package:flutter/material.dart';
+import 'HomeScreen.dart';
 import 'exercise.dart';
 
 class specialprograms extends StatefulWidget {
@@ -9,13 +11,16 @@ class specialprograms extends StatefulWidget {
 class _specialprogramsState extends State<specialprograms> {
   var program_list = [
     {
-      "name": "hii",
-      "picture":
-          "https://s3.envato.com/files/227435581/BEE-2064-Yoga%20Banners_01_Preview4.jpg",
+      "name": "hiit",
+      "duration": "6",
+      "cal": "150",
+      "picture": "images/hiit.jpeg",
     },
     {
       "name": "pilates",
-      "picture": "https://images.fitpass.co.in/blog_photo_0C933E311D60906.jpg",
+      "duration": "9",
+      "cal": "250",
+      "picture": "images/pilates.jpeg",
     },
   ];
   ScrollController _controller = new ScrollController();
@@ -34,6 +39,8 @@ class _specialprogramsState extends State<specialprograms> {
         return Single_product(
           prod_picture: program_list[index]['picture'],
           prod_name: program_list[index]['name'],
+          duration:program_list[index]['duration'],
+          calories:program_list[index]['cal'],
         );
       },
     ));
@@ -43,10 +50,14 @@ class _specialprogramsState extends State<specialprograms> {
 class Single_product extends StatelessWidget {
   final prod_name;
   final prod_picture;
+  final duration;
+  final calories;
 
   Single_product({
     this.prod_name,
     this.prod_picture,
+    this.duration,
+    this.calories,
   });
 
   @override
@@ -55,30 +66,69 @@ class Single_product extends StatelessWidget {
         padding: EdgeInsets.all(0),
         child: Container(
           child: Padding(
-            padding: EdgeInsets.all(8),
-            child: SizedBox(
-              height: 180,
-              child: InkWell(
-                onTap: () => Navigator.of(context).push(new MaterialPageRoute(
-                    builder: (context) => new exercise(program_pic: prod_picture,program_name:prod_name))),
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(15),
-                      topLeft: Radius.circular(15),
-                      bottomRight: Radius.circular(15),
-                      bottomLeft: Radius.circular(15),
+            padding: EdgeInsets.only(left: 0, right: 0, top: 8, bottom: 8),
+            child: Expanded(
+              child: Column(
+                children: [
+                  InkWell(
+                    onTap: () => Navigator.of(context).push(
+                        new MaterialPageRoute(
+                            builder: (context) => new exercise(
+                                program_pic: prod_picture,
+                                program_name: prod_name))),
+                    child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(15),
+                            topLeft: Radius.circular(15),
+                            bottomRight: Radius.circular(15),
+                            bottomLeft: Radius.circular(15),
+                          ),
+                        ),
+                        color: Colors.black45,
+                        elevation: 5,
+                        semanticContainer: true,
+                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                        child: Image(
+                          image: AssetImage(prod_picture),
+                          fit: BoxFit.fill,
+                        )
+                        // Image.network(
+                        //   prod_picture,
+                        //   fit: BoxFit.fill,
+                        // ),
+                        ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10,right:10,top:8),
+                    child: LeftRightAlign(
+                      left: Text(
+                        'Time '+duration+' Min',
+                        style: TextStyle(
+                          // color: Colors.black,
+                          // fontWeight: FontWeight.w600,
+                          // fontSize: 40,
+                          color: Colors.grey,
+                          fontWeight: FontWeight.bold,
+                          decorationThickness: vf * 0.086,
+                          decorationColor: darkPurple,
+                          fontSize: 16,
+                        ),
+                      ),
+                      right: Text('Calories '+calories+' cal',
+                        style: TextStyle(
+                        // color: Colors.black,
+                        // fontWeight: FontWeight.w600,
+                        // fontSize: 40,
+                        color: Colors.grey,
+                        fontWeight: FontWeight.bold,
+                        decorationThickness: vf * 0.086,
+                        decorationColor: darkPurple,
+                        fontSize: 16,
+                      ),),
                     ),
                   ),
-                  color: Colors.black45,
-                  elevation: 5,
-                  semanticContainer: true,
-                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                  child: Image.network(
-                    prod_picture,
-                    fit: BoxFit.fill,
-                  ),
-                ),
+                ],
               ),
             ),
           ),

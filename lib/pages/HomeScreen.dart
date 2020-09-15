@@ -22,17 +22,34 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(20),
+      padding: EdgeInsets.only(left: 20, top: 30, right: 20, bottom: 20),
       child: new ListView(
         children: <Widget>[
           Text(
-            'This week Progress',
+            'Hello',
             style: TextStyle(
               color: Colors.black,
-              fontWeight: FontWeight.w500,
-              fontSize: 20,
+              fontWeight: FontWeight.w600,
+              fontSize: 30,
             ),
           ),
+          Padding(
+            padding: EdgeInsets.only(top: 8),
+            child:Text(
+              'Prince',
+              style: TextStyle(
+                // color: Colors.black,
+                // fontWeight: FontWeight.w600,
+                // fontSize: 40,
+                color: darkPurple,
+                fontWeight: FontWeight.bold,
+                decorationThickness: vf * 0.086,
+                decorationColor: darkPurple,
+                fontSize: 40,
+              ),
+            ),
+          ),
+
           progress(),
           // Padding(
           //   padding: EdgeInsets.only(left: 10, top: 20, right: 0, bottom: 5),
@@ -65,9 +82,11 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Text(
               'Area of focus',
               style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.w500,
-                fontSize: 20,
+                color: darkPurple,
+                fontWeight: FontWeight.bold,
+                decorationThickness: vf * 0.086,
+                decorationColor: darkPurple,
+                fontSize: 22,
               ),
             ),
           ),
