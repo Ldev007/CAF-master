@@ -8,8 +8,7 @@
 .buildlog/
 .history
 .svn/
-# Ignore Unity
-android/Ragdoll/*
+
 # IntelliJ related
 *.iml
 *.ipr
