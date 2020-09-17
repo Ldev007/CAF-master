@@ -389,240 +389,256 @@ class _DietChartState extends State<DietChart> {
     } else {
       // print(MediaQuery.of(context).size.width * 0.94);
       // print("Vertical Fracts : ${vf}");
-      return MaterialApp(
-        home: Scaffold(
-          body: ListView(
-            scrollDirection: Axis.vertical,
-            children: <Widget>[
-              Column(
-                children: [
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 10),
-                    decoration: BoxDecoration(
-                        border: Border.all(color: darkPurple, width: 0.5),
-                        borderRadius: BorderRadius.circular(15),
-                        boxShadow: <BoxShadow>[
-                          BoxShadow(
-                              color: darkPurple,
-                              blurRadius: 10,
-                              spreadRadius: -2),
-                        ],
-                        color: darkPurple),
-                    child: ExpansionTile(
-                      childrenPadding:
-                          EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-                      title: Text(
-                        'CURRENT PLAN',
-                        style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
-                            color: CustomStyle.light_bn_txt_Color),
-                      ),
-                      children: [
-                        //TO-DO: Continue designing the container (color, layout, etc)
-                        //padding in container has to be verified once
-
-                        Container(
-                          padding: EdgeInsets.only(
-                              top: 20, bottom: 20, left: 10, right: 10),
-                          decoration: BoxDecoration(
-                              color: Color.fromRGBO(117, 131, 194, 1),
-                              borderRadius: BorderRadius.circular(20)),
-                          child: Column(
-                            children: <Widget>[
-                              Text(
-                                'INTAKE',
-                                style: TextStyle(
-                                  fontSize: 30,
-                                  fontFamily: '',
-                                  fontWeight: FontWeight.bold,
-                                  color: CustomStyle.light_bn_txt_Color,
-                                ),
-                              ),
-                              SizedBox(height: 20),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.black45,
-                                      borderRadius: BorderRadius.circular(
-                                          vf * 2.157), //20
-                                    ),
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: vf * 2.157),
-                                    width: vf * 12, //141
-                                    height: 100,
-                                    child: Column(
-                                      children: [
-                                        Text(
-                                          'KCAL',
-                                          style: TextStyle(
-                                              fontSize: CustomStyle
-                                                      .verticalFractions *
-                                                  2.373, //22
-                                              color: CustomStyle
-                                                  .light_bn_txt_Color,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        SizedBox(height: vf * 1.510), //14
-                                        Text(
-                                          '$calories',
-                                          style: TextStyle(
-                                            fontSize: vf * 1.833, //17,
-                                            color:
-                                                CustomStyle.light_bn_txt_Color,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(width: vf * 1.078), //10
-                                  Container(
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                        color: Colors.black45),
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: vf * 2.157), //20
-                                    width: vf * 12,
-                                    height: 100,
-                                    child: Column(
-                                      children: [
-                                        Text(
-                                          'PROTEIN',
-                                          style: TextStyle(
-                                              fontSize: CustomStyle
-                                                      .verticalFractions *
-                                                  2.373, //22
-                                              color: CustomStyle
-                                                  .light_bn_txt_Color,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        SizedBox(height: vf * 1.510), //14
-                                        Text(
-                                          '$protein',
-                                          style: TextStyle(
-                                            fontSize: vf * 1.833, //17
-                                            color:
-                                                CustomStyle.light_bn_txt_Color,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(width: vf * 1.078), //10
-                                  Container(
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                        color: Colors.black45),
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: vf * 2.157), //20
-                                    width: vf * 12,
-                                    height: 100,
-                                    child: Column(
-                                      children: [
-                                        Text(
-                                          'WATER',
-                                          style: TextStyle(
-                                              fontSize: CustomStyle
-                                                      .verticalFractions *
-                                                  2.373, //22
-                                              color: CustomStyle
-                                                  .light_bn_txt_Color,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        SizedBox(height: vf * 1.510), //14
-                                        Text(
-                                          '$water L',
-                                          style: TextStyle(
-                                            fontSize: vf * 1.833, //17
-                                            color:
-                                                CustomStyle.light_bn_txt_Color,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(height: 40),
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Color.fromRGBO(117, 131, 194, 1),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          padding: EdgeInsets.only(
-                              left: 15, right: 15, top: 22, bottom: 20),
-                          child: Column(
-                            children: [
-                              Text(
-                                'ROUTINE DIET',
-                                style: TextStyle(
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.bold,
-                                  color: CustomStyle.light_bn_txt_Color,
-                                ),
-                              ),
-                              SizedBox(height: 30),
-                              Row(
-                                children: [
-                                  Text(
-                                    'TAKEN :',
-                                    style: TextStyle(
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.bold,
-                                      color: CustomStyle.light_bn_txt_Color,
-                                    ),
-                                  ),
-                                  //TABLET !
-                                  // ListView.builder(
-                                  //     itemCount: taken.length,
-                                  //     itemBuilder: (context,index){
-                                  //   return tablet('BREAKFAST');
-                                  // }),
-                                  tablet('BREAKFAST'),
-                                  tablet('LUNCH'),
-                                ],
-                              ),
-                              SizedBox(height: 20),
-                              Row(
-                                children: [
-                                  Text(
-                                    'UPCOMING : ',
-                                    style: TextStyle(
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.bold,
-                                      color: CustomStyle.light_bn_txt_Color,
-                                    ),
-                                  ),
-                                  tablet('DINNER'),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+      return Scaffold(
+          appBar: AppBar(
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            title:Padding(
+              padding: const EdgeInsets.only(top:8.0,bottom: 8.0),
+              child: Text(
+                'Diet',
+                style: TextStyle(
+                  color: Colors.grey[700],
+                  fontWeight: FontWeight.w600,
+                  fontSize: 30,
+                ),
               ),
-              now.isEmpty?null:mealGenerator("Recommended For You",now),
-              ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: titles.length,
-                itemBuilder: (context, index) {
-                  return mealGenerator(titles[index],food_data[titles[index]]);
-                },
-              ),
-            ],
+            ),
           ),
-        ),
-      );
+          body: Padding(
+            padding: const EdgeInsets.only(top:15),
+            child: ListView(
+              scrollDirection: Axis.vertical,
+              children: <Widget>[
+                Column(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 10),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: darkPurple, width: 0.5),
+                          borderRadius: BorderRadius.circular(15),
+                          boxShadow: <BoxShadow>[
+                            BoxShadow(
+                                color: darkPurple,
+                                blurRadius: 10,
+                                spreadRadius: -2),
+                          ],
+                          color: darkPurple),
+                      child: ExpansionTile(
+                        childrenPadding:
+                            EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                        title: Text(
+                          'CURRENT PLAN',
+                          style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                              color: CustomStyle.light_bn_txt_Color),
+                        ),
+                        children: [
+                          //TO-DO: Continue designing the container (color, layout, etc)
+                          //padding in container has to be verified once
+
+                          Container(
+                            padding: EdgeInsets.only(
+                                top: 20, bottom: 20, left: 10, right: 10),
+                            decoration: BoxDecoration(
+                                color: Color.fromRGBO(117, 131, 194, 1),
+                                borderRadius: BorderRadius.circular(20)),
+                            child: Column(
+                              children: <Widget>[
+                                Text(
+                                  'INTAKE',
+                                  style: TextStyle(
+                                    fontSize: 30,
+                                    fontFamily: '',
+                                    fontWeight: FontWeight.bold,
+                                    color: CustomStyle.light_bn_txt_Color,
+                                  ),
+                                ),
+                                SizedBox(height: 20),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.black45,
+                                        borderRadius: BorderRadius.circular(
+                                            vf * 2.157), //20
+                                      ),
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: vf * 2.157),
+                                      width: vf * 12, //141
+                                      height: 100,
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                            'KCAL',
+                                            style: TextStyle(
+                                                fontSize: CustomStyle
+                                                        .verticalFractions *
+                                                    2.373, //22
+                                                color: CustomStyle
+                                                    .light_bn_txt_Color,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          SizedBox(height: vf * 1.510), //14
+                                          Text(
+                                            '$calories',
+                                            style: TextStyle(
+                                              fontSize: vf * 1.833, //17,
+                                              color:
+                                                  CustomStyle.light_bn_txt_Color,
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(width: vf * 1.078), //10
+                                    Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(20),
+                                          color: Colors.black45),
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: vf * 2.157), //20
+                                      width: vf * 12,
+                                      height: 100,
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                            'PROTEIN',
+                                            style: TextStyle(
+                                                fontSize: CustomStyle
+                                                        .verticalFractions *
+                                                    2.373, //22
+                                                color: CustomStyle
+                                                    .light_bn_txt_Color,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          SizedBox(height: vf * 1.510), //14
+                                          Text(
+                                            '$protein',
+                                            style: TextStyle(
+                                              fontSize: vf * 1.833, //17
+                                              color:
+                                                  CustomStyle.light_bn_txt_Color,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(width: vf * 1.078), //10
+                                    Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(20),
+                                          color: Colors.black45),
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: vf * 2.157), //20
+                                      width: vf * 12,
+                                      height: 100,
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                            'WATER',
+                                            style: TextStyle(
+                                                fontSize: CustomStyle
+                                                        .verticalFractions *
+                                                    2.373, //22
+                                                color: CustomStyle
+                                                    .light_bn_txt_Color,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          SizedBox(height: vf * 1.510), //14
+                                          Text(
+                                            '$water L',
+                                            style: TextStyle(
+                                              fontSize: vf * 1.833, //17
+                                              color:
+                                                  CustomStyle.light_bn_txt_Color,
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 40),
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Color.fromRGBO(117, 131, 194, 1),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            padding: EdgeInsets.only(
+                                left: 15, right: 15, top: 22, bottom: 20),
+                            child: Column(
+                              children: [
+                                Text(
+                                  'ROUTINE DIET',
+                                  style: TextStyle(
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.bold,
+                                    color: CustomStyle.light_bn_txt_Color,
+                                  ),
+                                ),
+                                SizedBox(height: 30),
+                                Row(
+                                  children: [
+                                    Text(
+                                      'TAKEN :',
+                                      style: TextStyle(
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.bold,
+                                        color: CustomStyle.light_bn_txt_Color,
+                                      ),
+                                    ),
+                                    //TABLET !
+                                    // ListView.builder(
+                                    //     itemCount: taken.length,
+                                    //     itemBuilder: (context,index){
+                                    //   return tablet('BREAKFAST');
+                                    // }),
+                                    tablet('BREAKFAST'),
+                                    tablet('LUNCH'),
+                                  ],
+                                ),
+                                SizedBox(height: 20),
+                                Row(
+                                  children: [
+                                    Text(
+                                      'UPCOMING : ',
+                                      style: TextStyle(
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.bold,
+                                        color: CustomStyle.light_bn_txt_Color,
+                                      ),
+                                    ),
+                                    tablet('DINNER'),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                now.isEmpty?null:mealGenerator("Recommended For You",now),
+                ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: titles.length,
+                  itemBuilder: (context, index) {
+                    return mealGenerator(titles[index],food_data[titles[index]]);
+                  },
+                ),
+              ],
+            ),
+          ),
+        );
     }
   }
 

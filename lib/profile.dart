@@ -5,7 +5,6 @@ import 'pages/LeaderBoard.dart';
 import 'pages/OverallStats.dart';
 import 'pages/PlanDetails.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 void main() {
   runApp(
     Profile(

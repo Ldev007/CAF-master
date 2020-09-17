@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:math' as Math;
 import 'dart:ui';
 import 'package:bezier_chart/bezier_chart.dart';
@@ -8,6 +9,7 @@ import 'pages/LeaderBoard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'styling.dart';
+import 'package:sortedmap/sortedmap.dart';
 import 'package:fit_kit/fit_kit.dart';
 
 class CircleProgressBar extends StatefulWidget {
@@ -179,12 +181,18 @@ class _CircleProgressBarState extends State<CircleProgressBar>
     var month = fulldate.month;
     var date = fulldate.day;
     var year = fulldate.year;
+    var dates="";
+    if(date<10){
+      dates = "0"+date.toString();
+    }
+    else{
+      dates=date.toString();
+    }
     ds.setData({
       year.toString(): {
-        month.toString(): {date.toString(): testcount}
+        month.toString(): {dates: testcount}
       }
     }, merge: true);
-
     var xaxis = [0.0];
     var data = [
       DataPoint<double>(value: 0),
@@ -196,14 +204,25 @@ class _CircleProgressBarState extends State<CircleProgressBar>
         .collection('excercise')
         .document('steps')
         .get();
-    var stepsdata = dsnap.data[year.toString()][month.toString()];
+    Map<String,dynamic> stepsdata = dsnap.data[year.toString()][month.toString()];
 //    print(test);
-    stepsdata.forEach((element, value) {
+    var map = new SortedMap(Ordering.byKey());
+    map.addAll(stepsdata);
+
+    // map.forEach((element, value) {
+    //
+    // });
+    map.forEach((element, value) {
       data.add(DataPoint<double>(value: value.toDouble()));
       len = len + 2;
       xaxis.add(len.toDouble());
 //      print(element);
     });
+//     var test = [0,];
+//     for(int i=map.length;i>0;i++){
+//       test.add()
+//     }
+
 //    print(xaxis);
 //    print(data);
     setState(() {
@@ -218,201 +237,194 @@ class _CircleProgressBarState extends State<CircleProgressBar>
     @required this.value,
   }) : super();
 
-  String title = "TRACK";
+  String title = "Tracking";
 
   @override
   Widget build(BuildContext context) {
     final backgroundColor = this.backgroundColor;
     final foregroundColor = this.foregroundColor;
-    return Scaffold(
-      body: SafeArea(
-        child: Container(
-          padding: EdgeInsets.symmetric(
-              vertical: CustomStyle.verticalFractions * 3.236),
-          //30
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: <Color>[
-                Color.fromRGBO(192, 196, 228, 1),
-                Color.fromRGBO(141, 148, 206, 1),
-                Color.fromRGBO(38, 53, 95, 1),
-                Color.fromRGBO(28, 39, 69, 1),
-              ],
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: <Color>[
+            Color.fromRGBO(192, 196, 228, 1),
+            Color.fromRGBO(141, 148, 206, 1),
+            Color.fromRGBO(38, 53, 95, 1),
+            Color.fromRGBO(28, 39, 69, 1),
+          ],
+        ),
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title:Text(
+            title,
+            style: TextStyle(
+              color: Colors.grey[700],
+              fontWeight: FontWeight.w600,
+              fontSize: 30,
             ),
           ),
-          // color: Color.fromRGBO(48, 67, 120, 0.0),
-          child: Column(
-            children: <Widget>[
-              //CENTER TITLE MODIFICATION DONE
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-//                    Icon(Icons.menu, color: Colors.blue),
-                  SizedBox(width: CustomStyle.verticalFractions * 17.2), //125
-                  Text(
-                    title,
-                    style: TextStyle(
-                      fontSize: CustomStyle.verticalFractions * 3.5, //25
-                      color: Colors.white, //CustomStyle.light_bn_color,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing:
-                          CustomStyle.verticalFractions * 0.383, //3.0
-                    ),
-                  )
-                ],
-              ),
-              Expanded(
-                flex: 2,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    CustomPaint(
-                      child: Container(
-                        color: Colors.transparent,
-                        width: MediaQuery.of(context).size.width * 0.40,
-                        height: MediaQuery.of(context).size.height * 0.4,
-                      ),
-                      foregroundPainter: CircleProgressBarPainter(
-                        backgroundColor: backgroundColor,
-                        foregroundColor: foregroundColor,
-                        percentage: paint ? anime.value : 0.0,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Color.fromRGBO(48, 67, 120, 0.0),
-                  ),
+        ),
+        body: SafeArea(
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            child: Column(
+              children: <Widget>[
+                //CENTER TITLE MODIFICATION DONE
+                Expanded(
+                  flex: 2,
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Expanded(
-                        flex: 1,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Row(
-                              children: <Widget>[
-                                SizedBox(
-                                    width: CustomStyle.verticalFractions *
-                                        1.078), //10
-                                Icon(
-                                  Icons.fiber_manual_record,
-                                  color: Color.fromRGBO(192, 196, 228, 0.5),
-                                  size: CustomStyle.verticalFractions *
-                                      2.157, //20
-                                ),
-                                SizedBox(
-                                    width: CustomStyle.verticalFractions *
-                                        2.157), //20
-                                Text(
-                                  'Calories Burnt',
-                                  style: TextStyle(
-                                    color: Colors
-                                        .white, //Color.fromRGBO(192, 196, 228, 0.5),
-                                    fontSize: CustomStyle.verticalFractions *
-                                        2.804, //26
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                                height:
-                                    CustomStyle.verticalFractions * 2.157), //20
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  right: CustomStyle.verticalFractions *
-                                      2.157), //20
-                              child: Text(
-                                calories.toStringAsPrecision(5) + ' cal',
-                                style: TextStyle(
-                                  fontSize: CustomStyle.verticalFractions *
-                                      3.236, //30
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ],
+                      CustomPaint(
+                        child: Container(
+                          color: Colors.transparent,
+                          width: MediaQuery.of(context).size.width * 0.40,
+                          height: MediaQuery.of(context).size.height * 0.4,
                         ),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Row(
-                              children: <Widget>[
-                                Icon(
-                                  Icons.fiber_manual_record,
-                                  color: Color.fromRGBO(192, 196, 228, 0.5),
-                                  size: CustomStyle.verticalFractions *
-                                      2.157, //20
-                                ),
-                                SizedBox(
-                                    width: CustomStyle.verticalFractions *
-                                        1.078), //10
-                                Text(
-                                  'Target Calories',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: CustomStyle.verticalFractions *
-                                        2.804, //26
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                )
-                              ],
-                            ),
-                            SizedBox(
-                                height:
-                                    CustomStyle.verticalFractions * 2.157), //20
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  right: CustomStyle.verticalFractions *
-                                      7.011), //65
-                              child: Text(
-                                '$targetcal kcal',
-                                style: TextStyle(
-                                  fontSize: CustomStyle.verticalFractions *
-                                      3.236, //30
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ],
+                        foregroundPainter: CircleProgressBarPainter(
+                          backgroundColor: backgroundColor,
+                          foregroundColor: foregroundColor,
+                          percentage: paint ? anime.value : 0.0,
                         ),
                       ),
                     ],
                   ),
                 ),
-              ),
-              Expanded(
-                flex: 2,
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      flex: 1,
-                      child: Container(
-                        color: Color.fromRGBO(0, 0, 0, 0.0),
-                        padding: EdgeInsets.only(
-                          bottom: CustomStyle.verticalFractions * 8.5, //10
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(48, 67, 120, 0.0),
+                    ),
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(
+                          flex: 1,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Row(
+                                children: <Widget>[
+                                  SizedBox(
+                                      width: CustomStyle.verticalFractions *
+                                          1.078), //10
+                                  Icon(
+                                    Icons.fiber_manual_record,
+                                    color: Color.fromRGBO(192, 196, 228, 0.5),
+                                    size: CustomStyle.verticalFractions *
+                                        2.157, //20
+                                  ),
+                                  SizedBox(
+                                      width: CustomStyle.verticalFractions *
+                                          2.157), //20
+                                  Text(
+                                    'Calories Burnt',
+                                    style: TextStyle(
+                                      color: Colors
+                                          .white, //Color.fromRGBO(192, 196, 228, 0.5),
+                                      fontSize: CustomStyle.verticalFractions *
+                                          2.804, //26
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                  height:
+                                      CustomStyle.verticalFractions * 2.157), //20
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    right: CustomStyle.verticalFractions *
+                                        2.157), //20
+                                child: Text(
+                                  calories.toStringAsPrecision(5) + ' cal',
+                                  style: TextStyle(
+                                    fontSize: CustomStyle.verticalFractions *
+                                        3.236, //30
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                        width: CustomStyle.verticalFractions * 21.574,
-                        //200
-                        child: Leaderboard(
-                          steps: 500,
-                          dataf: points,
-                          xaxiss: axis,
+                        Expanded(
+                          flex: 1,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Row(
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.fiber_manual_record,
+                                    color: Color.fromRGBO(192, 196, 228, 0.5),
+                                    size: CustomStyle.verticalFractions *
+                                        2.157, //20
+                                  ),
+                                  SizedBox(
+                                      width: CustomStyle.verticalFractions *
+                                          1.078), //10
+                                  Text(
+                                    'Target Calories',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: CustomStyle.verticalFractions *
+                                          2.804, //26
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  )
+                                ],
+                              ),
+                              SizedBox(
+                                  height:
+                                      CustomStyle.verticalFractions * 2.157), //20
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    right: CustomStyle.verticalFractions *
+                                        7.011), //65
+                                child: Text(
+                                  '$targetcal kcal',
+                                  style: TextStyle(
+                                    fontSize: CustomStyle.verticalFractions *
+                                        3.236, //30
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                          color: Color.fromRGBO(0, 0, 0, 0.0),
+                          padding: EdgeInsets.only(
+                            bottom: CustomStyle.verticalFractions * 8.5, //10
+                          ),
+                          width: CustomStyle.verticalFractions * 21.574,
+                          //200
+                          child: Leaderboard(
+                            steps: 500,
+                            dataf: points,
+                            xaxiss: axis,
+                          ),
                         ),
                       ),
-                    ),
 //                    SizedBox(width: CustomStyle.verticalFractions * 1.078), //10
 //                    Expanded(
 //                      flex: 1,
@@ -429,20 +441,20 @@ class _CircleProgressBarState extends State<CircleProgressBar>
 //                        ),
 //                      ),
 //                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
 
-              // SizedBox(height: 10),
+                // SizedBox(height: 10),
 
-              //BOTTOM WIDGET
-              // Align(
-              //   alignment: Alignment.bottomCenter,
-              //   child: Container(
-              //     width: MediaQuery.of(context).size.width,
-              //     height: MediaQuery.of(context).size.height * 0.15,
-              //     child: Row(
-              //       children: <Widget>[
+                //BOTTOM WIDGET
+                // Align(
+                //   alignment: Alignment.bottomCenter,
+                //   child: Container(
+                //     width: MediaQuery.of(context).size.width,
+                //     height: MediaQuery.of(context).size.height * 0.15,
+                //     child: Row(
+                //       children: <Widget>[
 //                      Padding(
 //                        padding: EdgeInsets.only(left: 10),
 //                        child: Column(
@@ -853,11 +865,12 @@ class _CircleProgressBarState extends State<CircleProgressBar>
 //                          ],
 //                        ),
 //                      )
-              //       ],
-              //     ),
-              //   ),
-              // )
-            ],
+                //       ],
+                //     ),
+                //   ),
+                // )
+              ],
+            ),
           ),
         ),
       ),
