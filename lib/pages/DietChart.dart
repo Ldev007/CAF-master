@@ -161,7 +161,7 @@ class _DietChartState extends State<DietChart> {
           Spacer(),
           Container(
             width: MediaQuery.of(context).size.width,
-            height: vf * 32,
+            height: vf * 33,
             child: ListView.builder(
               shrinkWrap: true,
               physics: ClampingScrollPhysics(),
