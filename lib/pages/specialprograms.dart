@@ -16,6 +16,14 @@ class _specialprogramsState extends State<specialprograms> {
       "cal": "150",
       "picture": "images/hiit.jpeg",
       "type": "Beginners",
+      "excercise": [
+        "jumping_high_knees-s",
+        "SQUADS-s",
+        "plankrock-fd",
+        "Jumpting_Squats-s",
+        "legRaise-fu",
+        "pushups-fd",
+      ],
     },
     {
       "name": "pilates",
@@ -23,6 +31,16 @@ class _specialprogramsState extends State<specialprograms> {
       "cal": "250",
       "picture": "images/pilates.jpeg",
       "type": "Beginners",
+      "excercise": [
+        "theonehundred-fu",
+        // "crossCrunches",
+        "doublelegstrech-fu",
+        // "teasser",
+        "pendulum-fu",
+        "plankleglift-fu",
+        "plankrock-fu",
+        "hipdip-fu"
+      ],
     },
   ];
   ScrollController _controller = new ScrollController();
@@ -41,9 +59,10 @@ class _specialprogramsState extends State<specialprograms> {
         return Single_product(
           prod_picture: program_list[index]['picture'],
           prod_name: program_list[index]['name'],
-          duration:program_list[index]['duration'],
-          calories:program_list[index]['cal'],
-          point:program_list[index]['type'],
+          duration: program_list[index]['duration'],
+          calories: program_list[index]['cal'],
+          point: program_list[index]['type'],
+          excercise : program_list[index]['excercise'],
         );
       },
     ));
@@ -56,6 +75,7 @@ class Single_product extends StatelessWidget {
   final duration;
   final calories;
   final point;
+  final excercise;
 
   Single_product({
     this.prod_name,
@@ -63,6 +83,7 @@ class Single_product extends StatelessWidget {
     this.duration,
     this.calories,
     this.point,
+    this.excercise,
   });
 
   @override
@@ -81,9 +102,9 @@ class Single_product extends StatelessWidget {
                         new MaterialPageRoute(
                             builder: (context) => new exercise(
                                 program_pic: prod_picture,
-                                program_name: prod_name))),
-                    child:
-                    Card(
+                                program_name: prod_name,
+                            excercise_f:excercise))),
+                    child: Card(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.only(
                             topRight: Radius.circular(15),
@@ -107,16 +128,18 @@ class Single_product extends StatelessWidget {
                         ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 10.0,left:10),
+                    margin: EdgeInsets.only(top: 10.0, left: 10),
                     child: Text(
                       point.toString(),
                       textAlign: TextAlign.left,
-                      style: TextStyle(fontSize: 18.0,fontWeight: FontWeight.w600,
+                      style: TextStyle(
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 5.0,left:10,bottom: 15),
+                    margin: EdgeInsets.only(top: 5.0, left: 10, bottom: 15),
                     child: Text(
                       '${calories} Cal  |  ${duration} min',
                       style: TextStyle(

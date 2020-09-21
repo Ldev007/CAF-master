@@ -9,10 +9,12 @@ import '../styling.dart';
 class exercise extends StatefulWidget {
   final program_name;
   final program_pic;
+  final excercise_f;
 
   exercise({
     this.program_name,
     this.program_pic,
+    this.excercise_f,
   });
 
   @override
@@ -27,7 +29,7 @@ class _exerciseState extends State<exercise> {
   UnityWidgetController _unityWidgetController;
   String curr_excercise = "Start";
   String next_excercise = "---";
-  List<String> hiit = [
+  List<String> pilates = [
     "jumping_high_knees-s",
     "SQUADS-s",
     "plankrock-fd",
@@ -35,15 +37,15 @@ class _exerciseState extends State<exercise> {
     "legRaise-fu",
     "pushups-fd",
   ];
-  List<String> pilates = [
-    "theonehundred",
-    "crossCrunches",
-    "doublelegstrech",
-    "teasser",
-    "pendulum",
-    "plankleglift",
-    "plankrock",
-    "hipdip"
+  List<String> hiit = [
+    "theonehundred-fu",
+    // "crossCrunches",
+    "doublelegstrech-fu",
+    // "teasser",
+    "pendulum-fu",
+    "plankleglift-fu",
+    "plankrock-fu",
+    "hipdip-fu"
   ];
 
   int _i = 1;
@@ -182,7 +184,7 @@ class _exerciseState extends State<exercise> {
               color: Colors.blue,),
               onPressed: () {
                 print("play");
-                playexercise(hiit);
+                playexercise(widget.excercise_f);
                 setState(() {
                   isstarted = true;
                 });

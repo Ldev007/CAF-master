@@ -135,20 +135,21 @@ class _DietChartState extends State<DietChart> {
   }
 
 //FUNCTION TO GENERATE INDIVIDUAL CATEGORIES HAVING DIFFERENT DISHES
-  Widget mealGenerator(String title, Map<String, dynamic> food) {
-    List<String> items = food.keys.toList();
+  Widget mealGenerator(String title,Map<String,dynamic> food) {
+    List<String> items=food.keys.toList();
     return Container(
       padding: EdgeInsets.only(left: vf * 1.078),
       margin: EdgeInsets.only(top: vf * 2.157),
       color: Colors.transparent,
       width: MediaQuery.of(context).size.width,
-      height: vf * 27.5,
+      height: vf * 38,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
 //          Text(items.toString()),
           Text(
-            title != null ? title : "_",
+            title != null?title:"_",
             style: TextStyle(
               fontSize: vf * 3.8,
               color: darkPurple,
@@ -157,10 +158,10 @@ class _DietChartState extends State<DietChart> {
               decorationColor: darkPurple,
             ),
           ),
-          SizedBox(height: vf * 1.4),
+          Spacer(),
           Container(
             width: MediaQuery.of(context).size.width,
-            height: vf * 22,
+            height: vf * 32,
             child: ListView.builder(
               shrinkWrap: true,
               physics: ClampingScrollPhysics(),
@@ -168,50 +169,49 @@ class _DietChartState extends State<DietChart> {
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, i) {
                 return InkWell(
-                  onTap: () => Navigator.push(
+                  onTap:() => Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) =>
                             individualDishInterfaceGenerator(),
                       )),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Card(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         elevation: 2,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10.0),
-                          child: CachedNetworkImage(
-                            imageUrl: food[items[i]]['pic'],
-                            width: vf * 24,
-                            height: vf * 16,
-                            placeholder: (context, url) =>
-                                new CircularProgressIndicator(),
-                            errorWidget: (context, url, error) =>
-                                new Icon(Icons.error_outline),
+                        child:
+                        CachedNetworkImage(
+                          imageUrl: food[items[i]]['pic'],
+                          width:vf * 24,
+                          height: vf * 23 ,
+                          placeholder: (context, url) => new CircularProgressIndicator(),
+                          errorWidget: (context, url, error) => new Icon(Icons.error_outline),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(top: 0.0,left:10),
+                        child: Text(
+                          items[i],
+                          textAlign: TextAlign.left,
+                          style: TextStyle(fontSize: 18.0,fontWeight: FontWeight.w600,
                           ),
                         ),
                       ),
-                      Expanded(
-                        child: Container(
-                          width: vf * 20,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                items[i],
-                                style: TextStyle(
-                                    fontSize: vf * 3.1,
-                                    fontWeight: FontWeight.bold,
-                                    color: darkPurple),
-                              ),
-                              Text('Duration'),
-                            ],
+                      Container(
+                        margin: EdgeInsets.only(top: 3.0,left:10,bottom: 15),
+                        child: Text(
+                          food[items[i]]['calories'].toString()+' cal',
+                          style: TextStyle(
+                            fontSize: 12.0,
+                            color: Colors.grey,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 );
@@ -223,7 +223,6 @@ class _DietChartState extends State<DietChart> {
       ),
     );
   }
-
   bool flag = true;
 
 //TO-DO: CONSTRUCT INDIVUAL DISH INTERFACE DESIGN AS WELL AS FRONT-END FUNCTIONALITY
