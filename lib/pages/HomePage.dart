@@ -175,10 +175,23 @@ class _HomePageState extends State<HomePage> {
                     onTap: () => Navigator.pushNamed(context, '/profile_page'),
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
-                      child: CircleAvatar(
-                        radius: 22, //CustomStyle.verticalFractions * 10.248
-                        backgroundImage: NetworkImage(photourl),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(blurRadius: 5, color: Colors.grey, spreadRadius: 4)
+                          ],
+                        ),
+                        child: CircleAvatar(
+                          radius: 26, //CustomStyle.verticalFractions * 10.248
+                          backgroundColor: Colors.white,
+                          child: CircleAvatar(
+                            radius: 24, //CustomStyle.verticalFractions * 10.248
+                            backgroundImage: NetworkImage(photourl),
 //                          child: Image(image: NetworkImage(photourl),),
+                          ),
+                        ),
                       ),
                     ),
                   )

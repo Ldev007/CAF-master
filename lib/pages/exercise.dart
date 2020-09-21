@@ -28,12 +28,12 @@ class _exerciseState extends State<exercise> {
   String curr_excercise = "Start";
   String next_excercise = "---";
   List<String> hiit = [
-    "jumping_high_knees",
-    "SQUADS",
-    "pushups",
-    "Jumpting_Squats",
-    "legRaise",
-    "plankrock"
+    "jumping_high_knees-s",
+    "SQUADS-s",
+    "plankrock-fd",
+    "Jumpting_Squats-s",
+    "legRaise-fu",
+    "pushups-fd",
   ];
   List<String> pilates = [
     "theonehundred",
@@ -81,25 +81,15 @@ class _exerciseState extends State<exercise> {
                   ),
                 ),
               ),
+
               new Positioned(
-                left: 10,
-                bottom: 5,
-                child: InkWell(
-                  onTap: () {
-                    print("tapped");
-                  },
-                  child:
-                      Icon(Icons.rotate_right, color: Colors.white, size: 40.0),
-                ),
-              ),
-              new Positioned(
-                left:  CustomStyle.horizontalFractions*43,
+                left:  CustomStyle.horizontalFractions*40,
                 bottom: 5,
                 child: InkWell(
                   child: Icon(
                     (_unitypause) ? Icons.play_arrow : Icons.pause,
                     color: Colors.white,
-                    size: 40.0,
+                    size: 50.0,
                   ),
                   onTap : () {
                     print("play");
@@ -113,17 +103,6 @@ class _exerciseState extends State<exercise> {
                       _pause = true;
                     });
                   },
-                ),
-              ),
-              new Positioned(
-                right: 10,
-                bottom: 5,
-                child: InkWell(
-                  onTap: () {
-                    print("tapped");
-                  },
-                  child:
-                      Icon(Icons.rotate_left, color: Colors.white, size: 40.0),
                 ),
               ),
 //                  Row(
@@ -267,12 +246,12 @@ class _exerciseState extends State<exercise> {
           );
           print(pack[_i]);
           setState(() {
-            curr_excercise = pack[_i];
+            curr_excercise = pack[_i].split("-")[0];
             if(_i==pack.length-1) {
               next_excercise = "Completed";
             }
             else{
-              next_excercise = pack[_i + 1];
+              next_excercise = pack[_i + 1].split("-")[0];
             }
           });
           _i++;
@@ -326,8 +305,8 @@ class _exerciseState extends State<exercise> {
       pack[0],
     );
     setState(() {
-      curr_excercise = pack[0];
-      next_excercise = pack[1];
+      curr_excercise = pack[0].split("-")[0];
+      next_excercise = pack[1].split("-")[0];
     });
     print(pack[0]);
     startTimer(timer, pack);
