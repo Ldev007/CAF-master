@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_ex/Authenticate/screens/logoAnim.dart';
 import 'package:firebase_ex/additional/loading.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'AuthScreen.dart';
@@ -65,7 +66,7 @@ class _Google_authState extends State<Google_auth> {
           new MaterialPageRoute(builder: (context) => new HomePage()));
     } else {
       Navigator.of(context).pushReplacement(
-          new MaterialPageRoute(builder: (context) => new LoginScreen()));
+          new MaterialPageRoute(builder: (context) => new LogoAnim()));
     }
   }
 

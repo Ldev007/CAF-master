@@ -84,6 +84,9 @@ flutter:
       fonts:
         - asset: fonts/Roboto-Light.ttf
         - asset: fonts/Roboto-Bold.ttf
+    - family: Trade Winds
+      fonts:
+        - asset: fonts/TradeWinds-Regular.ttf
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:

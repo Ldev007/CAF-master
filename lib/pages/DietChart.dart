@@ -29,6 +29,42 @@ class _DietChartState extends State<DietChart> {
   List<String> taken = ["Breakfast"];
   List<String> upcoming = ["Lunch", "Dinner"];
 
+  //NUTRITIONAL FACTS
+  List<String> nutFacts1 = [
+    "Energy 429 kcal",
+    "Total Fat 17.3 g",
+    "Saturated Fatty Acids 8.1 g",
+    "Total Fatty Acids 0 g",
+    "Total Carbohydrates 58.3 g",
+    "Of which sugars 4.4 g",
+    "Protein 10 g",
+    "Calcium 105 mg"
+  ];
+
+  List<String> nutFacts2 = [
+    "Total Carbohydrates 58.3 g",
+    "Of which sugars 4.4 g",
+    "Protein 10 g",
+    "Calcium 105 mg"
+  ];
+
+  List<String> ingredients1 = [
+    "1 Cube of Maggi",
+    "1 Packet Masala",
+    "1 Tbsp Salt",
+    "Half a cup water",
+    "Handfull Cabbage",
+    "1 Green/Red Bell Pepper",
+    "5-10 Peas",
+    "Half a Tbsp of Pepper Salt"
+  ];
+  List<String> ingredients2 = [
+    "Handfull Cabbage",
+    "1 Green/Red Bell Pepper",
+    "5-10 Peas",
+    "Half a Tbsp of Pepper Salt"
+  ];
+
   //INTAKE VALUES
   double calories = 0;
   double protein = 0;
@@ -64,7 +100,7 @@ class _DietChartState extends State<DietChart> {
     }
   }
 
-  Widget tablet(String text) {
+  Widget tablet(String text, {Color colr}) {
     return Row(
       children: <Widget>[
         SizedBox(
@@ -73,10 +109,14 @@ class _DietChartState extends State<DietChart> {
         Container(
           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
           decoration: BoxDecoration(
-              color: Colors.black45, borderRadius: BorderRadius.circular(6)),
+              color: colr != null ? colr : Colors.black45,
+              borderRadius: BorderRadius.circular(6)),
           child: Text(
             text,
-            style: TextStyle(color: Colors.white70, letterSpacing: 1),
+            style: TextStyle(
+                color: Colors.white70,
+                letterSpacing: 1,
+                fontWeight: FontWeight.bold),
           ),
         ),
       ],
@@ -95,21 +135,20 @@ class _DietChartState extends State<DietChart> {
   }
 
 //FUNCTION TO GENERATE INDIVIDUAL CATEGORIES HAVING DIFFERENT DISHES
-  Widget mealGenerator(String title,Map<String,dynamic> food) {
-    List<String> items=food.keys.toList();
+  Widget mealGenerator(String title, Map<String, dynamic> food) {
+    List<String> items = food.keys.toList();
     return Container(
       padding: EdgeInsets.only(left: vf * 1.078),
       margin: EdgeInsets.only(top: vf * 2.157),
       color: Colors.transparent,
       width: MediaQuery.of(context).size.width,
-      height: vf * 35,
+      height: vf * 27.5,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
 //          Text(items.toString()),
           Text(
-            title != null?title:"_",
+            title != null ? title : "_",
             style: TextStyle(
               fontSize: vf * 3.8,
               color: darkPurple,
@@ -118,10 +157,10 @@ class _DietChartState extends State<DietChart> {
               decorationColor: darkPurple,
             ),
           ),
-          Spacer(),
+          SizedBox(height: vf * 1.4),
           Container(
             width: MediaQuery.of(context).size.width,
-            height: vf * 28,
+            height: vf * 22,
             child: ListView.builder(
               shrinkWrap: true,
               physics: ClampingScrollPhysics(),
@@ -129,12 +168,12 @@ class _DietChartState extends State<DietChart> {
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, i) {
                 return InkWell(
-                  onTap:() => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          individualDishInterfaceGenerator(),
-                    )),
+                  onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            individualDishInterfaceGenerator(),
+                      )),
                   child: Column(
                     children: [
                       Card(
@@ -142,20 +181,37 @@ class _DietChartState extends State<DietChart> {
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         elevation: 2,
-                        child:
-                         CachedNetworkImage(
-                           imageUrl: food[items[i]]['pic'],
-                           width:vf * 24,
-                           height: vf * 23 ,
-                           placeholder: (context, url) => new CircularProgressIndicator(),
-                           errorWidget: (context, url, error) => new Icon(Icons.error_outline),
-                         ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10.0),
+                          child: CachedNetworkImage(
+                            imageUrl: food[items[i]]['pic'],
+                            width: vf * 24,
+                            height: vf * 16,
+                            placeholder: (context, url) =>
+                                new CircularProgressIndicator(),
+                            errorWidget: (context, url, error) =>
+                                new Icon(Icons.error_outline),
+                          ),
+                        ),
                       ),
-                      Text(items[i],
-                          style: TextStyle(
-                              fontSize: vf * 3.1,
-                              fontWeight: FontWeight.bold,
-                              color: darkPurple)),
+                      Expanded(
+                        child: Container(
+                          width: vf * 20,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                items[i],
+                                style: TextStyle(
+                                    fontSize: vf * 3.1,
+                                    fontWeight: FontWeight.bold,
+                                    color: darkPurple),
+                              ),
+                              Text('Duration'),
+                            ],
+                          ),
+                        ),
+                      )
                     ],
                   ),
                 );
@@ -176,214 +232,378 @@ class _DietChartState extends State<DietChart> {
         player: YoutubePlayer(controller: _controller),
         builder: (context, player) {
           return Scaffold(
-            body: SafeArea(
-              child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Column(
-                  children: <Widget>[
-                    player,
-                    SizedBox(height: 20),
-                    Container(
-                      // padding: EdgeInsets.all(10),
-                      width: 500,
-                      height: 200,
-                      margin:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: darkPurple,
-                        borderRadius: BorderRadius.circular(12),
+            body: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Column(
+                children: <Widget>[
+                  Stack(
+                    children: <Widget>[
+                      player,
+                      IconButton(
+                        icon: Icon(
+                          Icons.arrow_back_ios,
+                          color: Colors.white,
+                        ),
+                        onPressed: () => Navigator.pop(context),
                       ),
-                      child: Container(
-                          width: 380,
-                          height: 170,
-                          decoration: BoxDecoration(
-                            color: Color.fromRGBO(117, 131, 194, 1),
-                            borderRadius: BorderRadius.circular(12),
+                    ],
+                  ),
+                  Stack(
+                    children: <Widget>[
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.71,
+                        width: MediaQuery.of(context).size.width,
+                        child: FittedBox(
+                          fit: BoxFit.fill,
+                          child: Image.network(
+                            'https://images.pexels.com/photos/842571/pexels-photo-842571.jpeg?cs=srgb&dl=pexels-valeria-boltneva-842571.jpg&fm=jpg',
                           ),
-                          child: Column(
-                            children: <Widget>[
-                              Container(
-                                width: 270,
-                                height: 40,
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                    color: darkPurple,
-                                    borderRadius: BorderRadius.only(
-                                      bottomLeft: Radius.circular(10),
-                                      bottomRight: Radius.circular(10),
-                                    )),
-                                child: Text(
-                                  'NUTRITIONAL VALUES',
-                                  style: TextStyle(
-                                      wordSpacing: 5,
-                                      fontSize: 26,
-                                      color: CustomStyle.light_bn_txt_Color,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              )
-                            ],
-                          )),
-                    ),
-                    Container(
-                      // padding: EdgeInsets.all(10),
-                      width: 500,
-                      height: 400,
-                      margin:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: darkPurple,
-                        borderRadius: BorderRadius.circular(12),
+                        ),
                       ),
-                      child: Container(
-                          width: 380,
-                          height: 360,
-                          decoration: BoxDecoration(
-                            color: Color.fromRGBO(117, 131, 194, 1),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Column(
-                            children: <Widget>[
-                              Container(
-                                width: 290,
-                                height: 40,
-                                alignment: Alignment.center,
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: vf * 1.5, vertical: vf * 3),
+                        height: MediaQuery.of(context).size.height * 0.71,
+                        width: MediaQuery.of(context).size.width,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Row(
+                            //   children: [
+                            //     Container(
+                            //       width: vf * 15,
+                            //       height: vf * 20,
+                            //       child: ListView.builder(
+                            //         padding: EdgeInsets.only(top: 15),
+                            //         scrollDirection: Axis.vertical,
+                            //         physics: NeverScrollableScrollPhysics(),
+                            //         shrinkWrap: true,
+                            //         itemBuilder: (context, index) => Column(
+                            //           children: [
+                            //             FittedBox(
+                            //               child: tablet(
+                            //                 ingredients1[index],
+                            //                 colr:
+                            //                     Color.fromRGBO(1, 1, 1, 0.4),
+                            //               ),
+                            //             ),
+                            //             SizedBox(height: vf * 1.2)
+                            //           ],
+                            //         ),
+                            //         itemCount: ingredients1.length,
+                            //       ),
+                            //     ),
+                            //     Container(
+                            //       width: vf * 20,
+                            //       height: vf * 20,
+                            //       child: ListView.builder(
+                            //         padding: EdgeInsets.only(top: 15),
+                            //         scrollDirection: Axis.vertical,
+                            //         shrinkWrap: true,
+                            //         itemBuilder: (context, index) => Column(
+                            //           children: [
+                            //             FittedBox(
+                            //               child: tablet(
+                            //                 ingredients2[index],
+                            //                 colr:
+                            //                     Color.fromRGBO(1, 1, 1, 0.4),
+                            //               ),
+                            //             ),
+                            //             SizedBox(height: vf * 1.2)
+                            //           ],
+                            //         ),
+                            //         itemCount: ingredients2.length,
+                            //       ),
+                            //     )
+                            //   ],
+                            // ),
+
+                            Expanded(
+                              child: Container(
+                                margin: EdgeInsets.only(right: 5),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 15, vertical: 15),
                                 decoration: BoxDecoration(
-                                    color: darkPurple,
-                                    borderRadius: BorderRadius.only(
-                                      bottomLeft: Radius.circular(10),
-                                      bottomRight: Radius.circular(10),
-                                    )),
-                                child: Text(
-                                  'INGREDIENTS REQUIRED',
-                                  style: TextStyle(
-                                      wordSpacing: 10,
-                                      fontSize: 26,
-                                      color: CustomStyle.light_bn_txt_Color,
-                                      fontWeight: FontWeight.bold),
+                                  color: Color.fromRGBO(128, 128, 128, 0.4),
+                                  borderRadius: BorderRadius.circular(15),
                                 ),
-                              )
-                            ],
-                          )),
-                    ),
-                    Container(
-                      // padding: EdgeInsets.all(10),
-                      width: 500,
-                      height: 200,
-                      margin:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: darkPurple,
-                        borderRadius: BorderRadius.circular(12),
+                                height:
+                                    MediaQuery.of(context).size.height * 0.25,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                                    Divider(
+                                        indent: 10,
+                                        endIndent: 10,
+                                        color: Colors.white),
+                                    Expanded(
+                                      child: Text(
+                                        'HOW TO COOK ?',
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white70,
+                                        ),
+                                      ),
+                                    ),
+                                    Divider(
+                                        indent: 50,
+                                        endIndent: 50,
+                                        color: Colors.white),
+                                    Expanded(
+                                      flex: vf.round(),
+                                      child: ListView.builder(
+                                        scrollDirection: Axis.vertical,
+                                        padding: EdgeInsets.only(top: 15),
+                                        physics: BouncingScrollPhysics(),
+                                        shrinkWrap: true,
+                                        itemCount: ingredients1.length,
+                                        itemBuilder: (context, index) => Column(
+                                          children: [
+                                            FittedBox(
+                                              child: tablet(
+                                                ingredients1[index],
+                                              ),
+                                            ),
+                                            SizedBox(height: vf * 1.2),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+
+                            Expanded(
+                              child: Container(
+                                margin: EdgeInsets.only(left: 5),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 15, vertical: 15),
+                                decoration: BoxDecoration(
+                                  color: Color.fromRGBO(128, 128, 128, 0.4),
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                height:
+                                    MediaQuery.of(context).size.height * 0.25,
+                                child: Column(
+                                  children: [
+                                    Divider(
+                                      color: Colors.white,
+                                      indent: 10,
+                                      endIndent: 10,
+                                    ),
+                                    Expanded(
+                                      child: Text(
+                                        'WHY SHOULD YOU EAT IT ?',
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white70,
+                                        ),
+                                      ),
+                                    ),
+                                    Divider(
+                                        indent: 50,
+                                        endIndent: 50,
+                                        color: Colors.white),
+                                    Expanded(
+                                      flex: vf.round(),
+                                      child: ListView.builder(
+                                          scrollDirection: Axis.vertical,
+                                          padding: EdgeInsets.only(top: 15),
+                                          physics: BouncingScrollPhysics(),
+                                          shrinkWrap: true,
+                                          itemCount: nutFacts1.length,
+                                          itemBuilder: (context, index) =>
+                                              Column(
+                                                children: [
+                                                  FittedBox(
+                                                    child: tablet(
+                                                      nutFacts1[index],
+                                                    ),
+                                                  ),
+                                                  SizedBox(height: vf * 1.2),
+                                                ],
+                                              )),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      child: Container(
-                          width: 380,
-                          height: 170,
-                          decoration: BoxDecoration(
-                            color: Color.fromRGBO(117, 131, 194, 1),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Container(
-                                width: 120,
-                                height: 35,
-                                alignment: Alignment.topLeft,
-                                decoration: BoxDecoration(
-                                    color: darkPurple,
-                                    borderRadius: BorderRadius.only(
-                                      bottomRight: Radius.circular(10),
-                                    )),
-                                child: Text(
-                                  'THE CHEF',
-                                  style: TextStyle(
-                                      wordSpacing: 5,
-                                      fontSize: 26,
-                                      color: CustomStyle.light_bn_txt_Color,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              )
-                            ],
-                          )),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        RaisedButton(
-                            splashColor: CustomStyle.light_bn_txt_Color,
-                            color: darkPurple,
-                            padding: EdgeInsets.all(22),
-                            shape: CircleBorder(),
-                            onPressed: () => null,
-                            child: Icon(
-                              Icons.file_download,
-                              color: CustomStyle.light_bn_txt_Color,
-                              size: 35,
-                            )),
-                        RaisedButton(
-                            splashColor: CustomStyle.light_bn_txt_Color,
-                            color: darkPurple,
-                            padding: EdgeInsets.all(22),
-                            shape: CircleBorder(),
-                            onPressed: () => null,
-                            child: Icon(
-                              Icons.star_border,
-                              color: CustomStyle.light_bn_txt_Color,
-                              size: 35,
-                            )),
-                        RaisedButton(
-                            splashColor: CustomStyle.light_bn_txt_Color,
-                            shape: CircleBorder(),
-                            color: darkPurple,
-                            padding: EdgeInsets.all(22),
-                            onPressed: () => null,
-                            child: Icon(
-                              Icons.thumb_up,
-                              color: CustomStyle.light_bn_txt_Color,
-                              size: 35,
-                            )),
-                        RaisedButton(
-                            shape: CircleBorder(),
-                            splashColor: CustomStyle.light_bn_txt_Color,
-                            color: darkPurple,
-                            padding: EdgeInsets.all(22),
-                            onPressed: () => null,
-                            child: Icon(Icons.thumb_down,
-                                color: CustomStyle.light_bn_txt_Color,
-                                size: 35)),
-                      ],
-                    ),
-                    FlatButton(
-                        onPressed: () {
-                          if (flag == true) {
-                            _controller.play();
-                            flag = false;
-                          } else {
-                            _controller.pause();
-                            flag = true;
-                          }
-                        },
-                        color: Colors.black54,
-                        child: Text('PLAY/PAUSE'))
-                  ],
-                ),
+                    ],
+                  ),
+                  // Card(
+                  //   shadowColor: CustomStyle.light_bn_color,
+                  //   margin: EdgeInsets.only(left: 10, right: 10, bottom: 25),
+                  //   elevation: 5,
+                  //   shape: RoundedRectangleBorder(
+                  //       borderRadius: BorderRadius.circular(15)),
+                  //   child: Container(
+                  //     padding: EdgeInsets.symmetric(vertical: 10),
+                  //     child: Column(
+                  //       mainAxisAlignment: MainAxisAlignment.start,
+                  //       children: <Widget>[
+                  //         Text(
+                  //           'NUTRITIONAL FACTS',
+                  //           style: TextStyle(
+                  //             wordSpacing: vf * 0.513,
+                  //             fontSize: vf * 2.566,
+                  //             color: CustomStyle.light_bn_color,
+                  //           ),
+                  //         ),
+                  //         Divider(
+                  //             indent: 100,
+                  //             endIndent: 100,
+                  //             color: CustomStyle.light_bn_color),
+                  //         Row(
+                  //           children: [
+                  //             //FIRST COLUMN
+                  //             Expanded(
+                  //               flex: 1,
+                  //               child: ListView.builder(
+                  //                 padding: EdgeInsets.only(top: 15),
+                  //                 scrollDirection: Axis.vertical,
+                  //                 physics: NeverScrollableScrollPhysics(),
+                  //                 shrinkWrap: true,
+                  //                 itemCount: 4,
+                  //                 itemBuilder: (context, val) {
+                  //                   return Column(
+                  //                     children: <Widget>[
+                  //                       tablet(nutFacts1[val],
+                  //                           colr: CustomStyle.light_bn_color),
+                  //                       SizedBox(height: 7),
+                  //                     ],
+                  //                   );
+                  //                 },
+                  //               ),
+                  //             ),
+
+                  //             //SECOND COLUMN
+                  //             Expanded(
+                  //               flex: 1,
+                  //               child: ListView.builder(
+                  //                 padding: EdgeInsets.only(top: 15),
+                  //                 scrollDirection: Axis.vertical,
+                  //                 physics: NeverScrollableScrollPhysics(),
+                  //                 shrinkWrap: true,
+                  //                 itemCount: 4,
+                  //                 itemBuilder: (context, val) {
+                  //                   return Column(
+                  //                     children: <Widget>[
+                  //                       tablet(nutFacts2[val],
+                  //                           colr: CustomStyle.light_bn_color),
+                  //                       SizedBox(height: 7),
+                  //                     ],
+                  //                   );
+                  //                 },
+                  //               ),
+                  //             ),
+                  //           ],
+                  //         )
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
+                  // Card(
+                  //   shadowColor: CustomStyle.light_bn_color,
+                  //   margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
+                  //   elevation: 5,
+                  //   shape: RoundedRectangleBorder(
+                  //       borderRadius: BorderRadius.circular(15)),
+                  //   child: Container(
+                  //     padding: EdgeInsets.symmetric(vertical: 10),
+                  //     child: Column(
+                  //       mainAxisAlignment: MainAxisAlignment.start,
+                  //       children: <Widget>[
+                  //         Text(
+                  //           'INGREDIENTS REQUIRED',
+                  //           style: TextStyle(
+                  //             wordSpacing: vf * 1.026, //10
+                  //             fontSize: vf * 2.52, //19
+                  //             color: CustomStyle.light_bn_color,
+                  //           ),
+                  //         ),
+                  //         Divider(
+                  //             indent: 100,
+                  //             endIndent: 100,
+                  //             color: CustomStyle.light_bn_color),
+                  //         Row(
+                  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //           crossAxisAlignment: CrossAxisAlignment.start,
+                  //           children: [
+                  //             //FIRST COLUMN
+                  //             Expanded(
+                  //               flex: 1,
+                  //               child: ListView.builder(
+                  //                 padding: EdgeInsets.only(top: 15),
+                  //                 scrollDirection: Axis.vertical,
+                  //                 physics: NeverScrollableScrollPhysics(),
+                  //                 shrinkWrap: true,
+                  //                 itemCount: 4,
+                  //                 itemBuilder: (context, val) {
+                  //                   return Column(
+                  //                     children: <Widget>[
+                  //                       tablet(nutFacts1[val],
+                  //                           colr: CustomStyle.light_bn_color),
+                  //                       SizedBox(height: 7),
+                  //                     ],
+                  //                   );
+                  //                 },
+                  //               ),
+                  //             ),
+
+                  //             //SECOND COLUMN
+                  //             Expanded(
+                  //               flex: 1,
+                  //               child: ListView.builder(
+                  //                 padding: EdgeInsets.only(top: 15),
+                  //                 scrollDirection: Axis.vertical,
+                  //                 physics: NeverScrollableScrollPhysics(),
+                  //                 shrinkWrap: true,
+                  //                 itemCount: 4,
+                  //                 itemBuilder: (context, val) {
+                  //                   return Column(
+                  //                     children: <Widget>[
+                  //                       tablet(nutFacts2[val],
+                  //                           colr: CustomStyle.light_bn_color),
+                  //                       SizedBox(height: 7),
+                  //                     ],
+                  //                   );
+                  //                 },
+                  //               ),
+                  //             ),
+                  //           ],
+                  //         )
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
+                  // Text(
+                  //   'THE CHEF',
+                  //   style: TextStyle(
+                  //     wordSpacing: vf * 0.513,
+
+                  //     ///5
+                  //     fontSize: vf * 2.669, //26
+                  //     color: CustomStyle.light_bn_color,
+                  //   ),
+                ],
               ),
             ),
           );
         });
   }
 
-  Map<String,dynamic> food_data={};
-  Map<String,dynamic> now={};
-
-
+  Map<String, dynamic> food_data = {};
+  Map<String, dynamic> now = {};
 
   @override
   Widget build(BuildContext context) {
-    List<String> titles=food_data.keys.toList();
+    List<String> titles = food_data.keys.toList();
     if (food_data.isEmpty) {
       return Text("loading");
     } else {
@@ -392,6 +612,7 @@ class _DietChartState extends State<DietChart> {
       return MaterialApp(
         home: Scaffold(
           body: ListView(
+            physics: ClampingScrollPhysics(),
             scrollDirection: Axis.vertical,
             children: <Widget>[
               Column(
@@ -610,13 +831,13 @@ class _DietChartState extends State<DietChart> {
                   ),
                 ],
               ),
-              now.isEmpty?null:mealGenerator("Recommended For You",now),
+              now.isEmpty ? null : mealGenerator("Recommended For You", now),
               ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: titles.length,
                 itemBuilder: (context, index) {
-                  return mealGenerator(titles[index],food_data[titles[index]]);
+                  return mealGenerator(titles[index], food_data[titles[index]]);
                 },
               ),
             ],
@@ -627,30 +848,30 @@ class _DietChartState extends State<DietChart> {
   }
 
   fetch() async {
-    CollectionReference collectionReference = Firestore.instance.collection('food');
-    Map<String,dynamic> m={};
+    CollectionReference collectionReference =
+        Firestore.instance.collection('food');
+    Map<String, dynamic> m = {};
     collectionReference.snapshots().listen((snapshot) {
       List data;
       data = snapshot.documents;
       data.forEach((element) {
-         m[element.documentID.toString()]=element.data;
-         Map<String,dynamic> x=element.data;
-         x.forEach((key, value) {
-           // print("key"+key.toString());
-           // print("value"+value['calories'].toString());
-           if(value['calories']<cal+100 && value['calories']>cal-100){
-             // print(key.toString());
-             now[key.toString()]=value;
-           }
-         });
+        m[element.documentID.toString()] = element.data;
+        Map<String, dynamic> x = element.data;
+        x.forEach((key, value) {
+          // print("key"+key.toString());
+          // print("value"+value['calories'].toString());
+          if (value['calories'] < cal + 100 && value['calories'] > cal - 100) {
+            // print(key.toString());
+            now[key.toString()] = value;
+          }
+        });
       });
       // print(m);
       print(now.toString());
       setState(() {
-        food_data=m;
+        food_data = m;
       });
     });
-
   }
 }
 //
