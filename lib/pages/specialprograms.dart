@@ -22,7 +22,7 @@ class _specialprogramsState extends State<specialprograms> {
         "plankrock-fd",
         "Jumpting_Squats-s",
         "legRaise-fu",
-        "pushups-fd",
+        // "pushups-fd",
       ],
     },
     {
@@ -33,13 +33,13 @@ class _specialprogramsState extends State<specialprograms> {
       "type": "Beginners",
       "excercise": [
         "theonehundred-fu",
-        // "crossCrunches",
+        "crossCrunches-fu",
         "doublelegstrech-fu",
         // "teasser",
         "pendulum-fu",
         "plankleglift-fu",
-        "plankrock-fu",
-        "hipdip-fu"
+        "plankrock-fd",
+        "hipdip-s"
       ],
     },
   ];
