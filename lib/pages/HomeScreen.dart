@@ -31,18 +31,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //      elevation: 0,
-      //      backgroundColor: Colors.transparent,
-      //      title:Text(
-      //        'Hello',
-      //        style: TextStyle(
-      //          color: Colors.grey[700],
-      //          fontWeight: FontWeight.w600,
-      //          fontSize: 30,
-      //        ),
-      //      ),
-      //    ),
       body:Padding(
       padding: EdgeInsets.only(left: 20, top: 20, right: 20, bottom: 20),
       child: new ListView(
