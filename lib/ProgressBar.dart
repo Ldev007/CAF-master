@@ -1,4 +1,3 @@
-import 'dart:collection';
 import 'dart:math' as Math;
 import 'dart:ui';
 import 'package:bezier_chart/bezier_chart.dart';
@@ -181,12 +180,11 @@ class _CircleProgressBarState extends State<CircleProgressBar>
     var month = fulldate.month;
     var date = fulldate.day;
     var year = fulldate.year;
-    var dates="";
-    if(date<10){
-      dates = "0"+date.toString();
-    }
-    else{
-      dates=date.toString();
+    var dates = "";
+    if (date < 10) {
+      dates = "0" + date.toString();
+    } else {
+      dates = date.toString();
     }
     ds.setData({
       year.toString(): {
@@ -204,7 +202,8 @@ class _CircleProgressBarState extends State<CircleProgressBar>
         .collection('excercise')
         .document('steps')
         .get();
-    Map<String,dynamic> stepsdata = dsnap.data[year.toString()][month.toString()];
+    Map<String, dynamic> stepsdata =
+        dsnap.data[year.toString()][month.toString()];
 //    print(test);
     var map = new SortedMap(Ordering.byKey());
     map.addAll(stepsdata);
@@ -261,7 +260,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
-          title:Text(
+          title: Text(
             title,
             style: TextStyle(
               color: Colors.grey[700],
@@ -282,17 +281,71 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      CustomPaint(
-                        child: Container(
-                          color: Colors.transparent,
-                          width: MediaQuery.of(context).size.width * 0.40,
-                          height: MediaQuery.of(context).size.height * 0.4,
-                        ),
-                        foregroundPainter: CircleProgressBarPainter(
-                          backgroundColor: backgroundColor,
-                          foregroundColor: foregroundColor,
-                          percentage: paint ? anime.value : 0.0,
-                        ),
+                      Stack(
+                        children: [
+                          CustomPaint(
+                            child: Container(
+                              color: Colors.transparent,
+                              width: MediaQuery.of(context).size.width * 0.40,
+                              height: MediaQuery.of(context).size.height * 0.4,
+                            ),
+                            foregroundPainter: CircleProgressBarPainter(
+                              backgroundColor: backgroundColor,
+                              foregroundColor: foregroundColor,
+                              percentage: paint ? anime.value : 0.0,
+                            ),
+                          ),
+                          Container(
+                            width: CustomStyle.verticalFractions * 18.48,
+                            child: Center(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    steps.round().toString(),
+                                    textAlign: TextAlign.right,
+                                    style: TextStyle(
+                                        fontSize:
+                                            CustomStyle.verticalFractions *
+                                                7.186, //70
+                                        color: CustomStyle.light_bn_color,
+                                        fontFamily: 'fonts/Anton-Regular.ttf'),
+                                  ),
+                                  SizedBox(
+                                    width: CustomStyle.verticalFractions *
+                                        2.258, //22
+                                    // height: 45,
+                                    child: Text('/',
+                                        textAlign: TextAlign.right,
+                                        style: TextStyle(
+                                          height:
+                                              CustomStyle.verticalFractions *
+                                                  0.205, //2
+                                          fontSize:
+                                              CustomStyle.verticalFractions *
+                                                  3.593, //35
+                                          color: CustomStyle.light_bn_color,
+                                          fontFamily: 'fonts/Anton-Regular.ttf',
+                                        )),
+                                  ),
+                                  Text(
+                                    total.round().toString(),
+                                    textAlign: TextAlign.right,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      height: CustomStyle.verticalFractions *
+                                          0.297, //2.9
+                                      fontSize: CustomStyle.verticalFractions *
+                                          2.566, //254
+                                      color: CustomStyle.light_bn_color,
+                                      fontFamily: 'fonts/Anton-Regular.ttf',
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -337,8 +390,8 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                                 ],
                               ),
                               SizedBox(
-                                  height:
-                                      CustomStyle.verticalFractions * 2.157), //20
+                                  height: CustomStyle.verticalFractions *
+                                      2.157), //20
                               Padding(
                                 padding: EdgeInsets.only(
                                     right: CustomStyle.verticalFractions *
@@ -383,8 +436,8 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                                 ],
                               ),
                               SizedBox(
-                                  height:
-                                      CustomStyle.verticalFractions * 2.157), //20
+                                  height: CustomStyle.verticalFractions *
+                                      2.157), //20
                               Padding(
                                 padding: EdgeInsets.only(
                                     right: CustomStyle.verticalFractions *

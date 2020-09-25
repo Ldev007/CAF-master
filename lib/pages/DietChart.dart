@@ -103,14 +103,16 @@ class _DietChartState extends State<DietChart> {
   Widget tablet(String text, {Color colr}) {
     return Row(
       children: <Widget>[
-        SizedBox(
-          width: 16,
-        ),
+        SizedBox(width: vf * 1.64), //16
         Container(
-          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+          padding: EdgeInsets.symmetric(
+            horizontal: vf * 1.026, //10
+            vertical: vf * 0.821, //8
+          ),
           decoration: BoxDecoration(
-              color: colr != null ? colr : Colors.black45,
-              borderRadius: BorderRadius.circular(6)),
+            color: colr != null ? colr : Colors.black45,
+            borderRadius: BorderRadius.circular(vf * 0.616), //6
+          ),
           child: Text(
             text,
             style: TextStyle(
@@ -135,33 +137,33 @@ class _DietChartState extends State<DietChart> {
   }
 
 //FUNCTION TO GENERATE INDIVIDUAL CATEGORIES HAVING DIFFERENT DISHES
-  Widget mealGenerator(String title,Map<String,dynamic> food) {
-    List<String> items=food.keys.toList();
+  Widget mealGenerator(String title, Map<String, dynamic> food) {
+    List<String> items = food.keys.toList();
     return Container(
-      padding: EdgeInsets.only(left: vf * 1.078),
-      margin: EdgeInsets.only(top: vf * 2.157),
+      padding: EdgeInsets.only(left: vf * 1.078), //10
+      margin: EdgeInsets.only(top: vf * 2.157), //21
       color: Colors.transparent,
       width: MediaQuery.of(context).size.width,
-      height: vf * 38,
+      height: vf * 27.5, //267.85
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
 //          Text(items.toString()),
           Text(
-            title != null?title:"_",
+            title != null ? title : "_",
             style: TextStyle(
-              fontSize: vf * 3.8,
+              fontSize: vf * 3.8, //37
               color: darkPurple,
               fontWeight: FontWeight.bold,
-              decorationThickness: vf * 0.086,
+              decorationThickness: vf * 0.086, //0.8
               decorationColor: darkPurple,
             ),
           ),
-          Spacer(),
+          SizedBox(height: vf * 1.4), //13.636
           Container(
             width: MediaQuery.of(context).size.width,
-            height: vf * 33,
+            height: vf * 22, //214
             child: ListView.builder(
               shrinkWrap: true,
               physics: ClampingScrollPhysics(),
@@ -169,7 +171,7 @@ class _DietChartState extends State<DietChart> {
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, i) {
                 return InkWell(
-                  onTap:() => Navigator.push(
+                  onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) =>
@@ -180,33 +182,46 @@ class _DietChartState extends State<DietChart> {
                     children: [
                       Card(
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
+                          borderRadius: BorderRadius.circular(vf * 1.026), //10
                         ),
                         elevation: 2,
-                        child:
-                        CachedNetworkImage(
-                          imageUrl: food[items[i]]['pic'],
-                          width:vf * 24,
-                          height: vf * 23 ,
-                          placeholder: (context, url) => new CircularProgressIndicator(),
-                          errorWidget: (context, url, error) => new Icon(Icons.error_outline),
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(top: 0.0,left:10),
-                        child: Text(
-                          items[i],
-                          textAlign: TextAlign.left,
-                          style: TextStyle(fontSize: 18.0,fontWeight: FontWeight.w600,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(vf * 1.026), //10
+                          child: CachedNetworkImage(
+                            imageUrl: food[items[i]]['pic'],
+                            width: vf * 24,
+                            height: vf * 16,
+                            placeholder: (context, url) =>
+                                new CircularProgressIndicator(),
+                            errorWidget: (context, url, error) =>
+                                new Icon(Icons.error_outline),
                           ),
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(top: 3.0,left:10,bottom: 15),
+                        margin: EdgeInsets.only(
+                          top: 0.0,
+                          left: vf * 1.026, //10
+                        ),
                         child: Text(
-                          food[items[i]]['calories'].toString()+' cal',
+                          items[i],
+                          textAlign: TextAlign.left,
                           style: TextStyle(
-                            fontSize: 12.0,
+                            fontSize: vf * 1.848, //18
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(
+                          top: vf * 0.308, //3
+                          left: vf * 1.026, //10
+                          bottom: vf * 1.54, //15
+                        ),
+                        child: Text(
+                          food[items[i]]['calories'].toString() + ' cal',
+                          style: TextStyle(
+                            fontSize: 1.232, //12
                             color: Colors.grey,
                             fontWeight: FontWeight.w600,
                           ),
@@ -223,6 +238,7 @@ class _DietChartState extends State<DietChart> {
       ),
     );
   }
+
   bool flag = true;
 
 //TO-DO: CONSTRUCT INDIVUAL DISH INTERFACE DESIGN AS WELL AS FRONT-END FUNCTIONALITY
@@ -319,12 +335,15 @@ class _DietChartState extends State<DietChart> {
 
                             Expanded(
                               child: Container(
-                                margin: EdgeInsets.only(right: 5),
+                                margin: EdgeInsets.only(right: vf * 0.513), //5
                                 padding: EdgeInsets.symmetric(
-                                    horizontal: 15, vertical: 15),
+                                  horizontal: vf * 1.54, //15
+                                  vertical: vf * 1.54, //15
+                                ),
                                 decoration: BoxDecoration(
                                   color: Color.fromRGBO(128, 128, 128, 0.4),
-                                  borderRadius: BorderRadius.circular(15),
+                                  borderRadius:
+                                      BorderRadius.circular(vf * 1.54), //15
                                 ),
                                 height:
                                     MediaQuery.of(context).size.height * 0.25,
@@ -332,28 +351,29 @@ class _DietChartState extends State<DietChart> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
                                     Divider(
-                                        indent: 10,
-                                        endIndent: 10,
+                                        indent: vf * 1.026, //10
+                                        endIndent: vf * 1.026, //10
                                         color: Colors.white),
                                     Expanded(
                                       child: Text(
                                         'HOW TO COOK ?',
                                         style: TextStyle(
-                                          fontSize: 15,
+                                          fontSize: vf * 1.54, //15
                                           fontWeight: FontWeight.bold,
                                           color: Colors.white70,
                                         ),
                                       ),
                                     ),
                                     Divider(
-                                        indent: 50,
-                                        endIndent: 50,
+                                        indent: vf * 5.133, //50
+                                        endIndent: vf * 5.133, //50
                                         color: Colors.white),
                                     Expanded(
                                       flex: vf.round(),
                                       child: ListView.builder(
                                         scrollDirection: Axis.vertical,
-                                        padding: EdgeInsets.only(top: 15),
+                                        padding: EdgeInsets.only(
+                                            top: vf * 1.54), //15
                                         physics: BouncingScrollPhysics(),
                                         shrinkWrap: true,
                                         itemCount: ingredients1.length,
@@ -376,12 +396,15 @@ class _DietChartState extends State<DietChart> {
 
                             Expanded(
                               child: Container(
-                                margin: EdgeInsets.only(left: 5),
+                                margin: EdgeInsets.only(left: vf * 0.513), //5
                                 padding: EdgeInsets.symmetric(
-                                    horizontal: 15, vertical: 15),
+                                  horizontal: vf * 1.54, //15
+                                  vertical: vf * 1.54, //15
+                                ),
                                 decoration: BoxDecoration(
                                   color: Color.fromRGBO(128, 128, 128, 0.4),
-                                  borderRadius: BorderRadius.circular(15),
+                                  borderRadius:
+                                      BorderRadius.circular(vf * 1.54), //15
                                 ),
                                 height:
                                     MediaQuery.of(context).size.height * 0.25,
@@ -389,28 +412,31 @@ class _DietChartState extends State<DietChart> {
                                   children: [
                                     Divider(
                                       color: Colors.white,
-                                      indent: 10,
-                                      endIndent: 10,
+                                      indent: vf * 1.026, //10
+                                      endIndent: vf * 1.026,
+
+                                      ///10
                                     ),
                                     Expanded(
                                       child: Text(
                                         'WHY SHOULD YOU EAT IT ?',
                                         style: TextStyle(
-                                          fontSize: 15,
+                                          fontSize: vf * 1.54, //15
                                           fontWeight: FontWeight.bold,
                                           color: Colors.white70,
                                         ),
                                       ),
                                     ),
                                     Divider(
-                                        indent: 50,
-                                        endIndent: 50,
+                                        indent: vf * 5.133, //50
+                                        endIndent: vf * 5.133, //50
                                         color: Colors.white),
                                     Expanded(
                                       flex: vf.round(),
                                       child: ListView.builder(
                                           scrollDirection: Axis.vertical,
-                                          padding: EdgeInsets.only(top: 15),
+                                          padding: EdgeInsets.only(
+                                              top: vf * 1.54), //15
                                           physics: BouncingScrollPhysics(),
                                           shrinkWrap: true,
                                           itemCount: nutFacts1.length,
@@ -617,24 +643,26 @@ class _DietChartState extends State<DietChart> {
               Column(
                 children: [
                   Container(
-                    margin: EdgeInsets.symmetric(horizontal: 10),
+                    margin: EdgeInsets.symmetric(horizontal: vf * 1.026), //10
                     decoration: BoxDecoration(
                         border: Border.all(color: darkPurple, width: 0.5),
-                        borderRadius: BorderRadius.circular(15),
+                        borderRadius: BorderRadius.circular(vf * 1.54), //15
                         boxShadow: <BoxShadow>[
                           BoxShadow(
                               color: darkPurple,
-                              blurRadius: 10,
+                              blurRadius: vf * 1.026,
                               spreadRadius: -2),
                         ],
                         color: darkPurple),
                     child: ExpansionTile(
-                      childrenPadding:
-                          EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                      childrenPadding: EdgeInsets.symmetric(
+                        vertical: vf * 2.053, //20
+                        horizontal: vf * 1.026, //10
+                      ),
                       title: Text(
                         'CURRENT PLAN',
                         style: TextStyle(
-                            fontSize: 30,
+                            fontSize: vf * 3.08, //30
                             fontWeight: FontWeight.bold,
                             color: CustomStyle.light_bn_txt_Color),
                       ),
@@ -644,25 +672,31 @@ class _DietChartState extends State<DietChart> {
 
                         Container(
                           padding: EdgeInsets.only(
-                              top: 20, bottom: 20, left: 10, right: 10),
+                            top: vf * 2.053, //20
+                            bottom: vf * 2.053, //20
+                            left: vf * 1.026, //10
+                            right: vf * 1.026, //10
+                          ),
                           decoration: BoxDecoration(
                               color: Color.fromRGBO(117, 131, 194, 1),
-                              borderRadius: BorderRadius.circular(20)),
+                              borderRadius: BorderRadius.circular(
+                                vf * 2.053, //20
+                              )),
                           child: Column(
                             children: <Widget>[
                               Text(
-                                'INTAKE',
+                                'STATISTICS',
                                 style: TextStyle(
-                                  fontSize: 30,
+                                  fontSize: vf * 3.08, //30
                                   fontFamily: '',
                                   fontWeight: FontWeight.bold,
                                   color: CustomStyle.light_bn_txt_Color,
                                 ),
                               ),
-                              SizedBox(height: 20),
+                              SizedBox(height: vf * 2.053), //20
                               Row(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
+                                    MainAxisAlignment.spaceAround,
                                 children: [
                                   Container(
                                     decoration: BoxDecoration(
@@ -671,9 +705,10 @@ class _DietChartState extends State<DietChart> {
                                           vf * 2.157), //20
                                     ),
                                     padding: EdgeInsets.symmetric(
-                                        vertical: vf * 2.157),
-                                    width: vf * 12, //141
-                                    height: 100,
+                                      vertical: vf * 2.157, //21
+                                    ),
+                                    width: vf * 18, //141
+                                    height: vf * 10.266, //100
                                     child: Column(
                                       children: [
                                         Text(
@@ -698,49 +733,52 @@ class _DietChartState extends State<DietChart> {
                                       ],
                                     ),
                                   ),
-                                  SizedBox(width: vf * 1.078), //10
+                                  // SizedBox(width: vf * 1.078), //10
+                                  // Container(
+                                  //   decoration: BoxDecoration(
+                                  //       borderRadius: BorderRadius.circular(
+                                  //           vf * 2.053), //20
+                                  //       color: Colors.black45),
+                                  //   padding: EdgeInsets.symmetric(
+                                  //       vertical: vf * 2.157), //20
+                                  //   width: vf * 12,
+                                  //   height: vf * 10.266, //100
+                                  //   child: Column(
+                                  //     children: [
+                                  //       Text(
+                                  //         'PROTEIN',
+                                  //         style: TextStyle(
+                                  //             fontSize: CustomStyle
+                                  //                     .verticalFractions *
+                                  //                 2.373, //22
+                                  //             color: CustomStyle
+                                  //                 .light_bn_txt_Color,
+                                  //             fontWeight: FontWeight.bold),
+                                  //       ),
+                                  //       SizedBox(height: vf * 1.510), //14
+                                  //       Text(
+                                  //         '$protein',
+                                  //         style: TextStyle(
+                                  //           fontSize: vf * 1.833, //17
+                                  //           color:
+                                  //               CustomStyle.light_bn_txt_Color,
+                                  //         ),
+                                  //       ),
+                                  //     ],
+                                  //   ),
+                                  // ),
+                                  // SizedBox(width: vf * 1.078), //10
                                   Container(
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(20),
                                         color: Colors.black45),
                                     padding: EdgeInsets.symmetric(
-                                        vertical: vf * 2.157), //20
-                                    width: vf * 12,
-                                    height: 100,
+                                        vertical: vf * 2), //20
+                                    width: vf * 18, //117
+                                    height: vf * 10.266, //100
                                     child: Column(
-                                      children: [
-                                        Text(
-                                          'PROTEIN',
-                                          style: TextStyle(
-                                              fontSize: CustomStyle
-                                                      .verticalFractions *
-                                                  2.373, //22
-                                              color: CustomStyle
-                                                  .light_bn_txt_Color,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        SizedBox(height: vf * 1.510), //14
-                                        Text(
-                                          '$protein',
-                                          style: TextStyle(
-                                            fontSize: vf * 1.833, //17
-                                            color:
-                                                CustomStyle.light_bn_txt_Color,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(width: vf * 1.078), //10
-                                  Container(
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                        color: Colors.black45),
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: vf * 2.157), //20
-                                    width: vf * 12,
-                                    height: 100,
-                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
                                           'WATER',
@@ -752,7 +790,7 @@ class _DietChartState extends State<DietChart> {
                                                   .light_bn_txt_Color,
                                               fontWeight: FontWeight.bold),
                                         ),
-                                        SizedBox(height: vf * 1.510), //14
+                                        // SizedBox(height: vf * 1.510), //14
                                         Text(
                                           '$water L',
                                           style: TextStyle(
@@ -769,31 +807,36 @@ class _DietChartState extends State<DietChart> {
                             ],
                           ),
                         ),
-                        SizedBox(height: 40),
+                        SizedBox(height: vf * 4.106), //40
                         Container(
                           decoration: BoxDecoration(
                             color: Color.fromRGBO(117, 131, 194, 1),
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius:
+                                BorderRadius.circular(vf * 2.053), //20
                           ),
                           padding: EdgeInsets.only(
-                              left: 15, right: 15, top: 22, bottom: 20),
+                            left: vf * 1.54, //15
+                            right: vf * 1.54, //15
+                            top: vf * 2.258, //22
+                            bottom: vf * 2.053, //20
+                          ),
                           child: Column(
                             children: [
                               Text(
                                 'ROUTINE DIET',
                                 style: TextStyle(
-                                  fontSize: 30,
+                                  fontSize: vf * 3.08, //30
                                   fontWeight: FontWeight.bold,
                                   color: CustomStyle.light_bn_txt_Color,
                                 ),
                               ),
-                              SizedBox(height: 30),
+                              SizedBox(height: vf * 3.08), //30
                               Row(
                                 children: [
                                   Text(
                                     'TAKEN :',
                                     style: TextStyle(
-                                      fontSize: 22,
+                                      fontSize: vf * 2.258, //22
                                       fontWeight: FontWeight.bold,
                                       color: CustomStyle.light_bn_txt_Color,
                                     ),
@@ -808,13 +851,13 @@ class _DietChartState extends State<DietChart> {
                                   tablet('LUNCH'),
                                 ],
                               ),
-                              SizedBox(height: 20),
+                              SizedBox(height: vf * 2.053), //20
                               Row(
                                 children: [
                                   Text(
                                     'UPCOMING : ',
                                     style: TextStyle(
-                                      fontSize: 22,
+                                      fontSize: vf * 2.258, //22
                                       fontWeight: FontWeight.bold,
                                       color: CustomStyle.light_bn_txt_Color,
                                     ),

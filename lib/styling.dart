@@ -42,6 +42,7 @@ class CustomStyle {
       ));
 
   static final ThemeData def_theme = ThemeData(
+    textSelectionHandleColor: light_bn_color,
     backgroundColor: Colors.white10,
     floatingActionButtonTheme: FloatingActionButtonThemeData(
       splashColor: Colors.transparent,

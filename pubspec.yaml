@@ -88,6 +88,9 @@ flutter:
     - family: Trade Winds
       fonts:
         - asset: fonts/TradeWinds-Regular.ttf
+    - family: Anton
+      fonts:
+        - asset: fonts/Anton-Regular.ttf
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:
