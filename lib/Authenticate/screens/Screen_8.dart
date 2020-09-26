@@ -59,6 +59,7 @@ class _ScreenEightState extends State<ScreenEight>
     print("data added");
     prefs.setString("uid", uid); //set on screen 8
     prefs.setBool("inside", false); //set on screen 8
+    prefs.setDouble("waterIntake", 0.0); //set on screen 8
 
 //    DatabaseService d;
 //    d.updateUserData(uid,goal,gender,age,height,weight,currentfat,targetfat);
