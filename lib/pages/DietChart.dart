@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_ex/pages/ind_food.dart';
 import 'package:firebase_ex/styling.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -134,15 +135,14 @@ class _DietChartState extends State<DietChart> {
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, i) {
                 return InkWell(
-                  onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => individualDishInterfaceGenerator(
-                            food[items[i]]['vedio'],
-                            food[items[i]]['calories'],
-                            food[items[i]]['serve'],
-                            food[items[i]]['incredients'],
-                            food[items[i]]['constituent']),
+                  onTap: () => Navigator.of(context).push(
+                      new MaterialPageRoute(
+                        builder: (context) => new ind_food(
+                            vedio_link:food[items[i]]['vedio'],
+                            specific_cal:food[items[i]]['calories'],
+                            m:food[items[i]]['serve'],
+                            inc:food[items[i]]['incredients'],
+                            cons:food[items[i]]['constituent']),
                       )),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -724,12 +724,23 @@ class _DietChartState extends State<DietChart> {
                         vertical: vf * 2.053, //20
                         horizontal: vf * 1.026, //10
                       ),
-                      title: Text(
-                        'CURRENT PLAN',
-                        style: TextStyle(
-                            fontSize: vf * 3.08, //30
-                            fontWeight: FontWeight.bold,
-                            color: CustomStyle.light_bn_txt_Color),
+                      title: Row(
+                        children: [
+                          Text(
+                            'CURRENT PLAN',
+                            style: TextStyle(
+                                fontSize: vf * 3.08, //30
+                                fontWeight: FontWeight.bold,
+                                color: CustomStyle.light_bn_txt_Color),
+                          ),
+                          IconButton(icon: Icon(Icons.refresh,color: Colors.white,), onPressed: () async{
+                            SharedPreferences prefs = await SharedPreferences.getInstance();
+                            double wat = prefs.getDouble('waterIntake');
+                            setState(() {
+                              water=wat;
+                            });
+                          })
+                        ],
                       ),
                       children: [
                         //TO-DO: Continue designing the container (color, layout, etc)
@@ -857,7 +868,7 @@ class _DietChartState extends State<DietChart> {
                                         ),
                                         // SizedBox(height: vf * 1.510), //14
                                         Text(
-                                          '$water L',
+                                          water.toStringAsPrecision(2)+' L',
                                           style: TextStyle(
                                             fontSize: vf * 1.833, //17
                                             color:
@@ -977,13 +988,12 @@ class _DietChartState extends State<DietChart> {
       });
     });
     //Tracking fetch
-
-    DocumentSnapshot trackerref = await Firestore.instance
+    DocumentReference trackerref = await Firestore.instance
         .collection('UserData')
         .document(uid)
         .collection('excercise')
-        .document('Diet')
-        .get();
+        .document('Diet');
+    DocumentSnapshot trackersnap = await trackerref.get();
     DateTime now = DateTime.now();
     DateTime dda = DateTime(now.year, now.month, now.day);
     var fulldate = DateTime.parse(dda.toString());
@@ -995,14 +1005,34 @@ class _DietChartState extends State<DietChart> {
         'm' + month.toString() + 'd' + date.toString() + 'y' + year.toString());
     var x = '0' + month.toString();
     Map<String, dynamic> temp =
-        trackerref.data[year.toString()][x][date.toString()];
-    print(temp['cal']);
-    setState(() {
-      calories = temp['cal'].toDouble();
-      protein = temp['protien'].toDouble();
-      water = temp['water'].toDouble();
-      food_data = m;
-    });
+        trackersnap.data[year.toString()][x][date.toString()];
+    print(temp.toString());
+    if(temp==null){
+      trackerref.setData({
+        year.toString(): {
+          x: {date.toString(): {
+            "cal":0,
+            "protien":0,
+          }}
+        }
+      }, merge: true);
+      double wat = prefs.getDouble("waterIntake");
+      setState(() {
+        calories = 0.0;
+        protein = 0.0;
+        water = wat;
+        food_data = m;
+      });
+    }
+    else{
+      double wat = prefs.getDouble("waterIntake");
+      setState(() {
+        calories = temp['cal'].toDouble();
+        protein = temp['protien'].toDouble();
+        water = wat;
+        food_data = m;
+      });
+    }
   }
 }
 

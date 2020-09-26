@@ -211,10 +211,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8)),
                               color: CustomStyle.light_bn_color,
-                              onPressed: () => fetch(
-                                  isWaterInput: true,
-                                  amount: double.parse(cont.text),
-                                  metric: obj),
+                              onPressed: () => {
+                          fetch(isWaterInput: true,amount: double.parse(cont.text),metric: obj),
+                              Navigator.pop(context, true),
+                              },
                               child: Text('ADD',
                                   style: TextStyle(
                                       fontSize: 15, color: Colors.white)),

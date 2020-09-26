@@ -44,6 +44,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
   bool permissions = true;
   String result = '';
   double steps = 0;
+  int steps_ran = 0;
   double total = 1000;
   String uid = "";
   double calories = 0.0;
@@ -138,6 +139,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
       targetcal = (int.parse(calories.toString()[0]) + 2) * 100.toDouble();
       total = x;
       steps = testcount / x;
+      steps_ran=testcount.toInt();
 //      print("steps"+steps.toString());
       _animation(testcount);
     });
@@ -147,7 +149,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
 
   _animation(testcount) {
 //    print("tracker       "+steps.toString());
-    print("calories" + calories.toString());
+    print("calories" + steps_ran.toString());
     double x = 0.0;
     x = steps;
 //  print("eygugcyu7wq"+anime.value.toString());
@@ -169,7 +171,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
   updatesteps(testcount) async {
     CollectionReference collectionReference =
         Firestore.instance.collection('UserData');
-    collectionReference.document(uid).updateData({'Steps': testcount});
+    // collectionReference.document(uid).updateData({'Steps': testcount});
     DocumentReference ds = collectionReference
         .document(uid)
         .collection('excercise')
@@ -302,7 +304,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    steps.round().toString(),
+                                    steps_ran.round().toString(),
                                     textAlign: TextAlign.right,
                                     style: TextStyle(
                                         fontSize:
