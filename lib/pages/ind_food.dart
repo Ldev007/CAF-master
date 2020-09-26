@@ -24,6 +24,32 @@ class ind_food extends StatefulWidget {
 class _ind_foodState extends State<ind_food> {
   int _count = 0;
   int _type;
+
+  Widget tablet(String text, {Color colr}) {
+      return Row(
+        children: <Widget>[
+          SizedBox(width: vf * 1.64), //16
+          Container(
+            padding: EdgeInsets.symmetric(
+              horizontal: vf * 1.026, //10
+              vertical: vf * 0.821, //8
+            ),
+            decoration: BoxDecoration(
+              color: colr != null ? colr : Colors.black45,
+              borderRadius: BorderRadius.circular(vf * 0.616), //6
+            ),
+            child: Text(
+              text,
+              style: TextStyle(
+                  color: Colors.white70,
+                  letterSpacing: 1,
+                  fontWeight: FontWeight.bold),
+            ),
+          ),
+        ],
+      );
+    }
+
   @override
   Widget build(BuildContext context) {
     YoutubePlayerController _controller;
@@ -57,30 +83,7 @@ class _ind_foodState extends State<ind_food> {
     List<dynamic> val = widget.m.values.toList();
     print(val[2].toString());
 
-    Widget tablet(String text, {Color colr}) {
-      return Row(
-        children: <Widget>[
-          SizedBox(width: vf * 1.64), //16
-          Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: vf * 1.026, //10
-              vertical: vf * 0.821, //8
-            ),
-            decoration: BoxDecoration(
-              color: colr != null ? colr : Colors.black45,
-              borderRadius: BorderRadius.circular(vf * 0.616), //6
-            ),
-            child: Text(
-              text,
-              style: TextStyle(
-                  color: Colors.white70,
-                  letterSpacing: 1,
-                  fontWeight: FontWeight.bold),
-            ),
-          ),
-        ],
-      );
-    }
+    
     return MaterialApp(
       home: Scaffold(
         body:YoutubePlayerBuilder(

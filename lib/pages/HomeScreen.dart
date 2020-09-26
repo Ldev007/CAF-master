@@ -67,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
       //      ),
       //    ),
       body: Padding(
-        padding: EdgeInsets.only(left: 20, top: 20, right: 20, bottom: 20),
+        padding: EdgeInsets.all(vf * 2.053), //20
         child: new ListView(
           children: <Widget>[
             Text(
@@ -75,11 +75,11 @@ class _HomeScreenState extends State<HomeScreen> {
               style: TextStyle(
                 color: Colors.grey[700],
                 fontWeight: FontWeight.w600,
-                fontSize: 30,
+                fontSize: vf * 3.08, //30
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(top: 8),
+              padding: EdgeInsets.only(top: vf * 0.821), //8
               child: Text(
                 name,
                 style: TextStyle(
@@ -90,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   fontWeight: FontWeight.bold,
                   decorationThickness: vf * 0.086,
                   decorationColor: darkPurple,
-                  fontSize: 35,
+                  fontSize: vf * 3.593, //35
                 ),
               ),
             ),
@@ -112,8 +112,12 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
-                  padding:
-                      EdgeInsets.only(left: 10, top: 20, right: 0, bottom: 5),
+                  padding: EdgeInsets.only(
+                    left: vf * 1.026, //10
+                    top: vf * 2.053, //20
+                    right: 0,
+                    bottom: vf * 0.513, //5
+                  ),
                   child: Text(
                     'Special Programs',
                     style: TextStyle(
@@ -121,38 +125,47 @@ class _HomeScreenState extends State<HomeScreen> {
                       fontWeight: FontWeight.bold,
                       decorationThickness: vf * 0.086,
                       decorationColor: darkPurple,
-                      fontSize: 22,
+                      fontSize: vf * 2.258, //22
                     ),
                   ),
                 ),
                 RaisedButton(
-                  elevation: 5,
-                  padding: EdgeInsets.symmetric(vertical: 8, horizontal: 15),
+                  elevation: vf * 0.513, //5
+                  padding: EdgeInsets.symmetric(
+                    vertical: vf * 0.821, //8
+                    horizontal: vf * 1.54, //15
+                  ),
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(vf * 1.232), //12
                       side: BorderSide(
-                          color: CustomStyle.light_bn_color, width: 1)),
+                        color: CustomStyle.light_bn_color,
+                        width: vf * 0.102, //1
+                      )),
                   onPressed: () => showDialog(
                     context: context,
                     builder: (context) => StatefulBuilder(
                         builder: (context, StateSetter setState) {
                       return SimpleDialog(
                         contentPadding: EdgeInsets.only(
-                            top: 50, bottom: 20, left: 30, right: 30),
+                          top: vf * 5.133, //50
+                          bottom: vf * 2.053, //20
+                          left: vf * 3.08, //30
+                          right: 3.08, //30
+                        ),
                         title: Text('Enter the amount below',
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              fontSize: 25,
+                              fontSize: vf * 2.566, //25
                               fontWeight: FontWeight.bold,
                               color: CustomStyle.light_bn_color,
                             )),
                         children: [
                           TextField(
-                            cursorWidth: 1.5,
+                            cursorWidth: vf * 0.154, //1.5
                             keyboardType: TextInputType.number,
                             controller: cont,
                             style: TextStyle(
-                              fontSize: 18,
+                              fontSize: vf * 1.848, //18
                               color: CustomStyle.light_bn_color,
                               fontWeight: FontWeight.w600,
                             ),
@@ -163,13 +176,15 @@ class _HomeScreenState extends State<HomeScreen> {
                               border: OutlineInputBorder(
                                 borderSide: BorderSide(
                                     color: CustomStyle.light_bn_color),
-                                borderRadius: BorderRadius.circular(12),
+                                borderRadius:
+                                    BorderRadius.circular(vf * 1.232), //12
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    width: 1.5,
+                                    width: vf * 0.154, //1.5
                                     color: CustomStyle.light_bn_color),
-                                borderRadius: BorderRadius.circular(12),
+                                borderRadius:
+                                    BorderRadius.circular(vf * 1.232), //12
                               ),
                             ),
                             cursorColor: CustomStyle.light_bn_color,
@@ -202,22 +217,28 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
                           ),
-                          SizedBox(height: 15),
+                          SizedBox(height: vf * 1.54), //15
                           Align(
                             alignment: Alignment.bottomRight,
                             child: RaisedButton(
                               padding: EdgeInsets.symmetric(
-                                  horizontal: 35, vertical: 12),
+                                horizontal: vf * 3.593, //35
+                                vertical: vf * 1.232, //12
+                              ),
                               shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8)),
+                                  borderRadius: BorderRadius.circular(
+                                vf * 0.821, //8
+                              )),
                               color: CustomStyle.light_bn_color,
-                              onPressed: () => {
-                          fetch(isWaterInput: true,amount: double.parse(cont.text),metric: obj),
-                              Navigator.pop(context, true),
-                              },
+                              onPressed: () => fetch(
+                                  isWaterInput: true,
+                                  amount: double.parse(cont.text),
+                                  metric: obj),
                               child: Text('ADD',
                                   style: TextStyle(
-                                      fontSize: 15, color: Colors.white)),
+                                    fontSize: vf * 1.54, //15
+                                    color: Colors.white,
+                                  )),
                             ),
                           ),
                           Text(
@@ -234,27 +255,34 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Image.asset(
                         'images/water-glass.png',
-                        width: 45,
-                        height: 45,
+                        width: vf * 4.62, //45
+                        height: vf * 4.62, //45
                       ),
                       FittedBox(
                         child: Text(
                           'Drank Water ?\nAdd here',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 15),
+                            fontWeight: FontWeight.bold,
+                            fontSize: vf * 1.54, //15
+                          ),
                         ),
                       ),
-                      SizedBox(width: 10),
+                      SizedBox(width: vf * 1.026), //10
                     ],
                   ),
                 )
               ],
             ),
-            SizedBox(height: 10),
+            SizedBox(height: vf * 1.026), //10
             specialprograms(),
             Padding(
-              padding: EdgeInsets.only(left: 10, top: 20, right: 0, bottom: 0),
+              padding: EdgeInsets.only(
+                left: vf * 1.026, //10
+                top: vf * 2.053, //20
+                right: 0,
+                bottom: 0,
+              ),
               child: Text(
                 'Area of focus',
                 style: TextStyle(
@@ -262,7 +290,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   fontWeight: FontWeight.bold,
                   decorationThickness: vf * 0.086,
                   decorationColor: darkPurple,
-                  fontSize: 22,
+                  fontSize: vf * 2.258, //22
                 ),
               ),
             ),
