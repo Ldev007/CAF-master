@@ -230,10 +230,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                 vf * 0.821, //8
                               )),
                               color: CustomStyle.light_bn_color,
-                              onPressed: () => fetch(
+                              onPressed: () => {fetch(
                                   isWaterInput: true,
                                   amount: double.parse(cont.text),
                                   metric: obj),
+                              Navigator.pop(context)},
                               child: Text('ADD',
                                   style: TextStyle(
                                     fontSize: vf * 1.54, //15

@@ -50,6 +50,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
   double calories = 0.0;
   double targetcal = 2000;
   bool paint = false;
+  List<int> target_steps = [2000,5000,7000,8000,10000,15000,20000];
 
   //Leaderboard
   var dat = [110, 130, 125, 80, 50];
@@ -130,8 +131,13 @@ class _CircleProgressBarState extends State<CircleProgressBar>
         }
       }
     });
-    double x = (int.parse(testcount.toString()[0]) + 1) * 1000.toDouble();
-
+    double x = 2000;//(int.parse(testcount.toString()[0]) + 1) * 1000.toDouble();
+    for(int i=0;i<target_steps.length;i++){
+      if(target_steps[i]>testcount){
+        x=target_steps[i].toDouble();
+        break;
+      }
+    }
     setState(() {
 //      print("testcount"+testcount.toString());
       //targetcal=+300;
@@ -140,6 +146,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
       total = x;
       steps = testcount / x;
       steps_ran=testcount.toInt();
+      // print("wgetcv"+total.toString());
 //      print("steps"+steps.toString());
       _animation(testcount);
     });
