@@ -20,6 +20,7 @@ class _DietChartState extends State<DietChart> {
     fetch();
     print("diet");
   }
+
   final isSelected = <bool>[false, false];
   Decoration _decoration = new BoxDecoration(
     color: Color.fromRGBO(128, 128, 128, 0.4),
@@ -100,6 +101,56 @@ class _DietChartState extends State<DietChart> {
     );
   }
 
+  /* OVERLAY PART */
+
+  // OVERLAY DATA MEMBERS //
+  Future<bool> flg;
+  OverlayState overlay;
+  OverlayEntry entry;
+
+  // OVERLAY BUILDER FUNCTION //
+
+  //PUT OVERLAY BUTTON'S LOGIC IN THE BELOW "onPressed" FUNCTION
+
+  OverlayEntry _buildOverlay() {
+    return OverlayEntry(
+      builder: (context) {
+        return Positioned(
+          top: 725,
+          left: 112,
+          width: MediaQuery.of(context).size.width * 0.53,
+          height: MediaQuery.of(context).size.height * 0.1,
+          child: SafeArea(
+            child: RaisedButton(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15) //12,
+                  ),
+              color: CustomStyle.light_bn_color,
+              onPressed: () =>
+                  null, //<<-- WHATEVER BUTTON PRESS WILL DO WILL COME HERE
+              child: Text(
+                'ADD',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  letterSpacing: 1.5,
+                  fontFamily: 'fonts/Anton-Regular.ttf',
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Future<bool> _getBool() async {
+    return flg;
+  }
+
+  // END OF THE OVERLAY SECTION //
+
 //FUNCTION TO GENERATE INDIVIDUAL CATEGORIES HAVING DIFFERENT DISHES
   Widget mealGenerator(String title, Map<String, dynamic> food) {
     List<String> items = food.keys.toList();
@@ -135,14 +186,27 @@ class _DietChartState extends State<DietChart> {
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, i) {
                 return InkWell(
-                  onTap: () => Navigator.of(context).push(new MaterialPageRoute(
-                    builder: (context) => new ind_food(
-                        vedio_link: food[items[i]]['vedio'],
-                        specific_cal: food[items[i]]['calories'],
-                        m: food[items[i]]['serve'],
-                        inc: food[items[i]]['incredients'],
-                        cons: food[items[i]]['constituent']),
-                  )),
+                  onTap: () {
+                    overlay = Overlay.of(context, rootOverlay: true);
+
+                    entry = _buildOverlay();
+
+                    WidgetsBinding.instance
+                        .addPostFrameCallback((_) => overlay.insert(entry));
+                    Navigator.of(context).push(
+                      new MaterialPageRoute(
+                        builder: (context) => WillPopScope(
+                          child: individualDishInterfaceGenerator(
+                              food[items[i]]['vedio'],
+                              food[items[i]]['calories'],
+                              food[items[i]]['serve'],
+                              food[items[i]]['incredients'],
+                              food[items[i]]['constituent']),
+                          onWillPop: _getBool,
+                        ),
+                      ),
+                    );
+                  },
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -256,7 +320,10 @@ class _DietChartState extends State<DietChart> {
                           Icons.arrow_back_ios,
                           color: Colors.white,
                         ),
-                        onPressed: () => Navigator.pop(context),
+                        onPressed: () {
+                          entry.remove();
+                          Navigator.of(context).pop(true);
+                        },
                       ),
                     ],
                   ),
@@ -885,7 +952,10 @@ class _DietChartState extends State<DietChart> {
                                         ),
                                         // SizedBox(height: vf * 1.510), //14
                                         Text(
-                                          water.toStringAsPrecision(2) + ' L',
+                                          water != null
+                                              ? water.toStringAsPrecision(2) +
+                                                  ' L'
+                                              : 0.toString() + ' L',
                                           style: TextStyle(
                                             fontSize: vf * 1.833, //17
                                             color:

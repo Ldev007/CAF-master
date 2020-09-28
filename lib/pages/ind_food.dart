@@ -1,8 +1,9 @@
+import 'package:firebase_ex/styling.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
-
 import 'HomeScreen.dart';
+
 class ind_food extends StatefulWidget {
   final vedio_link;
   final specific_cal;
@@ -26,29 +27,90 @@ class _ind_foodState extends State<ind_food> {
   int _type;
 
   Widget tablet(String text, {Color colr}) {
-      return Row(
-        children: <Widget>[
-          SizedBox(width: vf * 1.64), //16
-          Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: vf * 1.026, //10
-              vertical: vf * 0.821, //8
-            ),
-            decoration: BoxDecoration(
-              color: colr != null ? colr : Colors.black45,
-              borderRadius: BorderRadius.circular(vf * 0.616), //6
-            ),
-            child: Text(
-              text,
-              style: TextStyle(
-                  color: Colors.white70,
-                  letterSpacing: 1,
-                  fontWeight: FontWeight.bold),
+    return Row(
+      children: <Widget>[
+        SizedBox(width: vf * 1.64), //16
+        Container(
+          padding: EdgeInsets.symmetric(
+            horizontal: vf * 1.026, //10
+            vertical: vf * 0.821, //8
+          ),
+          decoration: BoxDecoration(
+            color: colr != null ? colr : Colors.black45,
+            borderRadius: BorderRadius.circular(vf * 0.616), //6
+          ),
+          child: Text(
+            text,
+            style: TextStyle(
+                color: Colors.white70,
+                letterSpacing: 1,
+                fontWeight: FontWeight.bold),
+          ),
+        ),
+      ],
+    );
+  }
+  /* OVERLAY PART */
+
+  // OVERLAY DATA MEMBERS //
+  Future<bool> flg;
+  OverlayState overlay;
+  OverlayEntry entry;
+
+  // OVERLAY BUILDER FUNCTION //
+
+  //PUT OVERLAY BUTTON'S LOGIC IN THE BELOW "onPressed" FUNCTION
+
+  OverlayEntry _buildOverlay() {
+    return OverlayEntry(
+      builder: (context) {
+        return Positioned(
+          top: 675,
+          left: 114,
+          width: MediaQuery.of(context).size.width * 0.52,
+          height: MediaQuery.of(context).size.height * 0.1,
+          child: SafeArea(
+            child: RaisedButton(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15) //12,
+                  ),
+              color: CustomStyle.light_bn_color,
+              onPressed: () =>
+                  null, //<<-- WHATEVER BUTTON PRESS WILL DO WILL COME HERE
+              child: Text(
+                'ADD',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  letterSpacing: 1.5,
+                  fontFamily: 'fonts/Anton-Regular.ttf',
+                ),
+              ),
             ),
           ),
-        ],
-      );
-    }
+        );
+      },
+    );
+  }
+
+  Future<bool> _getBool() async {
+    return flg;
+  }
+
+  // END OF THE OVERLAY SECTION //
+
+  @override
+  void initState() {
+    super.initState();
+    overlay = Overlay.of(context, rootOverlay: true);
+
+    entry = _buildOverlay();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => overlay.insert(entry));
+  }
+
+  GlobalKey<ScaffoldState> stateKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -83,16 +145,14 @@ class _ind_foodState extends State<ind_food> {
     List<dynamic> val = widget.m.values.toList();
     print(val[2].toString());
 
-    
-    return MaterialApp(
-      home: Scaffold(
-        body:YoutubePlayerBuilder(
-          player: YoutubePlayer(controller: _controller),
-        builder: (context, player) {
-          return Scaffold(
-            body: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Column(
+    return WillPopScope(
+      onWillPop: _getBool,
+      child: MaterialApp(
+          home: Scaffold(
+        body: YoutubePlayerBuilder(
+            player: YoutubePlayer(controller: _controller),
+            builder: (context, player) {
+              return Column(
                 children: <Widget>[
                   Stack(
                     children: <Widget>[
@@ -102,7 +162,10 @@ class _ind_foodState extends State<ind_food> {
                           Icons.arrow_back_ios,
                           color: Colors.white,
                         ),
-                        onPressed: () => Navigator.pop(context),
+                        onPressed: () {
+                          entry.remove();
+                          Navigator.of(context).pop(true);
+                        },
                       ),
                     ],
                   ),
@@ -191,7 +254,7 @@ class _ind_foodState extends State<ind_food> {
                                         0.35,
                                     child: Column(
                                       crossAxisAlignment:
-                                      CrossAxisAlignment.center,
+                                          CrossAxisAlignment.center,
                                       children: <Widget>[
                                         Divider(
                                             indent: 10,
@@ -221,15 +284,15 @@ class _ind_foodState extends State<ind_food> {
                                             itemCount: widget.inc.length,
                                             itemBuilder: (context, index) =>
                                                 Column(
-                                                  children: [
-                                                    FittedBox(
-                                                      child: tablet(
-                                                        widget.inc[index],
-                                                      ),
-                                                    ),
-                                                    SizedBox(height: vf * 1.2),
-                                                  ],
+                                              children: [
+                                                FittedBox(
+                                                  child: tablet(
+                                                    widget.inc[index],
+                                                  ),
                                                 ),
+                                                SizedBox(height: vf * 1.2),
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ],
@@ -515,11 +578,9 @@ class _ind_foodState extends State<ind_food> {
                   //     color: CustomStyle.light_bn_color,
                   //   ),
                 ],
-              ),
-            ),
-          );
-        }),
-      )
+              );
+            }),
+      )),
     );
   }
 }

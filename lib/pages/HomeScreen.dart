@@ -150,7 +150,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           top: vf * 5.133, //50
                           bottom: vf * 2.053, //20
                           left: vf * 3.08, //30
-                          right: 3.08, //30
+                          right: vf * 3.08, //30
                         ),
                         title: Text('Enter the amount below',
                             textAlign: TextAlign.center,
