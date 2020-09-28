@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_ex/pages/ind_food.dart';
+//REMOVED IND_FOOD IMPORT STATEMENT SO DON'T WORRY ABOUT THE IMPORT
 import 'package:firebase_ex/styling.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
