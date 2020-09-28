@@ -101,10 +101,9 @@ class _DietChartState extends State<DietChart> {
     );
   }
 
-
 /* OVERLAY BUTTON FUNCTIONALITY*/
 
-addcal(int intake) async {
+  addcal(int intake) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String uid = prefs.getString("uid");
     DocumentReference trackerref = await Firestore.instance
@@ -141,7 +140,6 @@ addcal(int intake) async {
     // });
   }
 
-
   /* OVERLAY PART */
 
   // OVERLAY DATA MEMBERS //
@@ -167,8 +165,12 @@ addcal(int intake) async {
                   borderRadius: BorderRadius.circular(15) //12,
                   ),
               color: CustomStyle.light_bn_color,
-              onPressed: () =>
-                  null, //<<-- WHATEVER BUTTON PRESS WILL DO WILL COME HERE
+              onPressed: () {
+                print(_count);
+                print(_type);
+                int intake = _count * _type;
+                addcal(intake);
+              }, //<<-- WHATEVER BUTTON PRESS WILL DO WILL COME HERE
               child: Text(
                 'ADD',
                 textAlign: TextAlign.center,
