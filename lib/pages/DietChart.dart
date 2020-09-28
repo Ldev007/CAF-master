@@ -101,6 +101,47 @@ class _DietChartState extends State<DietChart> {
     );
   }
 
+
+/* OVERLAY BUTTON FUNCTIONALITY*/
+
+addcal(int intake) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String uid = prefs.getString("uid");
+    DocumentReference trackerref = await Firestore.instance
+        .collection('UserData')
+        .document(uid)
+        .collection('excercise')
+        .document('Diet');
+    DateTime now = DateTime.now();
+    DateTime dda = DateTime(now.year, now.month, now.day);
+    var fulldate = DateTime.parse(dda.toString());
+//    print(moonLanding.month);
+    var month = fulldate.month;
+    var date = fulldate.day;
+    var year = fulldate.year;
+    print(
+        'm' + month.toString() + 'd' + date.toString() + 'y' + year.toString());
+    var x = '0' + month.toString();
+    trackerref.setData({
+      year.toString(): {
+        x: {
+          date.toString(): {
+            "cal": FieldValue.increment(intake),
+          }
+        }
+      }
+    }, merge: true);
+    // trackerref.updateData({"calories": FieldValue.increment(1)});
+    // double wat = prefs.getDouble("waterIntake");
+    // setState(() {
+    //   calories = 0.0;
+    //   protein = 0.0;
+    //   water = wat;
+    //   food_data = m;
+    // });
+  }
+
+
   /* OVERLAY PART */
 
   // OVERLAY DATA MEMBERS //
