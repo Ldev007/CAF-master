@@ -34,6 +34,8 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  double _iconSize = vf * 2.645;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -82,8 +84,9 @@ class _HomePageState extends State<HomePage> {
                     color: Color.fromRGBO(48, 67, 120, 1),
                   ),
                   child: ToggleButtons(
+                    constraints: BoxConstraints(maxWidth: vf * 5.026), //38
                     splashColor: Colors.yellow,
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(vf * 2.053),
                     fillColor: Colors.transparent,
                     borderColor: Colors.transparent,
                     onPressed: (int index) {
@@ -125,6 +128,7 @@ class _HomePageState extends State<HomePage> {
                         icon: Icon(
                           Icons.directions_run, //Icons.home,3
                           color: Colors.white,
+                          size: _iconSize,
                         ),
                       ),
                       IconButton(
@@ -135,6 +139,7 @@ class _HomePageState extends State<HomePage> {
                           Icons.restaurant,
                           //Icons.local_dining,//Icons.free_breakfast,//Icons.fastfood,
                           color: Colors.white,
+                          size: _iconSize,
                         ),
                       ),
                       IconButton(
@@ -144,6 +149,7 @@ class _HomePageState extends State<HomePage> {
                         icon: Icon(
                           Icons.add,
                           color: Colors.white,
+                          size: _iconSize,
                         ),
                       ),
                       IconButton(
@@ -155,6 +161,7 @@ class _HomePageState extends State<HomePage> {
 //                          Icons.trending_up,
                           //Icons.show_chart,//Icons.score,//Icons.fitness_center,
                           color: Colors.white,
+                          size: _iconSize,
                         ),
                       ),
                       IconButton(
@@ -164,6 +171,7 @@ class _HomePageState extends State<HomePage> {
                         icon: Icon(
                           Icons.equalizer, //Icons.assessment,
                           color: Colors.white,
+                          size: _iconSize, //20
                         ),
                       ),
                     ],
