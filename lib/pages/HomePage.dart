@@ -75,9 +75,10 @@ class _HomePageState extends State<HomePage> {
               Align(
                 alignment: Alignment(0, 0.92),
                 child: Container(
+                  width: MediaQuery.of(context).size.width * 0.55,
                   height: MediaQuery.of(context).size.height * 0.065,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(vf * 2.053), //20
                     color: Color.fromRGBO(48, 67, 120, 1),
                   ),
                   child: ToggleButtons(
@@ -122,7 +123,7 @@ class _HomePageState extends State<HomePage> {
                             duration: Duration(milliseconds: 500),
                             curve: Curves.fastOutSlowIn),
                         icon: Icon(
-                          Icons.directions_run,//Icons.home,3
+                          Icons.directions_run, //Icons.home,3
                           color: Colors.white,
                         ),
                       ),
@@ -180,7 +181,10 @@ class _HomePageState extends State<HomePage> {
                           color: Colors.white,
                           shape: BoxShape.circle,
                           boxShadow: [
-                            BoxShadow(blurRadius: 5, color: Colors.grey, spreadRadius: 4)
+                            BoxShadow(
+                                blurRadius: 5,
+                                color: Colors.grey,
+                                spreadRadius: 4)
                           ],
                         ),
                         child: CircleAvatar(

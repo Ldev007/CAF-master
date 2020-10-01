@@ -5,6 +5,7 @@ import 'pages/LeaderBoard.dart';
 import 'pages/OverallStats.dart';
 import 'pages/PlanDetails.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 void main() {
   runApp(
     Profile(
@@ -94,16 +95,14 @@ class _ProfileState extends State<Profile> {
                             ),
                           ),
                           SizedBox(
-                              width:
-                                  CustomStyle.verticalFractions * 8.629), //80
+                              width: CustomStyle.verticalFractions * 8.2), //80
                           Icon(
                             Icons.notifications,
                             color: CustomStyle.light_bn_color,
                             size: CustomStyle.verticalFractions * 2.696, //25
                           ),
                           SizedBox(
-                              width:
-                                  CustomStyle.verticalFractions * 3.775), //35
+                              width: CustomStyle.verticalFractions * 1.5), //35
                           Icon(
                             Icons.more_horiz,
                             color: CustomStyle.light_bn_color,

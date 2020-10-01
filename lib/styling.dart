@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CustomStyle {
-  static final Color translucent_purple = Color.fromRGBO(48, 67, 120, 0.7);
+  static final Color translucent_purple = Color.fromRGBO(48, 67, 120, 0.8);
   static final Color light_bg_color = Colors.white60;
   static final Color light_fg_color = Colors.black54;
   static final Color light_bn_color = Color.fromRGBO(48, 67, 120, 1);

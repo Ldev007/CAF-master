@@ -50,10 +50,12 @@ class _HomeScreenState extends State<HomeScreen> {
   FocusNode fNodeForDialog;
   Color colr = CustomStyle.light_bn_color;
   TextEditingController cont = TextEditingController();
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       // appBar: AppBar(
       //      elevation: 0,
       //      backgroundColor: Colors.transparent,
@@ -141,117 +143,131 @@ class _HomeScreenState extends State<HomeScreen> {
                         color: CustomStyle.light_bn_color,
                         width: vf * 0.102, //1
                       )),
-                  onPressed: () => showDialog(
-                    context: context,
-                    builder: (context) => StatefulBuilder(
-                        builder: (context, StateSetter setState) {
-                      return SimpleDialog(
-                        contentPadding: EdgeInsets.only(
-                          top: vf * 5.133, //50
-                          bottom: vf * 2.053, //20
-                          left: vf * 3.08, //30
-                          right: vf * 3.08, //30
-                        ),
-                        title: Text('Enter the amount below',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: vf * 2.566, //25
-                              fontWeight: FontWeight.bold,
-                              color: CustomStyle.light_bn_color,
-                            )),
-                        children: [
-                          TextField(
-                            cursorWidth: vf * 0.154, //1.5
-                            keyboardType: TextInputType.number,
-                            controller: cont,
-                            style: TextStyle(
-                              fontSize: vf * 1.848, //18
-                              color: CustomStyle.light_bn_color,
-                              fontWeight: FontWeight.w600,
-                            ),
-                            decoration: InputDecoration(
-                              suffixText: obj,
-                              suffixStyle:
-                                  TextStyle(color: CustomStyle.light_bn_color),
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: CustomStyle.light_bn_color),
-                                borderRadius:
-                                    BorderRadius.circular(vf * 1.232), //12
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    width: vf * 0.154, //1.5
-                                    color: CustomStyle.light_bn_color),
-                                borderRadius:
-                                    BorderRadius.circular(vf * 1.232), //12
-                              ),
-                            ),
-                            cursorColor: CustomStyle.light_bn_color,
+                  onPressed: () {
+                    return showDialog(
+                      context: context,
+                      builder: (context) => StatefulBuilder(
+                          builder: (context, StateSetter setState) {
+                        return SimpleDialog(
+                          contentPadding: EdgeInsets.only(
+                            top: vf * 5.133, //50
+                            bottom: vf * 2.053, //20
+                            left: vf * 3.08, //30
+                            right: vf * 3.08, //30
                           ),
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButton(
-                                value: obj,
-                                items: [
-                                  DropdownMenuItem(
-                                      child: Text(
-                                        'Glasses',
-                                        style: TextStyle(
-                                            color: colr,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      value: 'Glasses'),
-                                  DropdownMenuItem(
-                                      child: Text('Litres',
+                          title: Text('Enter the amount below',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: vf * 2.566, //25
+                                fontWeight: FontWeight.bold,
+                                color: CustomStyle.light_bn_color,
+                              )),
+                          children: [
+                            TextField(
+                              cursorWidth: vf * 0.154, //1.5
+                              keyboardType: TextInputType.number,
+                              controller: cont,
+                              style: TextStyle(
+                                fontSize: vf * 1.848, //18
+                                color: CustomStyle.light_bn_color,
+                                fontWeight: FontWeight.w600,
+                              ),
+                              decoration: InputDecoration(
+                                suffixText: obj,
+                                suffixStyle: TextStyle(
+                                    color: CustomStyle.light_bn_color),
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: CustomStyle.light_bn_color),
+                                  borderRadius:
+                                      BorderRadius.circular(vf * 1.232), //12
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      width: vf * 0.154, //1.5
+                                      color: CustomStyle.light_bn_color),
+                                  borderRadius:
+                                      BorderRadius.circular(vf * 1.232), //12
+                                ),
+                              ),
+                              cursorColor: CustomStyle.light_bn_color,
+                            ),
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: DropdownButtonHideUnderline(
+                                child: DropdownButton(
+                                  value: obj,
+                                  items: [
+                                    DropdownMenuItem(
+                                        child: Text(
+                                          'Glasses',
                                           style: TextStyle(
                                               color: colr,
-                                              fontWeight: FontWeight.bold)),
-                                      value: 'Litres')
-                                ],
-                                onChanged: (val) {
-                                  obj = val;
-                                  setState(() {});
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        value: 'Glasses'),
+                                    DropdownMenuItem(
+                                        child: Text('Litres',
+                                            style: TextStyle(
+                                                color: colr,
+                                                fontWeight: FontWeight.bold)),
+                                        value: 'Litres')
+                                  ],
+                                  onChanged: (val) {
+                                    obj = val;
+                                    setState(() {});
+                                  },
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: vf * 1.54), //15
+                            Align(
+                              alignment: Alignment.bottomRight,
+                              child: RaisedButton(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: vf * 3.593, //35
+                                  vertical: vf * 1.232, //12
+                                ),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(
+                                  vf * 0.821, //8
+                                )),
+                                color: CustomStyle.light_bn_color,
+                                onPressed: () {
+                                  fetch(
+                                      isWaterInput: true,
+                                      amount: double.parse(cont.text),
+                                      metric: obj);
+                                  Navigator.pop(context);
+                                  _scaffoldKey.currentState
+                                      .showSnackBar(SnackBar(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(15)),
+                                    backgroundColor: CustomStyle.light_bn_color,
+                                    content: Text(
+                                        '${cont.text} Litres water added to target intake'),
+                                    duration: Duration(seconds: 5),
+                                  ));
                                 },
+                                child: Text('ADD',
+                                    style: TextStyle(
+                                      fontSize: vf * 1.54, //15
+                                      color: Colors.white,
+                                    )),
                               ),
                             ),
-                          ),
-                          SizedBox(height: vf * 1.54), //15
-                          Align(
-                            alignment: Alignment.bottomRight,
-                            child: RaisedButton(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: vf * 3.593, //35
-                                vertical: vf * 1.232, //12
-                              ),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(
-                                vf * 0.821, //8
-                              )),
-                              color: CustomStyle.light_bn_color,
-                              onPressed: () => {fetch(
-                                  isWaterInput: true,
-                                  amount: double.parse(cont.text),
-                                  metric: obj),
-                              Navigator.pop(context)},
-                              child: Text('ADD',
-                                  style: TextStyle(
-                                    fontSize: vf * 1.54, //15
-                                    color: Colors.white,
-                                  )),
-                            ),
-                          ),
-                          Text(
-                            '1 Glass = 0.147 Litres',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: CustomStyle.light_bn_color),
-                          )
-                        ],
-                      );
-                    }),
-                  ),
+                            Text(
+                              '1 Glass = 0.147 Litres',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: CustomStyle.light_bn_color),
+                            )
+                          ],
+                        );
+                      }),
+                    );
+                  },
                   child: Row(
                     children: [
                       Image.asset(

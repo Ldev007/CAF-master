@@ -50,7 +50,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
   double calories = 0.0;
   double targetcal = 2000;
   bool paint = false;
-  List<int> target_steps = [2000,5000,7000,8000,10000,15000,20000];
+  List<int> target_steps = [2000, 5000, 7000, 8000, 10000, 15000, 20000];
 
   //Leaderboard
   var dat = [110, 130, 125, 80, 50];
@@ -131,10 +131,11 @@ class _CircleProgressBarState extends State<CircleProgressBar>
         }
       }
     });
-    double x = 2000;//(int.parse(testcount.toString()[0]) + 1) * 1000.toDouble();
-    for(int i=0;i<target_steps.length;i++){
-      if(target_steps[i]>testcount){
-        x=target_steps[i].toDouble();
+    double x =
+        2000; //(int.parse(testcount.toString()[0]) + 1) * 1000.toDouble();
+    for (int i = 0; i < target_steps.length; i++) {
+      if (target_steps[i] > testcount) {
+        x = target_steps[i].toDouble();
         break;
       }
     }
@@ -145,7 +146,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
       targetcal = (int.parse(calories.toString()[0]) + 2) * 100.toDouble();
       total = x;
       steps = testcount / x;
-      steps_ran=testcount.toInt();
+      steps_ran = testcount.toInt();
       // print("wgetcv"+total.toString());
 //      print("steps"+steps.toString());
       _animation(testcount);
@@ -316,7 +317,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                                     style: TextStyle(
                                         fontSize:
                                             CustomStyle.verticalFractions *
-                                                7.186, //70
+                                                5, //70
                                         color: CustomStyle.light_bn_color,
                                         fontFamily: 'fonts/Anton-Regular.ttf'),
                                   ),
@@ -345,7 +346,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                                       height: CustomStyle.verticalFractions *
                                           0.297, //2.9
                                       fontSize: CustomStyle.verticalFractions *
-                                          2.566, //254
+                                          2.4, //254
                                       color: CustomStyle.light_bn_color,
                                       fontFamily: 'fonts/Anton-Regular.ttf',
                                     ),

@@ -101,7 +101,7 @@ class _DietChartState extends State<DietChart> {
     );
   }
 
-/* OVERLAY BUTTON FUNCTIONALITY*/
+/* OVERLAY BUTTON FUNCTION*/
 
   addcal(int intake) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -140,7 +140,9 @@ class _DietChartState extends State<DietChart> {
     // });
   }
 
-  /* OVERLAY PART */
+  // END OF FUNCTION //
+
+  /* OVERLAY DESIGN PART */
 
   // OVERLAY DATA MEMBERS //
   Future<bool> flg;
@@ -155,29 +157,30 @@ class _DietChartState extends State<DietChart> {
     return OverlayEntry(
       builder: (context) {
         return Positioned(
-          top: 725,
-          left: 112,
-          width: MediaQuery.of(context).size.width * 0.53,
+          top: vf * 86.447,
+          left: vf * 10.472,
+          width: MediaQuery.of(context).size.width * 0.55,
           height: MediaQuery.of(context).size.height * 0.1,
           child: SafeArea(
             child: RaisedButton(
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15) //12,
+                  borderRadius: BorderRadius.circular(vf * 2.053) //20,
                   ),
               color: CustomStyle.light_bn_color,
               onPressed: () {
+                //<<-- WHATEVER BUTTON PRESS WILL DO WILL COME HERE
                 print(_count);
                 print(_type);
                 int intake = _count * _type;
                 addcal(intake);
-              }, //<<-- WHATEVER BUTTON PRESS WILL DO WILL COME HERE
+              }, //<<-- TILL HERE
               child: Text(
-                'ADD',
+                'DONE EATING',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 20,
-                  letterSpacing: 1.5,
+                  fontSize: vf * 2.053, //20
+                  letterSpacing: vf * 0.154, //1.5
                   fontFamily: 'fonts/Anton-Regular.ttf',
                 ),
               ),
@@ -230,12 +233,6 @@ class _DietChartState extends State<DietChart> {
               itemBuilder: (context, i) {
                 return InkWell(
                   onTap: () {
-                    overlay = Overlay.of(context, rootOverlay: true);
-
-                    entry = _buildOverlay();
-
-                    WidgetsBinding.instance
-                        .addPostFrameCallback((_) => overlay.insert(entry));
                     Navigator.of(context).push(
                       new MaterialPageRoute(
                         builder: (context) => WillPopScope(
@@ -317,6 +314,16 @@ class _DietChartState extends State<DietChart> {
 //TO-DO: CONSTRUCT INDIVUAL DISH INTERFACE DESIGN AS WELL AS FRONT-END FUNCTIONALITY
   Widget individualDishInterfaceGenerator(String p, int specific_cal,
       Map<String, dynamic> m, List<dynamic> inc, List<dynamic> cons) {
+    /* OVERLAY ENTRY INSERTION AND CREATION */
+
+    overlay = Overlay.of(context, rootOverlay: true);
+
+    entry = _buildOverlay();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => overlay.insert(entry));
+
+    // END OF OVERLAY PART //
+
     YoutubePlayerController _controller;
     String videoU = YoutubePlayer.convertUrlToId(p);
     print(videoU);
@@ -617,22 +624,22 @@ class _DietChartState extends State<DietChart> {
                           ],
                         ),
                       ),
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        child: RaisedButton(
-                          onPressed: () {
-                            print(_count);
-                            print(_type);
-                          },
-                          child: Text(
-                            'Bottom Button!',
-                            style: TextStyle(fontSize: vf * 2.053), //20
-                          ),
-                          color: Colors.blue,
-                          textColor: Colors.white,
-                          elevation: vf * 0.513, //5
-                        ),
-                      ),
+                      // Align(
+                      //   alignment: Alignment.bottomCenter,
+                      //   child: RaisedButton(
+                      //     onPressed: () {
+                      //       print(_count);
+                      //       print(_type);
+                      //     },
+                      //     child: Text(
+                      //       'Bottom Button!',
+                      //       style: TextStyle(fontSize: vf * 2.053), //20
+                      //     ),
+                      //     color: Colors.blue,
+                      //     textColor: Colors.white,
+                      //     elevation: vf * 0.513, //5
+                      //   ),
+                      // ),
                     ],
                   ),
                   // Card(
