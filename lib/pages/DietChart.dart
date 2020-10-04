@@ -120,7 +120,7 @@ class _DietChartState extends State<DietChart> {
     var year = fulldate.year;
     print(
         'm' + month.toString() + 'd' + date.toString() + 'y' + year.toString());
-    var x = '0' + month.toString();
+    var x = month.toString();
     trackerref.setData({
       year.toString(): {
         x: {
@@ -233,6 +233,18 @@ class _DietChartState extends State<DietChart> {
               itemBuilder: (context, i) {
                 return InkWell(
                   onTap: () {
+
+                    /* OVERLAY ENTRY INSERTION AND CREATION */
+
+                    overlay = Overlay.of(context, rootOverlay: true);
+
+                    entry = _buildOverlay();
+
+                    WidgetsBinding.instance
+                        .addPostFrameCallback((_) => overlay.insert(entry));
+
+                    // END OF OVERLAY PART //
+
                     Navigator.of(context).push(
                       new MaterialPageRoute(
                         builder: (context) => WillPopScope(
@@ -314,16 +326,6 @@ class _DietChartState extends State<DietChart> {
 //TO-DO: CONSTRUCT INDIVUAL DISH INTERFACE DESIGN AS WELL AS FRONT-END FUNCTIONALITY
   Widget individualDishInterfaceGenerator(String p, int specific_cal,
       Map<String, dynamic> m, List<dynamic> inc, List<dynamic> cons) {
-    /* OVERLAY ENTRY INSERTION AND CREATION */
-
-    overlay = Overlay.of(context, rootOverlay: true);
-
-    entry = _buildOverlay();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => overlay.insert(entry));
-
-    // END OF OVERLAY PART //
-
     YoutubePlayerController _controller;
     String videoU = YoutubePlayer.convertUrlToId(p);
     print(videoU);
@@ -1140,7 +1142,7 @@ class _DietChartState extends State<DietChart> {
     var year = fulldate.year;
     print(
         'm' + month.toString() + 'd' + date.toString() + 'y' + year.toString());
-    var x = '0' + month.toString();
+    var x = month.toString();
     Map<String, dynamic> temp =
         trackersnap.data[year.toString()][x][date.toString()];
     print(temp.toString());
