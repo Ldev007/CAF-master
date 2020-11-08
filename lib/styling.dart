@@ -64,6 +64,16 @@ class CustomStyle {
       subtitle2: TextStyle(color: light_bn_txt_Color),
     ),
   );
+  static final LinearGradient gradientBGColor = LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: <Color>[
+      Color.fromRGBO(192, 196, 228, 1),
+      Color.fromRGBO(141, 148, 206, 1),
+      Color.fromRGBO(38, 53, 95, 1),
+      Color.fromRGBO(28, 39, 69, 1),
+    ],
+  );
   //To be continued...
 
   /*************************************

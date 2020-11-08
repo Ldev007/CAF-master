@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_ex/Database/database.dart';
 import 'package:firebase_ex/styling.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -40,7 +39,6 @@ class _ScreenEightState extends State<ScreenEight>
       String height, String weight, String currentfat, String targetfat) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool("seen", true);
-    String email = prefs.getString("useremail");
     Map<String, dynamic> demodata = {
       "uid": uid,
       "Goal": goal,

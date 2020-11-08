@@ -1,0 +1,535 @@
+import 'package:firebase_ex/ProgressBar.dart';
+import 'package:flutter/material.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+
+import '../styling.dart';
+
+class IndividualDevice extends StatefulWidget {
+  final Color backgroundColor;
+  final Color foregroundColor;
+  final double value;
+
+  IndividualDevice({
+    Key key,
+    @required this.backgroundColor,
+    @required this.foregroundColor,
+    @required this.value,
+  }) : super(key: key);
+  final double x = 0.4;
+
+  @override
+  _IndividualDeviceState createState() =>
+      _IndividualDeviceState(backgroundColor: this.backgroundColor, foregroundColor: this.foregroundColor, value: this.value);
+}
+
+class _IndividualDeviceState extends State<IndividualDevice> with SingleTickerProviderStateMixin {
+  //DATA
+  bool shouldPaint = true;
+  Animation<double> animeObj;
+  AnimationController animeCont;
+  double reps = 0, steps = 0;
+
+  Color backgroundColor;
+
+  Color foregroundColor;
+
+  double value;
+
+  String title = 'Live Status';
+
+  bool paint;
+
+//CONSTRUCTOR
+  _IndividualDeviceState({
+    @required this.backgroundColor,
+    @required this.foregroundColor,
+    @required this.value,
+  }) : super();
+
+  //METHODS
+  @override
+  void initState() {
+    super.initState();
+    print('init');
+    _read();
+  }
+
+  void _read() {
+    //PUT THE READ LOGIC HERE TO READ DATA FROM SENSOR AND STORE IT IN REPS VARIABLE AND SETS VARIABLE TOO
+    print('inside read');
+    reps = 0.65;
+    _animate(reps);
+    setState(() {
+      paint = true;
+    });
+  }
+
+  void _animate(count) {
+    animeCont = AnimationController(duration: Duration(seconds: 2), vsync: this);
+    animeObj = Tween<double>(begin: 0, end: count).animate(animeCont)
+      ..addListener(() {
+        setState(() {});
+      });
+    // print(animeObj.value);
+    animeCont.forward();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final backgroundColor = this.backgroundColor;
+    final foregroundColor = this.foregroundColor;
+    print('B : ' + backgroundColor.toString() + ', F : ' + foregroundColor.toString());
+    return Container(
+      decoration: BoxDecoration(
+        gradient: CustomStyle.gradientBGColor,
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          actions: [
+            IconButton(
+              icon: Icon(
+                Icons.info_outline,
+                color: Colors.white,
+              ),
+              onPressed: () => showDialog(
+                context: context,
+                child: Dialog(
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.5,
+                    height: MediaQuery.of(context).size.height * 0.3,
+                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                    child: PageView(
+                      children: [
+                        Column(
+                          children: [
+                            Text(
+                              'REPS',
+                              style: TextStyle(
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 1.5,
+                              ),
+                            ),
+                            SizedBox(height: 50),
+                            Text(
+                              'Reps counter is represented by cyan colored progress bar',
+                              style: TextStyle(
+                                fontSize: 17,
+                                letterSpacing: 1.5,
+                              ),
+                            )
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Text(
+                              'STEPS',
+                              style: TextStyle(
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 1.5,
+                              ),
+                            ),
+                            SizedBox(height: 50),
+                            Text(
+                              'Steps counter is represented by lime green colored progress bar',
+                              style: TextStyle(
+                                fontSize: 17,
+                                letterSpacing: 1.5,
+                              ),
+                            )
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Text(
+                              'Calories & Weight',
+                              style: TextStyle(
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 1.5,
+                              ),
+                            ),
+                            SizedBox(height: 50),
+                            Text(
+                              'According to reps & sets done, calories burnt will be displayed below the progress bars. Your set target weight will be displayed beside the calories burnt.',
+                              style: TextStyle(
+                                fontSize: 17,
+                                letterSpacing: 1.5,
+                              ),
+                            )
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Text(
+                              'Timer',
+                              style: TextStyle(
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 1.5,
+                              ),
+                            ),
+                            SizedBox(height: 50),
+                            Text(
+                              'To keep track of time there\'s a timer at the right of progress bar',
+                              style: TextStyle(
+                                fontSize: 17,
+                                letterSpacing: 1.5,
+                              ),
+                            )
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Text(
+                              'Thanks !',
+                              style: TextStyle(
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 1.5,
+                              ),
+                            ),
+                            SizedBox(height: 50),
+                            Text(
+                              'Thanks for using our app. Hope it helped you in enhancing your fitness lifestyle.',
+                              style: TextStyle(
+                                fontSize: 17,
+                                letterSpacing: 1.5,
+                              ),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
+        body: SafeArea(
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            child: Column(
+              children: [
+                Expanded(
+                  child: Container(
+                    child: Stack(
+                      children: [
+                        Positioned(
+                          left: MediaQuery.of(context).size.width / 4,
+                          child: CustomPaint(
+                            child: Container(
+                              color: Colors.transparent,
+                              width: MediaQuery.of(context).size.width * 0.49,
+                              height: MediaQuery.of(context).size.height * 0.4,
+                            ),
+                            foregroundPainter: PaintProgressBar(
+                              bkgColor: this.backgroundColor,
+                              frgColor: Color.fromRGBO(186, 247, 3, 1),
+                              percentage: paint ? animeObj.value : 0.0,
+                              strokeWidth: 8,
+                              shadowColor: Color.fromRGBO(49, 77, 2, 1),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          left: MediaQuery.of(context).size.width / 3.5,
+                          child: CustomPaint(
+                            child: Container(
+                              color: Colors.transparent,
+                              width: MediaQuery.of(context).size.width * 0.42,
+                              height: MediaQuery.of(context).size.height * 0.4,
+                            ),
+                            foregroundPainter: PaintProgressBar(
+                              bkgColor: this.backgroundColor,
+                              frgColor: Colors.cyanAccent,
+                              percentage: paint ? animeObj.value : 0.0,
+                              strokeWidth: 8,
+                              shadowColor: Colors.cyan[900],
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          top: 178,
+                          left: MediaQuery.of(context).size.width / 3.5,
+                          child: Container(
+                            width: CustomStyle.verticalFractions * 18.48,
+                            child: Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    '150',
+                                    textAlign: TextAlign.right,
+                                    style: TextStyle(
+                                      fontSize: CustomStyle.verticalFractions * 4, //70
+                                      color: Colors.cyanAccent,
+                                      fontFamily: 'fonts/Anton-Regular.ttf',
+                                      fontWeight: FontWeight.bold,
+                                      shadows: [Shadow(offset: Offset(1, 1), blurRadius: 20, color: Colors.black38)],
+                                    ),
+                                  ),
+                                  Text(
+                                    '180',
+                                    textAlign: TextAlign.right,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      height: CustomStyle.verticalFractions * 0.15, //2.9
+                                      fontSize: CustomStyle.verticalFractions * 2.4, //254
+                                      color: Color.fromRGBO(186, 247, 3, 1),
+                                      fontFamily: 'fonts/Anton-Regular.ttf',
+                                      shadows: [Shadow(offset: Offset(1, 1), blurRadius: 20, color: Colors.black38)],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          top: MediaQuery.of(context).size.height * 0.325,
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 8),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(25),
+                                      border: Border.all(
+                                        color: Colors.cyanAccent,
+                                      )),
+                                  child: Text(
+                                    'REPS',
+                                    style: TextStyle(
+                                        fontSize: 15, letterSpacing: 1.5, fontWeight: FontWeight.bold, color: Colors.cyanAccent),
+                                  ),
+                                ),
+                                SizedBox(width: 50),
+                                Container(
+                                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 8),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(25),
+                                      border: Border.all(
+                                        color: Color.fromRGBO(186, 247, 3, 1),
+                                      )),
+                                  child: Text(
+                                    'SETS',
+                                    style: TextStyle(
+                                        color: Color.fromRGBO(186, 247, 3, 1),
+                                        fontSize: 15,
+                                        letterSpacing: 1.5,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          top: 270,
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            padding: EdgeInsets.symmetric(vertical: 95),
+                            decoration: BoxDecoration(
+                              color: Color.fromRGBO(48, 67, 120, 0.0),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: <Widget>[
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: <Widget>[
+                                    // SizedBox(height: CustomStyle.verticalFractions * 2.157), //20
+                                    Text(
+                                      '150',
+                                      style: TextStyle(
+                                        fontSize: CustomStyle.verticalFractions * 2.3, //30
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    // ImageIcon(
+                                    //   AssetImage('images/fire.png'),
+                                    //   color: Colors.orange,
+                                    //   size: 20,
+                                    // ),
+                                    Text(
+                                      'Cal',
+                                      style: TextStyle(
+                                        color: Colors.white, //Color.fromRGBO(192, 196, 228, 0.5),
+                                        fontSize: CustomStyle.verticalFractions * 1.7, //26
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: <Widget>[
+                                    // SizedBox(width: CustomStyle.verticalFractions * 7.8), //10
+                                    // SizedBox(height: CustomStyle.verticalFractions * 2.157), //20
+                                    Text(
+                                      '150',
+                                      style: TextStyle(
+                                        fontSize: CustomStyle.verticalFractions * 2.2, //30
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    // ImageIcon(
+                                    //   AssetImage('images/dumbbell.png'),
+                                    //   color: Colors.white,
+                                    //   size: 20,
+                                    // )
+                                    Text(
+                                      'lbs',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: CustomStyle.verticalFractions * 1.7, //26
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                            top: 265,
+                            left: MediaQuery.of(context).size.width * 0.87,
+                            child: CustomPaint(
+                              child: Container(
+                                width: 40,
+                                height: 40,
+                                child: Center(
+                                    child: Text(
+                                  '5',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                )),
+                              ),
+                              foregroundPainter: PaintProgressBar(
+                                frgColor: Colors.white.withOpacity(0.88),
+                                bkgColor: Colors.black54,
+                                percentage: animeObj.value,
+                                strokeWidth: 4,
+                              ),
+                            ))
+                      ],
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                      padding: EdgeInsets.only(top: 100),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          ListTile(
+                            contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                            tileColor: Colors.black.withOpacity(0.5),
+                            leading: Icon(
+                              Icons.graphic_eq,
+                              color: Colors.white70,
+                            ),
+                            title: Text('Machine Status'.toUpperCase(),
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                )),
+                            subtitle: Row(
+                              children: [
+                                Text(
+                                  'All seems good',
+                                  style: TextStyle(
+                                    color: Colors.white70,
+                                  ),
+                                ),
+                                SizedBox(width: 20),
+                                Icon(Icons.check, color: Colors.green)
+                              ],
+                            ),
+                            trailing: Icon(
+                              Icons.info_outline,
+                              color: Colors.white70,
+                            ),
+                          ),
+                          // SizedBox(height: 5),
+                          ListTile(
+                            contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                            tileColor: Colors.black.withOpacity(0.5),
+                            leading: Icon(
+                              Icons.history,
+                              color: Colors.white70,
+                            ),
+                            title: Text(
+                              'HISTORY',
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.white,
+                              ),
+                            ),
+                            subtitle: Text(
+                              'To track the history with this specific machine',
+                              style: TextStyle(
+                                color: Colors.white70,
+                              ),
+                            ),
+                            trailing: IconButton(
+                              onPressed: () => print('History check'),
+                              icon: Icon(
+                                Icons.arrow_forward_ios,
+                                color: Colors.white70,
+                              ),
+                            ),
+                          ),
+                          // SizedBox(height: 5),
+                          ListTile(
+                            contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                            tileColor: Colors.black.withOpacity(0.5),
+                            leading: Icon(
+                              Icons.av_timer,
+                              color: Colors.white70,
+                            ),
+                            title: Text(
+                              'CHANGE TARGETS',
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.white,
+                              ),
+                            ),
+                            subtitle: Text(
+                              'To change the reps & steps for this specific machine',
+                              style: TextStyle(
+                                color: Colors.white70,
+                              ),
+                            ),
+                            trailing: IconButton(
+                              onPressed: () => print('History check'),
+                              icon: Icon(
+                                Icons.arrow_forward_ios,
+                                color: Colors.white70,
+                              ),
+                            ),
+                          ),
+                        ],
+                      )),
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

@@ -1,4 +1,5 @@
 import 'package:firebase_ex/Authenticate/google_auth.dart';
+import 'package:firebase_ex/Bluetooth/mainPage.dart';
 import 'package:flutter/material.dart';
 import 'routes.dart';
 import 'styling.dart';
@@ -24,12 +25,11 @@ class MyApp extends StatelessWidget {
         routes: Routes.routes,
         title: 'Fitness',
         theme: CustomStyle.def_theme,
-        home: Google_auth(),
+        home: BTmain(),
       );
     });
   }
 
-  @override
   void dipose() {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,

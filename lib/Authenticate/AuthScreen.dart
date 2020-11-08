@@ -109,9 +109,9 @@ class _LoginScreenState extends State<LoginScreen>
 
     AuthResult result = (await _auth.signInWithCredential(credential));
     final FirebaseUser user = result.user;
-    String photourl = user.photoUrl;
-    String username = user.displayName;
-    String useremail = user.email;
+    // String photourl = user.photoUrl;
+    // String username = user.displayName;
+    // String useremail = user.email;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString("photourl", user.photoUrl);
     prefs.setString("username", user.displayName);

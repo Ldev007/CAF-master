@@ -1,22 +1,15 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_ex/Authenticate/screens/logoAnim.dart';
 import 'package:firebase_ex/additional/loading.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'AuthScreen.dart';
 import 'package:firebase_ex/pages/HomePage.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class Google_auth extends StatefulWidget {
+class GoogleAuth extends StatefulWidget {
   @override
-  _Google_authState createState() => _Google_authState();
+  _GoogleAuthState createState() => _GoogleAuthState();
 }
 
-class _Google_authState extends State<Google_auth> {
-  FirebaseAuth _auth = FirebaseAuth.instance;
-  FirebaseUser _user;
-
+class _GoogleAuthState extends State<GoogleAuth> {
   @override
   void initState() {
     super.initState();
@@ -50,9 +43,7 @@ class _Google_authState extends State<Google_auth> {
     print("set to false");
   }
 
-  GoogleSignIn _googleSignIn = new GoogleSignIn();
-
-  _Google_authState() {
+  _GoogleAuthState() {
     print("Inside google auth state const\n");
     checkFirstSeen();
   }
@@ -70,14 +61,15 @@ class _Google_authState extends State<Google_auth> {
     }
   }
 
-  @override
   void afterFirstLayout(BuildContext context) => checkFirstSeen();
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: Center(child: loading(),),
+        body: Center(
+          child: Loading(),
+        ),
       ),
     );
   }

@@ -14,9 +14,9 @@ class ScreenThree extends StatefulWidget {
 
 class _ScreenThreeState extends State<ScreenThree> {
   String age;
-  Color fab_color = CustomStyle.fab_db_color;
-  Color icon_color = CustomStyle.light_bn_color;
-  bool buttn_state = false;
+  Color fabColor = CustomStyle.fab_db_color;
+  Color iconColor = CustomStyle.light_bn_color;
+  bool buttnState = false;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class _ScreenThreeState extends State<ScreenThree> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          if (buttn_state == true) {
+          if (buttnState == true) {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
@@ -40,10 +40,10 @@ class _ScreenThreeState extends State<ScreenThree> {
         },
         child: Icon(
           Icons.arrow_forward_ios,
-          color: icon_color,
+          color: iconColor,
         ),
         splashColor: Colors.transparent,
-        backgroundColor: fab_color,
+        backgroundColor: fabColor,
       ),
       appBar: AppBar(
         title: Text('Step 3 of 8', style: CustomStyle.appBar_Title),
@@ -60,37 +60,37 @@ class _ScreenThreeState extends State<ScreenThree> {
               height: CustomStyle.verticalFractions * 2.7, //25
             ),
             TextField(
-                maxLength: 2,
-                decoration: InputDecoration(
-                  hintStyle: TextStyle(color: CustomStyle.light_bn_txt_Color),
-                  hintText: '0',
-                  enabledBorder: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                  disabledBorder: InputBorder.none,
-                  border: InputBorder.none,
-                ),
-                onChanged: (val) {
-                  age = val;
-                  setState(() {
-                    if (int.parse(age) < 90 && int.parse(age) > 10) {
-                      fab_color = CustomStyle.fab_eb_color;
-                      icon_color = CustomStyle.fab_icon_eb_color;
-                      buttn_state = true;
-                    } else {
-                      fab_color = CustomStyle.fab_db_color;
-                      icon_color = CustomStyle.fab_icon_db_color;
-                      buttn_state = false;
-                    }
-                  });
-                },
-                keyboardType: TextInputType.number,
-                cursorColor: CustomStyle.light_bn_txt_Color,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: CustomStyle.verticalFractions * 9.17, //85
-                  color: CustomStyle.light_bn_color,
-                ),
+              maxLength: 2,
+              decoration: InputDecoration(
+                hintStyle: TextStyle(color: CustomStyle.light_bn_txt_Color),
+                hintText: '0',
+                enabledBorder: InputBorder.none,
+                focusedBorder: InputBorder.none,
+                disabledBorder: InputBorder.none,
+                border: InputBorder.none,
               ),
+              onChanged: (val) {
+                age = val;
+                setState(() {
+                  if (int.parse(age) < 90 && int.parse(age) > 10) {
+                    fabColor = CustomStyle.fab_eb_color;
+                    iconColor = CustomStyle.fab_icon_eb_color;
+                    buttnState = true;
+                  } else {
+                    fabColor = CustomStyle.fab_db_color;
+                    iconColor = CustomStyle.fab_icon_db_color;
+                    buttnState = false;
+                  }
+                });
+              },
+              keyboardType: TextInputType.number,
+              cursorColor: CustomStyle.light_bn_txt_Color,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: CustomStyle.verticalFractions * 9.17, //85
+                color: CustomStyle.light_bn_color,
+              ),
+            ),
           ],
         ),
       ),

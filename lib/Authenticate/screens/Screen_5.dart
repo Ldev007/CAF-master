@@ -24,11 +24,11 @@ class ScreenFive extends StatefulWidget {
 class _ScreenFiveState extends State<ScreenFive> {
   final List<bool> forToggleButton = [false, true];
   static String suff = 'KG';
-  static Color buttn_color = CustomStyle.fab_db_color;
-  Color icon_color = CustomStyle.fab_icon_db_color;
-  static bool buttn_state = false;
-  int max_len = 3;
-  String hint_txt = '55';
+  static Color buttonColor = CustomStyle.fab_db_color;
+  Color iconColor = CustomStyle.fab_icon_db_color;
+  static bool buttonState = false;
+  int maxLen = 3;
+  String hintText = '55';
 
   String weight;
   @override
@@ -51,7 +51,7 @@ class _ScreenFiveState extends State<ScreenFive> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          if (buttn_state == true) {
+          if (buttonState == true) {
             Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
@@ -66,10 +66,10 @@ class _ScreenFiveState extends State<ScreenFive> {
             return null;
           }
         },
-        backgroundColor: buttn_color,
+        backgroundColor: buttonColor,
         child: Icon(
           Icons.arrow_forward_ios,
-          color: icon_color,
+          color: iconColor,
         ),
       ),
       body: Padding(
@@ -98,24 +98,24 @@ class _ScreenFiveState extends State<ScreenFive> {
                               int.parse(weight) < 1400 &&
                               int.parse(weight) >= 10 &&
                               suff.compareTo('LB') == 0)) {
-                        buttn_state = true;
-                        buttn_color = CustomStyle.fab_eb_color;
-                        icon_color = CustomStyle.fab_icon_eb_color;
+                        buttonState = true;
+                        buttonColor = CustomStyle.fab_eb_color;
+                        iconColor = CustomStyle.fab_icon_eb_color;
                       } else {
-                        buttn_state = false;
-                        buttn_color = CustomStyle.fab_db_color;
-                        icon_color = CustomStyle.fab_icon_db_color;
+                        buttonState = false;
+                        buttonColor = CustomStyle.fab_db_color;
+                        iconColor = CustomStyle.fab_icon_db_color;
                       }
                     });
                   },
-                  maxLength: max_len, //3
+                  maxLength: maxLen, //3
                   decoration: InputDecoration(
                     counterText: '',
                     suffixText: suff,
                     suffixStyle: TextStyle(
                       fontSize: CustomStyle.verticalFractions * 2.16, //20
                     ),
-                    hintText: hint_txt,
+                    hintText: hintText,
                     hintStyle: TextStyle(
                       color: CustomStyle.light_bn_txt_Color,
                     ),
@@ -155,14 +155,14 @@ class _ScreenFiveState extends State<ScreenFive> {
                   setState(() {
                     if (index == 0) {
                       suff = 'LB';
-                      hint_txt = '121';
-                      max_len = 4;
+                      hintText = '121';
+                      maxLen = 4;
                       forToggleButton[0] = true;
                       forToggleButton[1] = false;
                     } else {
                       suff = 'KG';
-                      hint_txt = '55';
-                      max_len = 3;
+                      hintText = '55';
+                      maxLen = 3;
                       forToggleButton[1] = true;
                       forToggleButton[0] = false;
                     }

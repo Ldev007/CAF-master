@@ -39,8 +39,8 @@ class ScreenSix extends StatefulWidget {
 
 class _ScreenSixState extends State<ScreenSix> {
   static int i = 0;
-  Color ctrl_buttn_color = CustomStyle.light_bn_color;
-  Color ctrl_icon_color = CustomStyle.light_bn_txt_Color;
+  Color ctrlButtonColor = CustomStyle.light_bn_color;
+  Color ctrlIconColor = CustomStyle.light_bn_txt_Color;
 
   //Carousel controller mainly used for controlling the scrolling
   final CarouselController _controller = CarouselController();
@@ -228,7 +228,7 @@ class _ScreenSixState extends State<ScreenSix> {
                           padding: EdgeInsets.all(
                               CustomStyle.verticalFractions * 2.2), //27
                           shape: CircleBorder(),
-                          color: ctrl_buttn_color,
+                          color: ctrlButtonColor,
                           onPressed: () {
                             if (i == 0) {
                               return null;
@@ -241,7 +241,7 @@ class _ScreenSixState extends State<ScreenSix> {
                           },
                           child: Icon(
                             Icons.arrow_back_ios,
-                            color: ctrl_icon_color,
+                            color: ctrlIconColor,
                           ),
                         ),
                         Row(
@@ -272,7 +272,7 @@ class _ScreenSixState extends State<ScreenSix> {
                         RaisedButton(
                           padding: EdgeInsets.all(
                               CustomStyle.verticalFractions * 2.3),
-                          color: ctrl_buttn_color,
+                          color: ctrlButtonColor,
                           shape: CircleBorder(),
                           onPressed: () {
                             if (i == imgList.length - 1) {
@@ -286,7 +286,7 @@ class _ScreenSixState extends State<ScreenSix> {
                           },
                           child: Icon(
                             Icons.arrow_forward_ios,
-                            color: ctrl_icon_color,
+                            color: ctrlIconColor,
                           ),
                         ),
                       ],

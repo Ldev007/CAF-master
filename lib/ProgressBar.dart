@@ -18,18 +18,17 @@ class CircleProgressBar extends StatefulWidget {
 
   CircleProgressBar({
     Key key,
-    this.backgroundColor,
+    @required this.backgroundColor,
     @required this.foregroundColor,
     @required this.value,
   }) : super(key: key);
   final double x = 0.4;
 
-  _CircleProgressBarState createState() => _CircleProgressBarState(
-      foregroundColor: this.foregroundColor, value: this.value);
+  _CircleProgressBarState createState() =>
+      _CircleProgressBarState(backgroundColor: this.backgroundColor, foregroundColor: this.foregroundColor, value: this.value);
 }
 
-class _CircleProgressBarState extends State<CircleProgressBar>
-    with TickerProviderStateMixin {
+class _CircleProgressBarState extends State<CircleProgressBar> with TickerProviderStateMixin {
   final Color backgroundColor;
   final Color foregroundColor;
   final double value;
@@ -83,8 +82,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
     results.clear();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     uid = prefs.getString("uid");
-    DocumentSnapshot ds =
-        await Firestore.instance.collection('UserData').document(uid).get();
+    DocumentSnapshot ds = await Firestore.instance.collection('UserData').document(uid).get();
     calories += ds.data['calories'];
 //    print("read"+" "+now.toString()+"    "+DateTime(now.year, now.month, now.day).toString()+"==========");
 //    print("inside read");
@@ -113,8 +111,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
     }
     bool docount = false;
     double testcount = 0;
-    final items =
-        results.entries.expand((entry) => [entry.key, ...entry.value]).toList();
+    final items = results.entries.expand((entry) => [entry.key, ...entry.value]).toList();
     items.forEach((element) {
       if (element is DataType) {
 //        print("=================="+element.toString()+"============================");
@@ -131,8 +128,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
         }
       }
     });
-    double x =
-        2000; //(int.parse(testcount.toString()[0]) + 1) * 1000.toDouble();
+    double x = 2000; //(int.parse(testcount.toString()[0]) + 1) * 1000.toDouble();
     for (int i = 0; i < target_steps.length; i++) {
       if (target_steps[i] > testcount) {
         x = target_steps[i].toDouble();
@@ -161,13 +157,12 @@ class _CircleProgressBarState extends State<CircleProgressBar>
     double x = 0.0;
     x = steps;
 //  print("eygugcyu7wq"+anime.value.toString());
-    animeCont =
-        AnimationController(duration: Duration(seconds: 2), vsync: this);
+    animeCont = AnimationController(duration: Duration(seconds: 2), vsync: this);
     anime = Tween<double>(begin: 0, end: steps).animate(animeCont)
       ..addListener(() {
         setState(() {});
       });
-//  print(anime.value);
+    print('Steps : ' + steps.toString());
 
     setState(() {
       paint = true;
@@ -177,13 +172,9 @@ class _CircleProgressBarState extends State<CircleProgressBar>
   }
 
   updatesteps(testcount) async {
-    CollectionReference collectionReference =
-        Firestore.instance.collection('UserData');
+    CollectionReference collectionReference = Firestore.instance.collection('UserData');
     // collectionReference.document(uid).updateData({'Steps': testcount});
-    DocumentReference ds = collectionReference
-        .document(uid)
-        .collection('excercise')
-        .document('steps');
+    DocumentReference ds = collectionReference.document(uid).collection('excercise').document('steps');
     DateTime dda = DateTime(now.year, now.month, now.day);
     var fulldate = DateTime.parse(dda.toString());
 //    print(moonLanding.month);
@@ -206,14 +197,9 @@ class _CircleProgressBarState extends State<CircleProgressBar>
       DataPoint<double>(value: 0),
     ];
 
-    DocumentSnapshot dsnap = await Firestore.instance
-        .collection('UserData')
-        .document(uid)
-        .collection('excercise')
-        .document('steps')
-        .get();
-    Map<String, dynamic> stepsdata =
-        dsnap.data[year.toString()][month.toString()];
+    DocumentSnapshot dsnap =
+        await Firestore.instance.collection('UserData').document(uid).collection('excercise').document('steps').get();
+    Map<String, dynamic> stepsdata = dsnap.data[year.toString()][month.toString()];
 //    print(test);
     var map = new SortedMap(Ordering.byKey());
     map.addAll(stepsdata);
@@ -241,7 +227,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
   }
 
   _CircleProgressBarState({
-    this.backgroundColor,
+    @required this.backgroundColor,
     @required this.foregroundColor,
     @required this.value,
   }) : super();
@@ -254,16 +240,7 @@ class _CircleProgressBarState extends State<CircleProgressBar>
     final foregroundColor = this.foregroundColor;
     return Container(
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: <Color>[
-            Color.fromRGBO(192, 196, 228, 1),
-            Color.fromRGBO(141, 148, 206, 1),
-            Color.fromRGBO(38, 53, 95, 1),
-            Color.fromRGBO(28, 39, 69, 1),
-          ],
-        ),
+        gradient: CustomStyle.gradientBGColor,
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
@@ -299,9 +276,9 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                               width: MediaQuery.of(context).size.width * 0.40,
                               height: MediaQuery.of(context).size.height * 0.4,
                             ),
-                            foregroundPainter: CircleProgressBarPainter(
-                              backgroundColor: backgroundColor,
-                              foregroundColor: foregroundColor,
+                            painter: PaintProgressBar(
+                              bkgColor: backgroundColor,
+                              frgColor: foregroundColor,
                               percentage: paint ? anime.value : 0.0,
                             ),
                           ),
@@ -315,25 +292,18 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                                     steps_ran.round().toString(),
                                     textAlign: TextAlign.right,
                                     style: TextStyle(
-                                        fontSize:
-                                            CustomStyle.verticalFractions *
-                                                5, //70
+                                        fontSize: CustomStyle.verticalFractions * 5, //70
                                         color: CustomStyle.light_bn_color,
                                         fontFamily: 'fonts/Anton-Regular.ttf'),
                                   ),
                                   SizedBox(
-                                    width: CustomStyle.verticalFractions *
-                                        2.258, //22
+                                    width: CustomStyle.verticalFractions * 2.258, //22
                                     // height: 45,
                                     child: Text('/',
                                         textAlign: TextAlign.right,
                                         style: TextStyle(
-                                          height:
-                                              CustomStyle.verticalFractions *
-                                                  0.205, //2
-                                          fontSize:
-                                              CustomStyle.verticalFractions *
-                                                  3.593, //35
+                                          height: CustomStyle.verticalFractions * 0.205, //2
+                                          fontSize: CustomStyle.verticalFractions * 3.593, //35
                                           color: CustomStyle.light_bn_color,
                                           fontFamily: 'fonts/Anton-Regular.ttf',
                                         )),
@@ -343,10 +313,8 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                                     textAlign: TextAlign.right,
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      height: CustomStyle.verticalFractions *
-                                          0.297, //2.9
-                                      fontSize: CustomStyle.verticalFractions *
-                                          2.4, //254
+                                      height: CustomStyle.verticalFractions * 0.297, //2.9
+                                      fontSize: CustomStyle.verticalFractions * 2.4, //254
                                       color: CustomStyle.light_bn_color,
                                       fontFamily: 'fonts/Anton-Regular.ttf',
                                     ),
@@ -375,42 +343,30 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                             children: <Widget>[
                               Row(
                                 children: <Widget>[
-                                  SizedBox(
-                                      width: CustomStyle.verticalFractions *
-                                          1.078), //10
+                                  SizedBox(width: CustomStyle.verticalFractions * 1.078), //10
                                   Icon(
                                     Icons.fiber_manual_record,
                                     color: Color.fromRGBO(192, 196, 228, 0.5),
-                                    size: CustomStyle.verticalFractions *
-                                        2.157, //20
+                                    size: CustomStyle.verticalFractions * 2.157, //20
                                   ),
-                                  SizedBox(
-                                      width: CustomStyle.verticalFractions *
-                                          2.157), //20
+                                  SizedBox(width: CustomStyle.verticalFractions * 2.157), //20
                                   Text(
                                     'Calories Burnt',
                                     style: TextStyle(
-                                      color: Colors
-                                          .white, //Color.fromRGBO(192, 196, 228, 0.5),
-                                      fontSize: CustomStyle.verticalFractions *
-                                          2.804, //26
+                                      color: Colors.white, //Color.fromRGBO(192, 196, 228, 0.5),
+                                      fontSize: CustomStyle.verticalFractions * 2.804, //26
                                       fontWeight: FontWeight.w600,
                                     ),
                                   ),
                                 ],
                               ),
-                              SizedBox(
-                                  height: CustomStyle.verticalFractions *
-                                      2.157), //20
+                              SizedBox(height: CustomStyle.verticalFractions * 2.157), //20
                               Padding(
-                                padding: EdgeInsets.only(
-                                    right: CustomStyle.verticalFractions *
-                                        2.157), //20
+                                padding: EdgeInsets.only(right: CustomStyle.verticalFractions * 2.157), //20
                                 child: Text(
                                   calories.toStringAsPrecision(5) + ' cal',
                                   style: TextStyle(
-                                    fontSize: CustomStyle.verticalFractions *
-                                        3.236, //30
+                                    fontSize: CustomStyle.verticalFractions * 3.236, //30
                                     color: Colors.white,
                                   ),
                                 ),
@@ -428,35 +384,26 @@ class _CircleProgressBarState extends State<CircleProgressBar>
                                   Icon(
                                     Icons.fiber_manual_record,
                                     color: Color.fromRGBO(192, 196, 228, 0.5),
-                                    size: CustomStyle.verticalFractions *
-                                        2.157, //20
+                                    size: CustomStyle.verticalFractions * 2.157, //20
                                   ),
-                                  SizedBox(
-                                      width: CustomStyle.verticalFractions *
-                                          1.078), //10
+                                  SizedBox(width: CustomStyle.verticalFractions * 1.078), //10
                                   Text(
                                     'Target Calories',
                                     style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: CustomStyle.verticalFractions *
-                                          2.804, //26
+                                      fontSize: CustomStyle.verticalFractions * 2.804, //26
                                       fontWeight: FontWeight.w600,
                                     ),
                                   )
                                 ],
                               ),
-                              SizedBox(
-                                  height: CustomStyle.verticalFractions *
-                                      2.157), //20
+                              SizedBox(height: CustomStyle.verticalFractions * 2.157), //20
                               Padding(
-                                padding: EdgeInsets.only(
-                                    right: CustomStyle.verticalFractions *
-                                        7.011), //65
+                                padding: EdgeInsets.only(right: CustomStyle.verticalFractions * 7.011), //65
                                 child: Text(
                                   '$targetcal kcal',
                                   style: TextStyle(
-                                    fontSize: CustomStyle.verticalFractions *
-                                        3.236, //30
+                                    fontSize: CustomStyle.verticalFractions * 3.236, //30
                                     color: Colors.white,
                                   ),
                                 ),
@@ -942,35 +889,32 @@ class _CircleProgressBarState extends State<CircleProgressBar>
 }
 
 // Draws the progress bar.
-class CircleProgressBarPainter extends CustomPainter {
-  double percentage;
-  final double strokeWidth;
-  final Color backgroundColor;
-  final Color foregroundColor;
+class PaintProgressBar extends CustomPainter {
+  double percentage, strokeWidth, customRadius;
+  Color bkgColor;
+  Color frgColor;
+  Color shadowColor;
 
-  CircleProgressBarPainter({
-    this.backgroundColor,
-    @required this.foregroundColor,
+  PaintProgressBar({
+    @required this.bkgColor,
+    @required this.frgColor,
     @required this.percentage,
-    double strokeWidth,
-  }) : this.strokeWidth = strokeWidth ?? 6;
+    this.strokeWidth,
+    this.customRadius,
+    this.shadowColor,
+  });
 
   @override
   void paint(Canvas canvas, Size size) {
     final Offset center = size.center(Offset.zero);
-    final Size constrainedSize =
-        size - Offset(this.strokeWidth, this.strokeWidth);
-    final shortestSide =
-        Math.min(constrainedSize.width, constrainedSize.height);
+    final Size constrainedSize = size - Offset(this.strokeWidth, this.strokeWidth);
+    final shortestSide = Math.min(constrainedSize.width, constrainedSize.height);
     final foregroundPaint = Paint()
-      ..shader = LinearGradient(colors: [
-        Colors.yellowAccent,
-        Colors.cyanAccent[100],
-      ]).createShader(Rect.fromCircle(center: center, radius: shortestSide / 2))
-      ..color = this.foregroundColor
-      ..strokeWidth = CustomStyle.verticalFractions * 1.8 //30
+      ..color = this.frgColor
+      ..strokeWidth = strokeWidth ?? CustomStyle.verticalFractions * 1.8 //30
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke;
+
     final radius = (shortestSide / 2);
 
     // Start at the top. 0 radians represents the right edge
@@ -978,10 +922,22 @@ class CircleProgressBarPainter extends CustomPainter {
     final double sweepAngle = (2 * Math.pi * (this.percentage ?? 0));
 
     // Don't draw the background if we don't have a background color
-    if (this.backgroundColor != null) {
+    print('Background color : ' + bkgColor.toString() + '\n Foreground color: ' + this.frgColor.toString());
+
+    if (shadowColor != null) {
+      final paintShadow = Paint()
+        ..strokeWidth = strokeWidth * 1.2
+        ..strokeCap = StrokeCap.round
+        ..color = shadowColor
+        ..style = PaintingStyle.stroke
+        ..maskFilter = MaskFilter.blur(BlurStyle.normal, 10);
+      canvas.drawCircle(center, radius + 2, paintShadow);
+    }
+
+    if (this.bkgColor != null) {
       final backgroundPaint = Paint()
-        ..color = this.backgroundColor
-        ..strokeWidth = CustomStyle.verticalFractions * 3.236 //30
+        ..color = this.bkgColor
+        ..strokeWidth = strokeWidth ?? CustomStyle.verticalFractions * 1.5 //30
         ..style = PaintingStyle.stroke;
       canvas.drawCircle(center, radius, backgroundPaint);
     }
@@ -993,14 +949,16 @@ class CircleProgressBarPainter extends CustomPainter {
       false,
       foregroundPaint,
     );
+
+    print(this.percentage);
   }
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) {
-    final oldPainter = (oldDelegate as CircleProgressBarPainter);
+    final oldPainter = (oldDelegate as PaintProgressBar);
     return oldPainter.percentage != this.percentage ||
-        oldPainter.backgroundColor != this.backgroundColor ||
-        oldPainter.foregroundColor != this.foregroundColor ||
+        oldPainter.bkgColor != this.bkgColor ||
+        oldPainter.frgColor != this.frgColor ||
         oldPainter.strokeWidth != this.strokeWidth;
   }
 }

@@ -15,11 +15,11 @@ class ScreenFour extends StatefulWidget {
 }
 
 class _ScreenFourState extends State<ScreenFour> {
-  bool buttn_state = false;
-  Color buttn_color = CustomStyle.fab_db_color;
-  Color icon_color = CustomStyle.fab_icon_db_color;
-  String hint_text = '175';
-  int max_len = 3;
+  bool buttonState = false;
+  Color buttonColor = CustomStyle.fab_db_color;
+  Color iconColor = CustomStyle.fab_icon_db_color;
+  String hintText = '175';
+  int maxLen = 3;
 
   final List<bool> forToggleButton = [false, true];
   static String suff = 'CM';
@@ -36,7 +36,7 @@ class _ScreenFourState extends State<ScreenFour> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          if (buttn_state == true) {
+          if (buttonState == true) {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
@@ -52,10 +52,10 @@ class _ScreenFourState extends State<ScreenFour> {
             return null;
           }
         },
-        backgroundColor: buttn_color,
+        backgroundColor: buttonColor,
         child: Icon(
           Icons.arrow_forward_ios,
-          color: icon_color,
+          color: iconColor,
         ),
       ),
       body: Padding(
@@ -80,17 +80,17 @@ class _ScreenFourState extends State<ScreenFour> {
                               double.parse(height) < 8.92 &&
                               double.parse(height) > 1.79 &&
                               suff.compareTo('FT') == 0)) {
-                        buttn_state = true;
-                        buttn_color = CustomStyle.fab_eb_color;
-                        icon_color = CustomStyle.fab_icon_eb_color;
+                        buttonState = true;
+                        buttonColor = CustomStyle.fab_eb_color;
+                        iconColor = CustomStyle.fab_icon_eb_color;
                       } else {
-                        buttn_state = false;
-                        buttn_color = CustomStyle.fab_db_color;
-                        icon_color = CustomStyle.fab_icon_db_color;
+                        buttonState = false;
+                        buttonColor = CustomStyle.fab_db_color;
+                        iconColor = CustomStyle.fab_icon_db_color;
                       }
                     });
                   },
-                  maxLength: max_len, //3
+                  maxLength: maxLen, //3
                   decoration: InputDecoration(
                     counterText: '',
                     suffixText: suff,
@@ -98,7 +98,7 @@ class _ScreenFourState extends State<ScreenFour> {
                       fontSize: CustomStyle.verticalFractions * 1.8, //16.686
                       color: CustomStyle.light_bn_color,
                     ),
-                    hintText: hint_text,
+                    hintText: hintText,
                     hintStyle: TextStyle(
                       color: CustomStyle.light_bn_txt_Color,
                     ),
@@ -141,14 +141,14 @@ class _ScreenFourState extends State<ScreenFour> {
                   setState(() {
                     if (index == 0) {
                       suff = 'FT';
-                      hint_text = '5';
-                      max_len = 4;
+                      hintText = '5';
+                      maxLen = 4;
                       forToggleButton[0] = true;
                       forToggleButton[1] = false;
                     } else {
                       suff = 'CM';
-                      hint_text = '175';
-                      max_len = 3;
+                      hintText = '175';
+                      maxLen = 3;
                       forToggleButton[1] = true;
                       forToggleButton[0] = false;
                     }

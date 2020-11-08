@@ -10,17 +10,22 @@ class Routes {
     return 50;
   }
 
-  static Color _getColorForTracker() {
+  static Color _getFrgColorForTracker() {
     return Colors.black;
+  }
+
+  static Color _getBkgColorForTracker() {
+    return Colors.black54;
   }
 
   static final Map<String, Widget Function(BuildContext)> routes = {
     '/home_page': (context) => HomePage(),
     '/profile_page': (context) => Profile(),
-    '/gym': (context)=> GymDetail(),
+    '/gym': (context) => GymDetail(),
     '/tracker': (context) => CircleProgressBar(
           value: _getValueForTracker(),
-          foregroundColor: _getColorForTracker(),
+          foregroundColor: _getFrgColorForTracker(),
+          backgroundColor: _getBkgColorForTracker(),
         ),
   };
 }
