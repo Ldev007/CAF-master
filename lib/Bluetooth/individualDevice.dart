@@ -35,9 +35,18 @@ class _IndividualDeviceState extends State<IndividualDevice> with SingleTickerPr
 
   double value;
 
+  double vf = CustomStyle.verticalFractions;
+
+  double fifteen, twentyFive, seventeen;
+
   String title = 'Live Status';
 
   bool paint;
+
+  Color buttonColor = Colors.black.withOpacity(0.5);
+  Color inkSplashColor = CustomStyle.light_bn_txt_Color;
+
+  Color iTextColor = Colors.white;
 
 //CONSTRUCTOR
   _IndividualDeviceState({
@@ -51,6 +60,9 @@ class _IndividualDeviceState extends State<IndividualDevice> with SingleTickerPr
   void initState() {
     super.initState();
     print('init');
+    fifteen = vf * 1.54;
+    twentyFive = vf * 2.566;
+    seventeen = vf * 1.745;
     _read();
   }
 
@@ -95,12 +107,15 @@ class _IndividualDeviceState extends State<IndividualDevice> with SingleTickerPr
                 color: Colors.white,
               ),
               onPressed: () => showDialog(
+                barrierColor: Colors.black87,
                 context: context,
                 child: Dialog(
+                  backgroundColor: Colors.grey[800],
+                  insetPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
                   child: Container(
-                    width: MediaQuery.of(context).size.width * 0.5,
-                    height: MediaQuery.of(context).size.height * 0.3,
-                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                    width: MediaQuery.of(context).size.width * 0.85,
+                    height: MediaQuery.of(context).size.height * 0.4,
+                    padding: EdgeInsets.symmetric(horizontal: fifteen, vertical: fifteen),
                     child: PageView(
                       children: [
                         Column(
@@ -108,16 +123,18 @@ class _IndividualDeviceState extends State<IndividualDevice> with SingleTickerPr
                             Text(
                               'REPS',
                               style: TextStyle(
-                                fontSize: 25,
+                                color: iTextColor,
+                                fontSize: twentyFive,
                                 fontWeight: FontWeight.bold,
                                 letterSpacing: 1.5,
                               ),
                             ),
-                            SizedBox(height: 50),
+                            SizedBox(height: vf * 5.133), //50
                             Text(
                               'Reps counter is represented by cyan colored progress bar',
                               style: TextStyle(
-                                fontSize: 17,
+                                color: iTextColor,
+                                fontSize: seventeen,
                                 letterSpacing: 1.5,
                               ),
                             )
@@ -128,16 +145,18 @@ class _IndividualDeviceState extends State<IndividualDevice> with SingleTickerPr
                             Text(
                               'STEPS',
                               style: TextStyle(
-                                fontSize: 25,
+                                color: iTextColor,
+                                fontSize: twentyFive,
                                 fontWeight: FontWeight.bold,
                                 letterSpacing: 1.5,
                               ),
                             ),
-                            SizedBox(height: 50),
+                            SizedBox(height: vf * 5.133), //50
                             Text(
                               'Steps counter is represented by lime green colored progress bar',
                               style: TextStyle(
-                                fontSize: 17,
+                                color: iTextColor,
+                                fontSize: seventeen,
                                 letterSpacing: 1.5,
                               ),
                             )
@@ -148,16 +167,18 @@ class _IndividualDeviceState extends State<IndividualDevice> with SingleTickerPr
                             Text(
                               'Calories & Weight',
                               style: TextStyle(
-                                fontSize: 25,
+                                color: iTextColor,
+                                fontSize: twentyFive,
                                 fontWeight: FontWeight.bold,
                                 letterSpacing: 1.5,
                               ),
                             ),
-                            SizedBox(height: 50),
+                            SizedBox(height: vf * 5.133), //50
                             Text(
                               'According to reps & sets done, calories burnt will be displayed below the progress bars. Your set target weight will be displayed beside the calories burnt.',
                               style: TextStyle(
-                                fontSize: 17,
+                                color: iTextColor,
+                                fontSize: seventeen,
                                 letterSpacing: 1.5,
                               ),
                             )
@@ -168,16 +189,18 @@ class _IndividualDeviceState extends State<IndividualDevice> with SingleTickerPr
                             Text(
                               'Timer',
                               style: TextStyle(
-                                fontSize: 25,
+                                color: iTextColor,
+                                fontSize: twentyFive,
                                 fontWeight: FontWeight.bold,
                                 letterSpacing: 1.5,
                               ),
                             ),
-                            SizedBox(height: 50),
+                            SizedBox(height: vf * 5.133), //50
                             Text(
                               'To keep track of time there\'s a timer at the right of progress bar',
                               style: TextStyle(
-                                fontSize: 17,
+                                color: iTextColor,
+                                fontSize: seventeen,
                                 letterSpacing: 1.5,
                               ),
                             )
@@ -188,16 +211,18 @@ class _IndividualDeviceState extends State<IndividualDevice> with SingleTickerPr
                             Text(
                               'Thanks !',
                               style: TextStyle(
-                                fontSize: 25,
+                                color: iTextColor,
+                                fontSize: twentyFive,
                                 fontWeight: FontWeight.bold,
                                 letterSpacing: 1.5,
                               ),
                             ),
-                            SizedBox(height: 50),
+                            SizedBox(height: vf * 5.133), //50
                             Text(
                               'Thanks for using our app. Hope it helped you in enhancing your fitness lifestyle.',
                               style: TextStyle(
-                                fontSize: 17,
+                                color: iTextColor,
+                                fontSize: seventeen,
                                 letterSpacing: 1.5,
                               ),
                             )
@@ -222,6 +247,7 @@ class _IndividualDeviceState extends State<IndividualDevice> with SingleTickerPr
                     child: Stack(
                       children: [
                         Positioned(
+                          top: -20,
                           left: MediaQuery.of(context).size.width / 4,
                           child: CustomPaint(
                             child: Container(
@@ -233,12 +259,13 @@ class _IndividualDeviceState extends State<IndividualDevice> with SingleTickerPr
                               bkgColor: this.backgroundColor,
                               frgColor: Color.fromRGBO(186, 247, 3, 1),
                               percentage: paint ? animeObj.value : 0.0,
-                              strokeWidth: 8,
+                              strokeWidth: vf * 0.821, //8
                               shadowColor: Color.fromRGBO(49, 77, 2, 1),
                             ),
                           ),
                         ),
                         Positioned(
+                          top: -20,
                           left: MediaQuery.of(context).size.width / 3.5,
                           child: CustomPaint(
                             child: Container(
@@ -250,13 +277,13 @@ class _IndividualDeviceState extends State<IndividualDevice> with SingleTickerPr
                               bkgColor: this.backgroundColor,
                               frgColor: Colors.cyanAccent,
                               percentage: paint ? animeObj.value : 0.0,
-                              strokeWidth: 8,
+                              strokeWidth: vf * 0.821, //8
                               shadowColor: Colors.cyan[900],
                             ),
                           ),
                         ),
                         Positioned(
-                          top: 178,
+                          top: 158,
                           left: MediaQuery.of(context).size.width / 3.5,
                           child: Container(
                             width: CustomStyle.verticalFractions * 18.48,
@@ -272,7 +299,13 @@ class _IndividualDeviceState extends State<IndividualDevice> with SingleTickerPr
                                       color: Colors.cyanAccent,
                                       fontFamily: 'fonts/Anton-Regular.ttf',
                                       fontWeight: FontWeight.bold,
-                                      shadows: [Shadow(offset: Offset(1, 1), blurRadius: 20, color: Colors.black38)],
+                                      shadows: [
+                                        Shadow(
+                                          offset: Offset(1, 1),
+                                          blurRadius: vf * 2.053, //20
+                                          color: Colors.black38,
+                                        )
+                                      ],
                                     ),
                                   ),
                                   Text(
@@ -284,7 +317,13 @@ class _IndividualDeviceState extends State<IndividualDevice> with SingleTickerPr
                                       fontSize: CustomStyle.verticalFractions * 2.4, //254
                                       color: Color.fromRGBO(186, 247, 3, 1),
                                       fontFamily: 'fonts/Anton-Regular.ttf',
-                                      shadows: [Shadow(offset: Offset(1, 1), blurRadius: 20, color: Colors.black38)],
+                                      shadows: [
+                                        Shadow(
+                                          offset: Offset(1, 1),
+                                          blurRadius: vf * 2.053, //20
+                                          color: Colors.black38,
+                                        )
+                                      ],
                                     ),
                                   )
                                 ],
@@ -293,30 +332,40 @@ class _IndividualDeviceState extends State<IndividualDevice> with SingleTickerPr
                           ),
                         ),
                         Positioned(
-                          top: MediaQuery.of(context).size.height * 0.325,
+                          top: MediaQuery.of(context).size.height * 0.315,
                           child: Container(
                             width: MediaQuery.of(context).size.width,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Container(
-                                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 8),
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: vf * 3.08, //30
+                                    vertical: vf * 0.821, //8
+                                  ),
                                   decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(25),
+                                      borderRadius: BorderRadius.circular(twentyFive),
                                       border: Border.all(
                                         color: Colors.cyanAccent,
                                       )),
                                   child: Text(
                                     'REPS',
                                     style: TextStyle(
-                                        fontSize: 15, letterSpacing: 1.5, fontWeight: FontWeight.bold, color: Colors.cyanAccent),
+                                      fontSize: fifteen, //15
+                                      letterSpacing: 1.5,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.cyanAccent,
+                                    ),
                                   ),
                                 ),
-                                SizedBox(width: 50),
+                                SizedBox(width: vf * 5.133), //50
                                 Container(
-                                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 8),
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: vf * 3.08, //30
+                                    vertical: vf * 0.821, //8
+                                  ),
                                   decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(25),
+                                      borderRadius: BorderRadius.circular(twentyFive),
                                       border: Border.all(
                                         color: Color.fromRGBO(186, 247, 3, 1),
                                       )),
@@ -324,7 +373,7 @@ class _IndividualDeviceState extends State<IndividualDevice> with SingleTickerPr
                                     'SETS',
                                     style: TextStyle(
                                         color: Color.fromRGBO(186, 247, 3, 1),
-                                        fontSize: 15,
+                                        fontSize: fifteen, //15
                                         letterSpacing: 1.5,
                                         fontWeight: FontWeight.bold),
                                   ),
@@ -333,198 +382,248 @@ class _IndividualDeviceState extends State<IndividualDevice> with SingleTickerPr
                             ),
                           ),
                         ),
-                        Positioned(
-                          top: 270,
-                          child: Container(
-                            width: MediaQuery.of(context).size.width,
-                            padding: EdgeInsets.symmetric(vertical: 95),
-                            decoration: BoxDecoration(
-                              color: Color.fromRGBO(48, 67, 120, 0.0),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: <Widget>[
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  children: <Widget>[
-                                    // SizedBox(height: CustomStyle.verticalFractions * 2.157), //20
-                                    Text(
-                                      '150',
-                                      style: TextStyle(
-                                        fontSize: CustomStyle.verticalFractions * 2.3, //30
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    // ImageIcon(
-                                    //   AssetImage('images/fire.png'),
-                                    //   color: Colors.orange,
-                                    //   size: 20,
-                                    // ),
-                                    Text(
-                                      'Cal',
-                                      style: TextStyle(
-                                        color: Colors.white, //Color.fromRGBO(192, 196, 228, 0.5),
-                                        fontSize: CustomStyle.verticalFractions * 1.7, //26
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  children: <Widget>[
-                                    // SizedBox(width: CustomStyle.verticalFractions * 7.8), //10
-                                    // SizedBox(height: CustomStyle.verticalFractions * 2.157), //20
-                                    Text(
-                                      '150',
-                                      style: TextStyle(
-                                        fontSize: CustomStyle.verticalFractions * 2.2, //30
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    // ImageIcon(
-                                    //   AssetImage('images/dumbbell.png'),
-                                    //   color: Colors.white,
-                                    //   size: 20,
-                                    // )
-                                    Text(
-                                      'lbs',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: CustomStyle.verticalFractions * 1.7, //26
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
+                        // Positioned(
+                        //   top: 270,
+                        //   child: Container(
+                        //     width: MediaQuery.of(context).size.width,
+                        //     padding: EdgeInsets.symmetric(
+                        //       vertical: vf * 9.753, //95
+                        //     ),
+                        //     decoration: BoxDecoration(
+                        //       color: Color.fromRGBO(48, 67, 120, 0.0),
+                        //     ),
+                        //     child: Row(
+                        //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        //       children: <Widget>[
+                        //         Column(
+                        //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        //           children: <Widget>[
+                        //             // SizedBox(height: CustomStyle.verticalFractions * 2.157), //20
+                        //             Text(
+                        //               '150',
+                        //               style: TextStyle(
+                        //                 fontSize: CustomStyle.verticalFractions * 2.3, //30
+                        //                 color: Colors.white,
+                        //                 fontWeight: FontWeight.bold,
+                        //               ),
+                        //             ),
+                        //             // ImageIcon(
+                        //             //   AssetImage('images/fire.png'),
+                        //             //   color: Colors.orange,
+                        //             //   size: 20,
+                        //             // ),
+                        //             Text(
+                        //               'Cal',
+                        //               style: TextStyle(
+                        //                 color: Colors.white, //Color.fromRGBO(192, 196, 228, 0.5),
+                        //                 fontSize: CustomStyle.verticalFractions * 1.7, //26
+                        //               ),
+                        //             ),
+                        //           ],
+                        //         ),
+                        //         Column(
+                        //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        //           children: <Widget>[
+                        //             // SizedBox(width: CustomStyle.verticalFractions * 7.8), //10
+                        //             // SizedBox(height: CustomStyle.verticalFractions * 2.157), //20
+                        //             Text(
+                        //               '150',
+                        //               style: TextStyle(
+                        //                 fontSize: CustomStyle.verticalFractions * 2.2, //30
+                        //                 color: Colors.white,
+                        //                 fontWeight: FontWeight.bold,
+                        //               ),
+                        //             ),
+                        //             // ImageIcon(
+                        //             //   AssetImage('images/dumbbell.png'),
+                        //             //   color: Colors.white,
+                        //             //   size: 20,
+                        //             // )
+                        //             Text(
+                        //               'lbs',
+                        //               style: TextStyle(
+                        //                 color: Colors.white,
+                        //                 fontSize: CustomStyle.verticalFractions * 1.7, //26
+                        //               ),
+                        //             ),
+                        //           ],
+                        //         ),
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
+                        // Positioned(
+                        //     top: 265,
+                        //     left: MediaQuery.of(context).size.width * 0.87,
+                        //     child: CustomPaint(
+                        //       child: Container(
+                        //         width: vf * 4.106, //40
+                        //         height: vf * 4.106, //40
+                        //         child: Center(
+                        //             child: Text(
+                        //           '5',
+                        //           style: TextStyle(
+                        //             color: Colors.white,
+                        //             fontSize: vf * 2.053, //20
+                        //             fontWeight: FontWeight.bold,
+                        //           ),
+                        //         )),
+                        //       ),
+                        //       foregroundPainter: PaintProgressBar(
+                        //         frgColor: Colors.white.withOpacity(0.88),
+                        //         bkgColor: Colors.black54,
+                        //         percentage: animeObj.value,
+                        //         strokeWidth: vf * 0.410, //4
+                        //       ),
+                        //     ))
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Text('00:12', style: TextStyle(fontSize: 50, color: Colors.white)),
                         ),
-                        Positioned(
-                            top: 265,
-                            left: MediaQuery.of(context).size.width * 0.87,
-                            child: CustomPaint(
-                              child: Container(
-                                width: 40,
-                                height: 40,
-                                child: Center(
-                                    child: Text(
-                                  '5',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                )),
-                              ),
-                              foregroundPainter: PaintProgressBar(
-                                frgColor: Colors.white.withOpacity(0.88),
-                                bkgColor: Colors.black54,
-                                percentage: animeObj.value,
-                                strokeWidth: 4,
-                              ),
-                            ))
                       ],
                     ),
                   ),
                 ),
+                SizedBox(height: 50),
                 Expanded(
                   child: Container(
-                      padding: EdgeInsets.only(top: 100),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          ListTile(
-                            contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-                            tileColor: Colors.black.withOpacity(0.5),
-                            leading: Icon(
-                              Icons.graphic_eq,
-                              color: Colors.white70,
-                            ),
-                            title: Text('Machine Status'.toUpperCase(),
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.white,
-                                )),
-                            subtitle: Row(
-                              children: [
-                                Text(
-                                  'All seems good',
-                                  style: TextStyle(
-                                    color: Colors.white70,
+                    margin: EdgeInsets.symmetric(horizontal: 15),
+                    child: GridView.count(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 15,
+                      mainAxisSpacing: 20,
+                      children: [
+                        FlatButton(
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+                          color: buttonColor,
+                          splashColor: inkSplashColor,
+                          onPressed: () => null,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              ImageIcon(
+                                AssetImage('images/fire.png'),
+                                color: Colors.orange,
+                                size: 50,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text('150',
+                                      style: TextStyle(
+                                        fontSize: vf * 3, //18
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                      )),
+                                  SizedBox(width: 5),
+                                  Text('KCAL',
+                                      style: TextStyle(
+                                        fontSize: vf * 1.6, //18
+                                        color: Colors.white,
+                                        height: 2,
+                                      )),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        FlatButton(
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+                          onPressed: () => null,
+                          color: buttonColor,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              ImageIcon(
+                                AssetImage('images/dumbbell.png'),
+                                color: Colors.white,
+                                size: 70,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    '150',
+                                    style: TextStyle(
+                                      fontSize: vf * 3, //18
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
+                                  SizedBox(width: 5),
+                                  Text(
+                                    'KGS',
+                                    style: TextStyle(
+                                      fontSize: vf * 1.6, //18
+                                      color: Colors.white,
+                                      height: 2,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        FlatButton(
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+                          onPressed: () => null,
+                          color: buttonColor,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Icon(
+                                Icons.mobile_friendly,
+                                color: Colors.green,
+                                size: 50,
+                              ),
+                              Text('Machine Status'.toUpperCase(),
+                                  style: TextStyle(
+                                    fontSize: vf * 1.848, //18
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  )),
+                              Text(
+                                "Everything seems fine",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  height: 0,
                                 ),
-                                SizedBox(width: 20),
-                                Icon(Icons.check, color: Colors.green)
-                              ],
-                            ),
-                            trailing: Icon(
-                              Icons.info_outline,
-                              color: Colors.white70,
-                            ),
+                              ),
+                            ],
                           ),
-                          // SizedBox(height: 5),
-                          ListTile(
-                            contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-                            tileColor: Colors.black.withOpacity(0.5),
-                            leading: Icon(
-                              Icons.history,
-                              color: Colors.white70,
-                            ),
-                            title: Text(
-                              'HISTORY',
-                              style: TextStyle(
-                                fontSize: 18,
+                        ),
+                        FlatButton(
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+                          onPressed: () => null,
+                          color: buttonColor,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Icon(
+                                Icons.speed,
                                 color: Colors.white,
+                                size: 60,
                               ),
-                            ),
-                            subtitle: Text(
-                              'To track the history with this specific machine',
-                              style: TextStyle(
-                                color: Colors.white70,
+                              Text(
+                                'SPEED',
+                                style: TextStyle(
+                                  fontSize: vf * 1.848, //18
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                            trailing: IconButton(
-                              onPressed: () => print('History check'),
-                              icon: Icon(
-                                Icons.arrow_forward_ios,
-                                color: Colors.white70,
-                              ),
-                            ),
+                            ],
                           ),
-                          // SizedBox(height: 5),
-                          ListTile(
-                            contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-                            tileColor: Colors.black.withOpacity(0.5),
-                            leading: Icon(
-                              Icons.av_timer,
-                              color: Colors.white70,
-                            ),
-                            title: Text(
-                              'CHANGE TARGETS',
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: Colors.white,
-                              ),
-                            ),
-                            subtitle: Text(
-                              'To change the reps & steps for this specific machine',
-                              style: TextStyle(
-                                color: Colors.white70,
-                              ),
-                            ),
-                            trailing: IconButton(
-                              onPressed: () => print('History check'),
-                              icon: Icon(
-                                Icons.arrow_forward_ios,
-                                color: Colors.white70,
-                              ),
-                            ),
-                          ),
-                        ],
-                      )),
-                )
+                        ),
+                      ],
+                    ),
+                  ),
+                  // child: Container(
+                  //     padding: EdgeInsets.only(top: 100),
+                  //     child:
+                  //       ],
+                  //     )
+                ),
               ],
             ),
           ),
