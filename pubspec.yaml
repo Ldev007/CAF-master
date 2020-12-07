@@ -48,6 +48,9 @@ dependencies:
   url_launcher: ^5.5.0
   youtube_player_flutter: ^7.0.0+7
   sortedmap: ^0.4.2+1
+  flutter_bluetooth_serial: ^0.2.2
+  riverpod: ^0.12.1
+  flutter_riverpod: ^0.12.1
 
 dev_dependencies:
   flutter_test:

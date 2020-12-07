@@ -1136,7 +1136,7 @@ class _DietChartState extends State<DietChart> {
     DateTime now = DateTime.now();
     DateTime dda = DateTime(now.year, now.month, now.day);
     var fulldate = DateTime.parse(dda.toString());
-//    print(moonLanding.month);
+//    print(moonLanding.month); 
     var month = fulldate.month;
     var date = fulldate.day;
     var year = fulldate.year;
